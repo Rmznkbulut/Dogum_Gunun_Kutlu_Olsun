@@ -1,10 +1,414 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-    <title>Doğum Günün Kutlu Olsun ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bizim Hikayemiz ❤️</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+
+background:#060606;
+overflow-x:hidden;
+color:white;
+
+}
+
+/* yıldızlar */
+
+.stars{
+
+position:fixed;
+width:100%;
+height:100%;
+left:0;
+top:0;
+z-index:-3;
+
+background-image:
+radial-gradient(white 1px,transparent 1px);
+
+background-size:40px 40px;
+
+animation:moveStars 100s linear infinite;
+
+opacity:.45;
+
+}
+
+@keyframes moveStars{
+
+from{
+
+transform:translateY(0);
+
+}
+
+to{
+
+transform:translateY(-600px);
+
+}
+
+}
+
+/* kalpler */
+
+.heart{
+
+position:fixed;
+
+bottom:-50px;
+
+font-size:22px;
+
+animation:heart 8s linear infinite;
+
+opacity:.6;
+
+z-index:-2;
+
+}
+
+@keyframes heart{
+
+0%{
+
+transform:translateY(0) scale(.5);
+
+opacity:0;
+
+}
+
+20%{
+
+opacity:1;
+
+}
+
+100%{
+
+transform:translateY(-120vh) translateX(80px) scale(1.6);
+
+opacity:0;
+
+}
+
+}
+
+/* hero */
+
+.hero{
+
+height:100vh;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+text-align:center;
+
+padding:20px;
+
+}
+
+h1{
+
+font-size:70px;
+
+margin-bottom:20px;
+
+animation:fade 2s;
+
+}
+
+.subtitle{
+
+font-size:22px;
+
+opacity:.8;
+
+margin-bottom:50px;
+
+max-width:700px;
+
+animation:fade 3s;
+
+}
+
+button{
+
+padding:18px 55px;
+
+border:none;
+
+border-radius:40px;
+
+font-size:20px;
+
+cursor:pointer;
+
+background:#ff4f91;
+
+color:white;
+
+transition:.3s;
+
+box-shadow:0 0 30px #ff4f91;
+
+}
+
+button:hover{
+
+transform:scale(1.1);
+
+box-shadow:0 0 50px #ff4f91;
+
+}
+
+/* ikinci bölüm */
+
+.section{
+
+height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+padding:30px;
+
+text-align:center;
+
+}
+
+.card{
+
+background:rgba(255,255,255,.07);
+
+padding:40px;
+
+border-radius:30px;
+
+backdrop-filter:blur(15px);
+
+max-width:850px;
+
+}
+
+.card h2{
+
+font-size:55px;
+
+margin-bottom:20px;
+
+}
+
+.card p{
+
+font-size:22px;
+
+line-height:1.8;
+
+opacity:.9;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+transform:translateY(30px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+.arrow{
+
+margin-top:60px;
+
+font-size:40px;
+
+animation:down 1.5s infinite;
+
+}
+
+@keyframes down{
+
+50%{
+
+transform:translateY(15px);
+
+}
+
+}
+
+/* mobil */
+
+@media(max-width:700px){
+
+h1{
+
+font-size:42px;
+
+}
+
+.card h2{
+
+font-size:34px;
+
+}
+
+.subtitle{
+
+font-size:18px;
+
+}
+
+.card p{
+
+font-size:18px;
+
+}
+
+}
+
+</style>
+
 </head>
-<body style="text-align:center; margin-top:100px; font-family:Arial;">
-    <h1>🎉 İyi ki Doğdun Aşkım ❤️</h1>
-    <p>Bu sadece başlangıç...</p>
+
+<body>
+
+<div class="stars"></div>
+
+<div id="hearts"></div>
+
+<section class="hero">
+
+<h1>❤️</h1>
+
+<h1>Bizim Hikayemiz</h1>
+
+<p class="subtitle">
+
+Bu sayfa sadece bir doğum günü kutlaması değil...
+
+Bu sayfa bizim için hazırlandı.
+
+</p>
+
+<a href="#story">
+
+<button>
+
+Başlayalım
+
+</button>
+
+</a>
+
+<div class="arrow">
+
+↓
+
+</div>
+
+</section>
+
+<section class="section" id="story">
+
+<div class="card">
+
+<h2>
+
+25 Mayıs 2024
+
+</h2>
+
+<p>
+
+Belki de hayatımın en güzel günü...
+
+Çünkü o gün sadece bir tarih değildi.
+
+O gün "biz" olduk.
+
+Ve o günden beri her geçen gün,
+iyi ki dediğim anların sayısı arttı.
+
+Bugün de sana küçük bir sürpriz hazırlamak istedim...
+
+❤️
+
+</p>
+
+</div>
+
+</section>
+
+<script>
+
+const hearts=document.getElementById("hearts");
+
+function createHeart(){
+
+const h=document.createElement("div");
+
+h.className="heart";
+
+h.innerHTML="❤️";
+
+h.style.left=Math.random()*100+"vw";
+
+h.style.animationDuration=6+Math.random()*6+"s";
+
+h.style.fontSize=15+Math.random()*25+"px";
+
+hearts.appendChild(h);
+
+setTimeout(()=>{
+
+h.remove();
+
+},12000);
+
+}
+
+setInterval(createHeart,350);
+
+</script>
+
 </body>
 </html>
