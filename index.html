@@ -1,414 +1,841 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Bizim Hikayemiz ❤️</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
-scroll-behavior:smooth;
-}
-
-body{
-
-background:#060606;
-overflow-x:hidden;
-color:white;
-
-}
-
-/* yıldızlar */
-
-.stars{
-
-position:fixed;
-width:100%;
-height:100%;
-left:0;
-top:0;
-z-index:-3;
-
-background-image:
-radial-gradient(white 1px,transparent 1px);
-
-background-size:40px 40px;
-
-animation:moveStars 100s linear infinite;
-
-opacity:.45;
-
-}
-
-@keyframes moveStars{
-
-from{
-
-transform:translateY(0);
-
-}
-
-to{
-
-transform:translateY(-600px);
-
-}
-
-}
-
-/* kalpler */
-
-.heart{
-
-position:fixed;
-
-bottom:-50px;
-
-font-size:22px;
-
-animation:heart 8s linear infinite;
-
-opacity:.6;
-
-z-index:-2;
-
-}
-
-@keyframes heart{
-
-0%{
-
-transform:translateY(0) scale(.5);
-
-opacity:0;
-
-}
-
-20%{
-
-opacity:1;
-
-}
-
-100%{
-
-transform:translateY(-120vh) translateX(80px) scale(1.6);
-
-opacity:0;
-
-}
-
-}
-
-/* hero */
-
-.hero{
-
-height:100vh;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
-align-items:center;
-
-text-align:center;
-
-padding:20px;
-
-}
-
-h1{
-
-font-size:70px;
-
-margin-bottom:20px;
-
-animation:fade 2s;
-
-}
-
-.subtitle{
-
-font-size:22px;
-
-opacity:.8;
-
-margin-bottom:50px;
-
-max-width:700px;
-
-animation:fade 3s;
-
-}
-
-button{
-
-padding:18px 55px;
-
-border:none;
-
-border-radius:40px;
-
-font-size:20px;
-
-cursor:pointer;
-
-background:#ff4f91;
-
-color:white;
-
-transition:.3s;
-
-box-shadow:0 0 30px #ff4f91;
-
-}
-
-button:hover{
-
-transform:scale(1.1);
-
-box-shadow:0 0 50px #ff4f91;
-
-}
-
-/* ikinci bölüm */
-
-.section{
-
-height:100vh;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-flex-direction:column;
-
-padding:30px;
-
-text-align:center;
-
-}
-
-.card{
-
-background:rgba(255,255,255,.07);
-
-padding:40px;
-
-border-radius:30px;
-
-backdrop-filter:blur(15px);
-
-max-width:850px;
-
-}
-
-.card h2{
-
-font-size:55px;
-
-margin-bottom:20px;
-
-}
-
-.card p{
-
-font-size:22px;
-
-line-height:1.8;
-
-opacity:.9;
-
-}
-
-@keyframes fade{
-
-from{
-
-opacity:0;
-
-transform:translateY(30px);
-
-}
-
-to{
-
-opacity:1;
-
-transform:translateY(0);
-
-}
-
-}
-
-.arrow{
-
-margin-top:60px;
-
-font-size:40px;
-
-animation:down 1.5s infinite;
-
-}
-
-@keyframes down{
-
-50%{
-
-transform:translateY(15px);
-
-}
-
-}
-
-/* mobil */
-
-@media(max-width:700px){
-
-h1{
-
-font-size:42px;
-
-}
-
-.card h2{
-
-font-size:34px;
-
-}
-
-.subtitle{
-
-font-size:18px;
-
-}
-
-.card p{
-
-font-size:18px;
-
-}
-
-}
-
-</style>
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Doğum Günün Kutlu Olsun ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #060606;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+        }
+
+        /* ===== YILDIZLAR (CSS) ===== */
+        .stars {
+            position: fixed;
+            inset: 0;
+            z-index: -3;
+            background-image: radial-gradient(white 1px, transparent 1px);
+            background-size: 45px 45px;
+            opacity: 0.4;
+            animation: moveStars 80s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes moveStars {
+            from { transform: translateY(0); }
+            to { transform: translateY(-600px); }
+        }
+
+        /* ===== UÇUŞAN KALPLER ===== */
+        .heart-float {
+            position: fixed;
+            bottom: -50px;
+            font-size: 22px;
+            animation: floatHeart 8s linear infinite;
+            opacity: 0.5;
+            z-index: -2;
+            pointer-events: none;
+        }
+        @keyframes floatHeart {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-120vh) translateX(80px) scale(1.5); opacity: 0; }
+        }
+
+        /* ===== KART (CAM) ===== */
+        .card {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 32px;
+            padding: 48px 36px;
+            max-width: 820px;
+            width: 100%;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        /* ===== BÖLÜMLER ===== */
+        .section {
+            display: none; /* varsayılan gizli */
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+        .section.active {
+            display: flex;
+        }
+
+        h1, h2 {
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .pink {
+            color: #ff4f91;
+        }
+        .sub {
+            opacity: 0.6;
+            font-weight: 300;
+        }
+
+        /* ===== BUTONLAR ===== */
+        .btn {
+            display: inline-block;
+            padding: 16px 48px;
+            border: none;
+            border-radius: 60px;
+            background: #ff4f91;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 30px rgba(255, 79, 145, 0.3);
+            margin-top: 24px;
+            min-height: 60px;
+            min-width: 180px;
+            touch-action: manipulation;
+        }
+        .btn:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 55px rgba(255, 79, 145, 0.5);
+        }
+        .btn:active {
+            transform: scale(0.96);
+        }
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: none;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 79, 145, 0.1);
+            border-color: #ff4f91;
+            box-shadow: 0 0 30px rgba(255, 79, 145, 0.15);
+        }
+
+        /* ===== GALERİ (RESİMLİ) ===== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .gallery-item {
+            aspect-ratio: 1/1;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            position: relative;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+        .gallery-item .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            font-size: 0.75rem;
+            opacity: 0;
+            transition: 0.3s;
+            text-align: center;
+            font-weight: 300;
+        }
+        .gallery-item:hover .caption {
+            opacity: 1;
+        }
+
+        /* ===== SAYAÇ ===== */
+        .counter-number {
+            font-size: clamp(3.6rem, 12vw, 6rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff4f91, #ff8fab);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== MEKTUP (typewriter) ===== */
+        #letterContent {
+            font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+            text-align: left;
+            white-space: pre-wrap;
+            line-height: 2;
+            min-height: 5em;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 300;
+        }
+        .cursor-blink {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background: #ff4f91;
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: blink 0.8s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* ===== KALP YAKALAMA ===== */
+        .catch-area {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            height: 240px;
+            margin: 16px auto 0;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed rgba(255, 79, 145, 0.25);
+            overflow: hidden;
+            touch-action: none;
+            cursor: pointer;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .catch-heart {
+            position: absolute;
+            font-size: 2.8rem;
+            user-select: none;
+            pointer-events: none;
+            animation: heartFloat 2.6s ease-in-out infinite;
+            filter: drop-shadow(0 4px 20px rgba(255, 79, 145, 0.3));
+        }
+        @keyframes heartFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-16px) scale(1.08); }
+        }
+        .catch-status {
+            margin-top: 16px;
+            font-size: 1.1rem;
+            opacity: 0.6;
+            min-height: 2.4em;
+            transition: 0.3s;
+        }
+        .catch-status.success {
+            opacity: 1;
+            color: #ff4f91;
+            font-weight: 600;
+        }
+
+        /* ===== HEDİYE KUTUSU ===== */
+        .gift-box {
+            width: 130px;
+            height: 130px;
+            margin: 10px auto 20px;
+            background: linear-gradient(145deg, #ff4f91, #cc0055);
+            border-radius: 22px 22px 12px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.6rem;
+            cursor: pointer;
+            transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 16px 50px rgba(255, 79, 145, 0.25);
+            position: relative;
+            touch-action: manipulation;
+        }
+        .gift-box:hover {
+            transform: scale(1.05) rotate(-2deg);
+            box-shadow: 0 24px 70px rgba(255, 79, 145, 0.4);
+        }
+        .gift-box .lid {
+            position: absolute;
+            top: -16px;
+            left: 12%;
+            right: 12%;
+            height: 22px;
+            background: linear-gradient(145deg, #ff8fab, #cc0055);
+            border-radius: 12px 12px 0 0;
+            transition: 0.5s ease;
+        }
+        .gift-box.opened .lid {
+            transform: translateY(-44px) rotate(10deg);
+        }
+        .gift-box .reveal {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            opacity: 0;
+            transition: opacity 0.5s ease 0.3s;
+        }
+        .gift-box.opened .reveal {
+            opacity: 1;
+        }
+        .surprise-message {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #ff8fab;
+            min-height: 2.6em;
+            margin-top: 8px;
+        }
+
+        /* ===== KONFETİ ===== */
+        .confetti-container {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            overflow: hidden;
+            display: none;
+        }
+        .confetti-container.active {
+            display: block;
+        }
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 6px;
+            top: -20px;
+            border-radius: 2px;
+            animation: confettiFall linear forwards;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* ===== FİNAL ===== */
+        .final-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3.2rem, 10vw, 5.6rem);
+            color: #ff4f91;
+        }
+        .promise-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .promise-buttons button {
+            padding: 16px 40px;
+            border: none;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff4f91, #ff8fab);
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 8px 30px rgba(255, 79, 145, 0.3);
+            min-height: 60px;
+            min-width: 140px;
+            touch-action: manipulation;
+        }
+        .promise-buttons button:hover {
+            transform: scale(1.06);
+            box-shadow: 0 12px 45px rgba(255, 79, 145, 0.5);
+        }
+        .promise-buttons button:active {
+            transform: scale(0.96);
+        }
+        .final-response {
+            margin-top: 24px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #ff8fab;
+            min-height: 2.4em;
+        }
+
+        /* ===== MOBİL ===== */
+        @media (max-width: 600px) {
+            .card { padding: 28px 16px; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .catch-area { height: 180px; }
+            .gift-box { width: 100px; height: 100px; font-size: 2.8rem; }
+            .btn {
+                padding: 14px 32px;
+                font-size: 1rem;
+                min-height: 54px;
+                min-width: 150px;
+            }
+            .promise-buttons button {
+                padding: 14px 28px;
+                font-size: 1rem;
+                min-height: 54px;
+                min-width: 120px;
+            }
+        }
+        @media (max-width: 400px) {
+            .gallery-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .card { padding: 20px 12px; }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="stars"></div>
+    <!-- Yıldızlar -->
+    <div class="stars"></div>
 
-<div id="hearts"></div>
+    <!-- Uçuşan kalpler (JS ile doldurulacak) -->
+    <div id="heartContainer"></div>
 
-<section class="hero">
+    <!-- Konfeti kabı -->
+    <div class="confetti-container" id="confettiContainer"></div>
 
-<h1>❤️</h1>
+    <!-- ===== BÖLÜM 1: HERO (GİRİŞ) ===== -->
+    <section class="section active" id="hero">
+        <div class="card">
+            <h1 style="font-size:clamp(2.8rem,12vw,5.2rem);">❤️ Bizim Hikayemiz</h1>
+            <p style="font-size:clamp(1.1rem,2.5vw,1.6rem); opacity:0.7; margin-top:12px;">
+                Bu sayfa sadece bir doğum günü kutlaması değil…<br />
+                Bu sayfa bizim için hazırlandı.
+            </p>
+            <button class="btn" id="startBtn">Başla</button>
+        </div>
+    </section>
 
-<h1>Bizim Hikayemiz</h1>
+    <!-- ===== BÖLÜM 2: HİKAYE ===== -->
+    <section class="section" id="story">
+        <div class="card">
+            <h2 class="pink">25 Mayıs 2024</h2>
+            <p style="font-size:1.1rem; opacity:0.85; max-width:600px; margin:12px auto;">
+                Belki de hayatımın en güzel günü…<br />
+                Çünkü o gün sadece bir tarih değildi.<br />
+                O gün <strong>"biz"</strong> olduk.<br /><br />
+                Ve o günden beri her geçen gün,<br />
+                <em>iyi ki</em> dediğim anların sayısı arttı.<br />
+                Bugün de sana küçük bir sürpriz hazırlamak istedim…<br />
+                ❤️
+            </p>
+            <button class="btn next-btn" data-target="gallery">Devam Et →</button>
+        </div>
+    </section>
 
-<p class="subtitle">
+    <!-- ===== BÖLÜM 3: GALERİ ===== -->
+    <section class="section" id="gallery">
+        <div class="card">
+            <h2 class="pink">📸 Anılar</h2>
+            <p class="sub" style="margin-bottom:12px;">her karede bir gülümseme</p>
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- JS ile doldurulacak -->
+            </div>
+            <p style="margin-top:20px; font-size:0.9rem; opacity:0.4;">❤️ seninle geçen her an bir hazine</p>
+            <button class="btn next-btn" data-target="counter">Devam Et →</button>
+        </div>
+    </section>
 
-Bu sayfa sadece bir doğum günü kutlaması değil...
+    <!-- ===== BÖLÜM 4: SAYAÇ ===== -->
+    <section class="section" id="counter">
+        <div class="card">
+            <h2 class="pink">⏳ Birlikte Geçen Süre</h2>
+            <div class="counter-number" id="counterDisplay">0</div>
+            <p style="font-size:1.2rem; opacity:0.5;">gündür seninleyim</p>
+            <p style="font-size:0.85rem; opacity:0.3; margin-top:4px;">25 Mayıs 2024'ten beri ❤️</p>
+            <button class="btn next-btn" data-target="letter">Devam Et →</button>
+        </div>
+    </section>
 
-Bu sayfa bizim için hazırlandı.
+    <!-- ===== BÖLÜM 5: MEKTUP ===== -->
+    <section class="section" id="letter">
+        <div class="card">
+            <h2 class="pink" style="font-family:'Great Vibes',cursive; font-size:2.8rem;">Sana Mektup</h2>
+            <div id="letterContent"><span class="cursor-blink"></span></div>
+            <button class="btn next-btn" data-target="heartCatch">Devam Et →</button>
+        </div>
+    </section>
 
-</p>
+    <!-- ===== BÖLÜM 6: KALP YAKALAMA ===== -->
+    <section class="section" id="heartCatch">
+        <div class="card">
+            <h2 class="pink">💕 Kalbi Yakala</h2>
+            <p class="sub" style="font-size:0.9rem;">kalbe dokun, sürpriz açılsın</p>
+            <div class="catch-area" id="catchArea">
+                <!-- kalpler JS ile eklenecek -->
+            </div>
+            <div class="catch-status" id="catchStatus">❤️ kalbe dokun</div>
+            <button class="btn next-btn" data-target="surprise" id="catchNextBtn" style="display:none;">Devam Et →</button>
+        </div>
+    </section>
 
-<a href="#story">
+    <!-- ===== BÖLÜM 7: HEDİYE KUTUSU ===== -->
+    <section class="section" id="surprise">
+        <div class="card">
+            <h2 class="pink">🎁 Sürpriz Kutu</h2>
+            <p class="sub" style="font-size:0.9rem;">açmak için tıkla</p>
+            <div class="gift-box" id="giftBox">
+                <div class="lid"></div>
+                🎀
+                <div class="reveal">🎉</div>
+            </div>
+            <div class="surprise-message" id="surpriseMessage"></div>
+            <button class="btn next-btn" data-target="final" id="surpriseNextBtn" style="display:none;">Devam Et →</button>
+        </div>
+    </section>
 
-<button>
+    <!-- ===== BÖLÜM 8: FİNAL ===== -->
+    <section class="section" id="final">
+        <div class="card">
+            <div class="final-title">Seni Seviyorum</div>
+            <p style="font-size:1.4rem; opacity:0.5; margin-bottom:8px;">∞ sonsuza dek</p>
+            <p style="opacity:0.7; font-size:1.1rem; margin-bottom:20px;">"Bana bir söz verir misin?"</p>
+            <div class="promise-buttons">
+                <button data-promise="evet">❤️ Evet</button>
+                <button data-promise="tabii">💖 Tabii ki</button>
+            </div>
+            <div class="final-response" id="finalResponse"></div>
+            <!-- Yeniden Başla butonu sayfayı yeniler -->
+            <button class="btn btn-secondary" id="restartBtn" style="margin-top:30px;">🔄 Yeniden Başla</button>
+        </div>
+    </section>
 
-Başlayalım
+    <!-- ============================================================= -->
+    <!-- JAVASCRIPT (sade, kararlı) -->
+    <!-- ============================================================= -->
+    <script>
+        (function() {
+            "use strict";
 
-</button>
+            // ---------- 1. UÇUŞAN KALPLER ----------
+            const heartContainer = document.getElementById('heartContainer');
+            setInterval(() => {
+                const el = document.createElement('div');
+                el.className = 'heart-float';
+                el.textContent = '❤️';
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.animationDuration = (6 + Math.random() * 6) + 's';
+                el.style.fontSize = (16 + Math.random() * 24) + 'px';
+                heartContainer.appendChild(el);
+                setTimeout(() => el.remove(), 12000);
+            }, 400);
 
-</a>
+            // ---------- 2. BÖLÜM GEÇİŞLERİ ----------
+            const sections = document.querySelectorAll('.section');
+            const nextBtns = document.querySelectorAll('.next-btn');
 
-<div class="arrow">
+            // Belirli bir bölümü göster
+            function showSection(targetId) {
+                sections.forEach(sec => sec.classList.remove('active'));
+                const target = document.getElementById(targetId);
+                if (target) target.classList.add('active');
+                // Sayfanın en üstüne kaydır (mobilde buton altında kalmasın)
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
 
-↓
+            // "Devam Et" butonlarına tıklama
+            nextBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const targetId = this.dataset.target;
+                    if (targetId) {
+                        showSection(targetId);
+                    }
+                });
+            });
 
-</div>
+            // "Başla" butonu (hero'dan story'e)
+            document.getElementById('startBtn').addEventListener('click', () => {
+                showSection('story');
+            });
 
-</section>
+            // ---------- 3. GALERİ (resim placeholder) ----------
+            const galleryGrid = document.getElementById('galleryGrid');
+            const imageCount = 6;
+            const captions = ['ilk günümüz', 'kahve molası', 'bahar geldi', 'deniz kenarı', 'en sevdiğimiz şarkı',
+                'sihirli an'
+            ];
+            let galleryHTML = '';
+            for (let i = 1; i <= imageCount; i++) {
+                const caption = captions[i - 1] || `anı ${i}`;
+                galleryHTML += `
+                        <div class="gallery-item">
+                            <img src="images/${i}.jpg" alt="${caption}" loading="lazy" onerror="this.style.display='none'; this.parentElement.style.background='#1a1a1a'; this.parentElement.innerHTML='<div style=\\"display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:2rem;opacity:0.2;\\">📷</div><div class=\\"caption\\">${caption}</div>';" />
+                            <div class="caption">${caption}</div>
+                        </div>
+                    `;
+            }
+            galleryGrid.innerHTML = galleryHTML;
 
-<section class="section" id="story">
+            // ---------- 4. SAYAÇ ----------
+            const start = new Date(2024, 4, 25); // 25 Mayıs 2024
+            const counterEl = document.getElementById('counterDisplay');
+            function updateCounter() {
+                const now = new Date();
+                const diff = Math.floor((now - start) / (1000 * 60 * 60 * 24));
+                counterEl.textContent = diff > 0 ? diff : 0;
+            }
+            updateCounter();
+            setInterval(updateCounter, 60000);
 
-<div class="card">
+            // ---------- 5. MEKTUP (typewriter) ----------
+            const letterText =
+                `Sevgilim,\n\nBu satırları okurken belki gülümsüyorsun, belki gözlerin doluyor. Ama bil ki ne hissediyorsan, ben de aynısını hissediyorum.\n\nSeninle geçen her gün, hayatıma eklenen en güzel renk. Bazen sessizce yan yana oturmak bile yetiyor; çünkü senin varlığın her şeyi anlamlı kılıyor.\n\nDoğum gününde tek bir dileğim var: Hep böyle güzel kal, hep böyle ışık saç. Ve bil ki ne olursa olsun, yanındayım.\n\nSonsuz sevgiyle,\nSenin ❤️`;
 
-<h2>
+            const letterContainer = document.getElementById('letterContent');
+            let letterIndex = 0;
+            let letterRunning = false;
 
-25 Mayıs 2024
+            function startLetter() {
+                if (letterRunning) return;
+                letterRunning = true;
+                letterContainer.innerHTML = '';
+                letterIndex = 0;
+                typeLetter();
+            }
 
-</h2>
+            function typeLetter() {
+                if (letterIndex >= letterText.length) {
+                    letterContainer.innerHTML += '<span class="cursor-blink"></span>';
+                    letterRunning = false;
+                    return;
+                }
+                const current = letterText.substring(0, letterIndex + 1);
+                letterContainer.innerHTML = current + '<span class="cursor-blink"></span>';
+                letterIndex++;
+                const delay = letterText[letterIndex - 1] === '\n' ? 120 : 30 + Math.random() * 20;
+                setTimeout(typeLetter, delay);
+            }
 
-<p>
+            // Mektup bölümü aktif olduğunda başlat
+            const letterSection = document.getElementById('letter');
+            const letterObserver = new MutationObserver(() => {
+                if (letterSection.classList.contains('active') && !letterRunning) {
+                    startLetter();
+                }
+            });
+            letterObserver.observe(letterSection, { attributes: true, attributeFilter: ['class'] });
 
-Belki de hayatımın en güzel günü...
+            // ---------- 6. KALP YAKALAMA ----------
+            const catchArea = document.getElementById('catchArea');
+            const catchStatus = document.getElementById('catchStatus');
+            const catchNextBtn = document.getElementById('catchNextBtn');
+            let heartsInCatch = [];
+            let heartCaught = false;
 
-Çünkü o gün sadece bir tarih değildi.
+            function spawnCatchHearts() {
+                catchArea.innerHTML = '';
+                heartsInCatch = [];
+                const count = 6 + Math.floor(Math.random() * 6);
+                for (let i = 0; i < count; i++) {
+                    const el = document.createElement('div');
+                    el.className = 'catch-heart';
+                    el.textContent = ['❤️', '💕', '💖', '💗', '❣️', '💓'][Math.floor(Math.random() * 6)];
+                    el.style.fontSize = (1.8 + Math.random() * 1.8) + 'rem';
+                    el.style.left = (5 + Math.random() * 85) + '%';
+                    el.style.top = (5 + Math.random() * 85) + '%';
+                    el.style.animationDelay = (Math.random() * 2) + 's';
+                    el.style.animationDuration = (2.2 + Math.random() * 1.8) + 's';
+                    el.dataset.caught = 'false';
+                    catchArea.appendChild(el);
+                    heartsInCatch.push(el);
+                }
+            }
 
-O gün "biz" olduk.
+            function handleCatch(e) {
+                if (heartCaught) return;
+                let clientX, clientY;
+                if (e.touches) {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                    e.preventDefault();
+                } else {
+                    clientX = e.clientX;
+                    clientY = e.clientY;
+                }
+                const rect = catchArea.getBoundingClientRect();
+                const x = clientX - rect.left;
+                const y = clientY - rect.top;
 
-Ve o günden beri her geçen gün,
-iyi ki dediğim anların sayısı arttı.
+                for (const heart of heartsInCatch) {
+                    if (heart.dataset.caught === 'true') continue;
+                    const hRect = heart.getBoundingClientRect();
+                    const hx = hRect.left - rect.left + hRect.width / 2;
+                    const hy = hRect.top - rect.top + hRect.height / 2;
+                    if (Math.hypot(x - hx, y - hy) < 50) {
+                        heart.dataset.caught = 'true';
+                        heart.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+                        heart.style.transform = 'scale(2) rotate(20deg)';
+                        heart.style.opacity = '0';
+                        heartCaught = true;
+                        catchStatus.textContent = '💥 Başardın! ❤️';
+                        catchStatus.className = 'catch-status success';
+                        catchNextBtn.style.display = 'inline-block';
+                        break;
+                    }
+                }
+            }
 
-Bugün de sana küçük bir sürpriz hazırlamak istedim...
+            catchArea.addEventListener('click', handleCatch);
+            catchArea.addEventListener('touchstart', handleCatch, { passive: false });
 
-❤️
+            // Kalp yakalama bölümü aktif olduğunda kalpleri oluştur
+            const catchSection = document.getElementById('heartCatch');
+            const catchObserver = new MutationObserver(() => {
+                if (catchSection.classList.contains('active') && !heartCaught) {
+                    spawnCatchHearts();
+                    catchStatus.textContent = '❤️ kalbe dokun';
+                    catchStatus.className = 'catch-status';
+                    catchNextBtn.style.display = 'none';
+                }
+            });
+            catchObserver.observe(catchSection, { attributes: true, attributeFilter: ['class'] });
 
-</p>
+            // ---------- 7. HEDİYE KUTUSU ----------
+            const giftBox = document.getElementById('giftBox');
+            const surpriseMsg = document.getElementById('surpriseMessage');
+            const surpriseNextBtn = document.getElementById('surpriseNextBtn');
+            let giftOpened = false;
 
-</div>
+            function openGift() {
+                if (giftOpened) return;
+                giftOpened = true;
+                giftBox.classList.add('opened');
+                surpriseMsg.textContent = '🎂 İyi ki doğdun! 🎂';
+                surpriseNextBtn.style.display = 'inline-block';
+                startConfetti(5);
+                spawnHeartExplosion();
+            }
 
-</section>
+            // Kutu tıklama kontrolü
+            giftBox.addEventListener('click', () => {
+                if (!heartCaught) {
+                    surpriseMsg.textContent = '💕 önce kalbi yakala!';
+                    setTimeout(() => { surpriseMsg.textContent = ''; }, 1500);
+                } else if (!giftOpened) {
+                    openGift();
+                }
+            });
+            giftBox.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                if (!heartCaught) {
+                    surpriseMsg.textContent = '💕 önce kalbi yakala!';
+                    setTimeout(() => { surpriseMsg.textContent = ''; }, 1500);
+                } else if (!giftOpened) {
+                    openGift();
+                }
+            }, { passive: false });
 
-<script>
+            // ---------- 8. KALP PATLAMASI ----------
+            function spawnHeartExplosion() {
+                const emojis = ['❤️', '💖', '💕', '💗', '❣️', '💓', '💘', '💝'];
+                for (let i = 0; i < 32; i++) {
+                    const el = document.createElement('div');
+                    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    el.style.cssText = `
+                            position: fixed; z-index: 9998;
+                            font-size: ${1.6 + Math.random() * 2.4}rem;
+                            pointer-events: none;
+                            left: ${20 + Math.random() * 60}%;
+                            top: ${20 + Math.random() * 60}%;
+                            transform: translate(-50%, -50%) scale(0);
+                            opacity: 0;
+                            transition: all ${0.7 + Math.random() * 0.7}s cubic-bezier(0.34, 1.2, 0.64, 1);
+                        `;
+                    document.body.appendChild(el);
+                    requestAnimationFrame(() => {
+                        const angle = Math.random() * 2 * Math.PI;
+                        const dist = 120 + Math.random() * 250;
+                        const dx = Math.cos(angle) * dist;
+                        const dy = Math.sin(angle) * dist - 60;
+                        el.style.transform =
+                            `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1.2)`;
+                        el.style.opacity = '1';
+                    });
+                    setTimeout(() => {
+                        el.style.transition = 'opacity 0.5s ease';
+                        el.style.opacity = '0';
+                        setTimeout(() => el.remove(), 600);
+                    }, 1200 + Math.random() * 400);
+                }
+            }
 
-const hearts=document.getElementById("hearts");
+            // ---------- 9. KONFETİ ----------
+            const confettiContainer = document.getElementById('confettiContainer');
 
-function createHeart(){
+            function startConfetti(durationSec = 4) {
+                confettiContainer.innerHTML = '';
+                confettiContainer.classList.add('active');
+                const colors = ['#ff4f91', '#ff8fab', '#ffb3c6', '#ff85a1', '#ffd1dc', '#ff4d6d', '#ff2d55'];
+                const count = 120;
+                for (let i = 0; i < count; i++) {
+                    const piece = document.createElement('div');
+                    piece.className = 'confetti-piece';
+                    piece.style.left = Math.random() * 100 + '%';
+                    piece.style.width = (6 + Math.random() * 10) + 'px';
+                    piece.style.height = (4 + Math.random() * 8) + 'px';
+                    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    piece.style.animationDuration = (2 + Math.random() * 3) + 's';
+                    piece.style.animationDelay = (Math.random() * 2) + 's';
+                    piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    confettiContainer.appendChild(piece);
+                }
+                setTimeout(() => {
+                    confettiContainer.classList.remove('active');
+                    confettiContainer.innerHTML = '';
+                }, durationSec * 1000 + 500);
+            }
 
-const h=document.createElement("div");
+            // ---------- 10. FİNAL – SÖZ BUTONLARI ----------
+            const finalResponse = document.getElementById('finalResponse');
+            document.querySelectorAll('[data-promise]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    finalResponse.textContent = '💖 Söz verdin! Sonsuza dek seninim. 🌹';
+                    startConfetti(5);
+                    spawnHeartExplosion();
+                });
+                btn.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    this.click();
+                }, { passive: false });
+            });
 
-h.className="heart";
+            // ---------- 11. "YENİDEN BAŞLA" – SAYFAYI YENİLE ----------
+            document.getElementById('restartBtn').addEventListener('click', function() {
+                location.reload();
+            });
+            document.getElementById('restartBtn').addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                location.reload();
+            }, { passive: false });
 
-h.innerHTML="❤️";
+            // ---------- 12. BAŞLANGIÇTA HERO AKTİF, DİĞERLERİ GİZLİ ----------
+            // Zaten HTML'de hero active, diğerleri değil.
 
-h.style.left=Math.random()*100+"vw";
+            console.log('🎂 Doğum Günün Kutlu Olsun ❤️');
+            console.log('📸 Resimlerini images/ klasörüne 1.jpg, 2.jpg ... diye ekle.');
+            console.log('✉️ Mektup metnini letterText değişkeninden değiştir.');
+            console.log('📅 Başlangıç tarihini (start) değiştirmek istersen new Date(2024, 4, 25) kısmını güncelle.');
+            console.log('🔄 "Yeniden Başla" butonu sayfayı yeniler, en baştan başlar.');
 
-h.style.animationDuration=6+Math.random()*6+"s";
-
-h.style.fontSize=15+Math.random()*25+"px";
-
-hearts.appendChild(h);
-
-setTimeout(()=>{
-
-h.remove();
-
-},12000);
-
-}
-
-setInterval(createHeart,350);
-
-</script>
-
+        })();
+    </script>
 </body>
 </html>
