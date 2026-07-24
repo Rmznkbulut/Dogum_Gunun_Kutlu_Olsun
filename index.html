@@ -188,38 +188,37 @@
             background-clip: text;
         }
 
-        /* ===== DOĞUM GÜNÜ GERİ SAYIM ===== */
+        /* ===== DOĞUM GÜNÜ GERİ SAYIM (YENİ – FLEX, YATAY) ===== */
         .countdown-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 12px;
+            justify-content: space-around;
             margin: 20px 0;
+            align-items: stretch;
         }
         .countdown-item {
+            flex: 1;
+            min-width: 0;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 16px;
             padding: 16px 8px;
             border: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: center;
         }
         .countdown-item .number {
-            font-size: clamp(1.8rem, 5vw, 3.2rem);
+            font-size: clamp(1.6rem, 5vw, 3.2rem);
             font-weight: 700;
             color: #ff4f91;
+            line-height: 1.2;
         }
         .countdown-item .label {
-            font-size: 0.7rem;
+            font-size: clamp(0.55rem, 1.2vw, 0.75rem);
             text-transform: uppercase;
             letter-spacing: 1px;
             opacity: 0.5;
             margin-top: 4px;
-        }
-        @media (max-width: 500px) {
-            .countdown-grid {
-                gap: 10px;
-            }
-            .countdown-item {
-                padding: 12px 4px;
-            }
+            white-space: nowrap;
         }
 
         /* ===== MEKTUP ===== */
@@ -410,7 +409,7 @@
             min-height: 2.4em;
         }
 
-        /* ===== ŞİFRE PANELİ (OVERLAY) ===== */
+        /* ===== ŞİFRE PANELİ ===== */
         #passwordOverlay {
             position: fixed;
             inset: 0;
@@ -486,7 +485,7 @@
             min-width: 140px;
         }
 
-        /* ===== MOBİL ===== */
+        /* ===== MOBİL (SADECE GERİ SAYIM DÜZELTİLDİ) ===== */
         @media (max-width: 600px) {
             .card { padding: 28px 16px; }
             .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
@@ -506,11 +505,39 @@
             }
             .password-box { padding: 32px 20px; }
             .password-box h2 { font-size: 2.2rem; }
+
+            /* Geri sayım – mobilde daha derli toplu */
+            .countdown-grid {
+                gap: 6px;
+            }
+            .countdown-item {
+                padding: 10px 4px;
+                border-radius: 12px;
+            }
+            .countdown-item .number {
+                font-size: clamp(1.2rem, 4.5vw, 2.2rem);
+            }
+            .countdown-item .label {
+                font-size: 0.5rem;
+                letter-spacing: 0.5px;
+            }
         }
+
         @media (max-width: 400px) {
             .gallery-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
             .card { padding: 20px 12px; }
-            .countdown-grid { grid-template-columns: repeat(2, 1fr); }
+            .countdown-grid {
+                gap: 4px;
+            }
+            .countdown-item {
+                padding: 8px 2px;
+            }
+            .countdown-item .number {
+                font-size: 1rem;
+            }
+            .countdown-item .label {
+                font-size: 0.45rem;
+            }
         }
     </style>
 </head>
@@ -538,10 +565,10 @@
         </div>
     </div>
 
-    <!-- ===== SİTE İÇERİĞİ (şifre doğru olunca görünür) ===== -->
+    <!-- ===== SİTE İÇERİĞİ ===== -->
     <div id="siteContent" style="width:100%; display:flex; justify-content:center;">
 
-        <!-- ===== BÖLÜM 1: HERO ===== -->
+        <!-- BÖLÜM 1: HERO -->
         <section class="section active" id="hero">
             <div class="card">
                 <h1 style="font-size:clamp(2.8rem,12vw,5.2rem);">❤️ Bizim Hikayemiz</h1>
@@ -553,7 +580,7 @@
             </div>
         </section>
 
-        <!-- ===== BÖLÜM 2: HİKAYE ===== -->
+        <!-- BÖLÜM 2: HİKAYE -->
         <section class="section" id="story">
             <div class="card">
                 <h2 class="pink">25 Mayıs 2024</h2>
@@ -570,7 +597,7 @@
             </div>
         </section>
 
-        <!-- ===== BÖLÜM 3: GALERİ ===== -->
+        <!-- BÖLÜM 3: GALERİ -->
         <section class="section" id="gallery">
             <div class="card">
                 <h2 class="pink">📸 Anılar</h2>
@@ -581,7 +608,7 @@
             </div>
         </section>
 
-        <!-- ===== BÖLÜM 4: BİRLİKTE GEÇEN SÜRE ===== -->
+        <!-- BÖLÜM 4: BİRLİKTE GEÇEN SÜRE -->
         <section class="section" id="counter">
             <div class="card">
                 <h2 class="pink">⏳ Birlikte Geçen Süre</h2>
@@ -592,11 +619,11 @@
             </div>
         </section>
 
-        <!-- ===== BÖLÜM 5: DOĞUM GÜNÜ GERİ SAYIM ===== -->
+        <!-- BÖLÜM 5: DOĞUM GÜNÜ GERİ SAYIM -->
         <section class="section" id="countdown">
             <div class="card">
                 <h2 class="pink">🎂 Doğum Gününe Kalan Süre</h2>
-                <p class="sub" style="margin-bottom:12px;">en özel gününe sayılı günler</p>
+                <p class="sub" style="margin-bottom:8px;">en özel gününe sayılı günler</p>
                 <div class="countdown-grid" id="countdownGrid">
                     <div class="countdown-item">
                         <div class="number" id="daysLeft">00</div>
@@ -620,7 +647,7 @@
             </div>
         </section>
 
-        <!-- ===== BÖLÜM 6: MEKTUP ===== -->
+        <!-- BÖLÜM 6: MEKTUP -->
         <section class="section" id="letter">
             <div class="card">
                 <h2 class="pink" style="font-family:'Great Vibes',cursive; font-size:2.8rem;">Sana Mektup</h2>
@@ -629,7 +656,7 @@
             </div>
         </section>
 
-        <!-- ===== BÖLÜM 7: KALP YAKALAMA ===== -->
+        <!-- BÖLÜM 7: KALP YAKALAMA -->
         <section class="section" id="heartCatch">
             <div class="card">
                 <h2 class="pink">💕 Kalbi Yakala</h2>
@@ -640,7 +667,7 @@
             </div>
         </section>
 
-        <!-- ===== BÖLÜM 8: HEDİYE KUTUSU ===== -->
+        <!-- BÖLÜM 8: HEDİYE KUTUSU -->
         <section class="section" id="surprise">
             <div class="card">
                 <h2 class="pink">🎁 Sürpriz Kutu</h2>
@@ -655,7 +682,7 @@
             </div>
         </section>
 
-        <!-- ===== BÖLÜM 9: FİNAL ===== -->
+        <!-- BÖLÜM 9: FİNAL -->
         <section class="section" id="final">
             <div class="card">
                 <div class="final-title">Seni Seviyorum</div>
@@ -679,7 +706,7 @@
         (function() {
             "use strict";
 
-            // ---------- ŞİFRE KONTROLÜ ----------
+            // ---------- ŞİFRE ----------
             const PASSWORD = "0335";
             const overlay = document.getElementById('passwordOverlay');
             const passwordInput = document.getElementById('passwordInput');
@@ -690,17 +717,13 @@
                 const val = passwordInput.value.trim();
                 if (val === PASSWORD) {
                     overlay.classList.add('hidden');
-                    // input temizle
                     passwordInput.value = '';
                     passwordError.textContent = '';
-                    // odaklanmayı kaldır
                     document.activeElement.blur();
-                    // site içeriği zaten görünür
                 } else {
                     passwordError.textContent = '❌ Yanlış kod, tekrar dene.';
                     passwordInput.value = '';
                     passwordInput.focus();
-                    // butonu salla (küçük efekt)
                     passwordBtn.style.transform = 'scale(0.95)';
                     setTimeout(() => { passwordBtn.style.transform = ''; }, 200);
                 }
@@ -712,18 +735,15 @@
                     e.preventDefault();
                     checkPassword();
                 }
-                // sadece rakam girişi
                 if (!/^[0-9]$/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Enter' && e.key !== 'Delete' && e
                     .key !== 'ArrowLeft' && e.key !== 'ArrowRight') {
                     e.preventDefault();
                 }
             });
-            // maxlength kontrolü
             passwordInput.addEventListener('input', function() {
                 if (this.value.length > 4) this.value = this.value.slice(0, 4);
             });
 
-            // sayfa yüklenirken input odaklansın
             window.addEventListener('load', function() {
                 setTimeout(() => passwordInput.focus(), 300);
             });
@@ -782,7 +802,7 @@
             galleryGrid.innerHTML = galleryHTML;
 
             // ---------- BİRLİKTE GEÇEN SÜRE ----------
-            const start = new Date(2024, 4, 25); // 25 Mayıs 2024
+            const start = new Date(2024, 4, 25);
             const counterEl = document.getElementById('counterDisplay');
             function updateCounter() {
                 const now = new Date();
@@ -793,8 +813,7 @@
             setInterval(updateCounter, 60000);
 
             // ---------- DOĞUM GÜNÜ GERİ SAYIM ----------
-            // ★★★ Doğum günü tarihini buradan değiştir (yıl, ay-1, gün) ★★★
-            const birthday = new Date(2025, 7, 2); // 25 Mayıs 2025 (ay 0'dan başlar, Mayıs=4)
+            const birthday = new Date(2025, 4, 25); // ★ değiştir ★
 
             const daysEl = document.getElementById('daysLeft');
             const hoursEl = document.getElementById('hoursLeft');
@@ -805,7 +824,6 @@
                 const now = new Date();
                 let diff = birthday - now;
                 if (diff < 0) {
-                    // doğum günü geçtiyse, gelecek yıla ayarla
                     birthday.setFullYear(birthday.getFullYear() + 1);
                     diff = birthday - now;
                 }
@@ -822,7 +840,7 @@
             updateCountdown();
             setInterval(updateCountdown, 1000);
 
-            // ---------- MEKTUP (typewriter) ----------
+            // ---------- MEKTUP ----------
             const letterText =
                 `Sevgilim,\n\nBu satırları okurken belki gülümsüyorsun, belki gözlerin doluyor. Ama bil ki ne hissediyorsan, ben de aynısını hissediyorum.\n\nSeninle geçen her gün, hayatıma eklenen en güzel renk. Bazen sessizce yan yana oturmak bile yetiyor; çünkü senin varlığın her şeyi anlamlı kılıyor.\n\nDoğum gününde tek bir dileğim var: Hep böyle güzel kal, hep böyle ışık saç. Ve bil ki ne olursa olsun, yanındayım.\n\nSonsuz sevgiyle,\nSenin ❤️`;
 
@@ -1041,7 +1059,7 @@
                 }, { passive: false });
             });
 
-            // ---------- "YENİDEN BAŞLA" – SAYFAYI YENİLE ----------
+            // ---------- "YENİDEN BAŞLA" ----------
             document.getElementById('restartBtn').addEventListener('click', function() {
                 location.reload();
             });
