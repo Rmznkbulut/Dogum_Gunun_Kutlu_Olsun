@@ -26,7 +26,7 @@
             overflow-x: hidden;
         }
 
-        /* ===== YILDIZLAR (CSS) ===== */
+        /* ===== YILDIZLAR ===== */
         .stars {
             position: fixed;
             inset: 0;
@@ -78,7 +78,7 @@
 
         /* ===== BÖLÜMLER ===== */
         .section {
-            display: none; /* varsayılan gizli */
+            display: none;
             width: 100%;
             justify-content: center;
             align-items: center;
@@ -136,7 +136,7 @@
             box-shadow: 0 0 30px rgba(255, 79, 145, 0.15);
         }
 
-        /* ===== GALERİ (RESİMLİ) ===== */
+        /* ===== GALERİ ===== */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -178,7 +178,7 @@
             opacity: 1;
         }
 
-        /* ===== SAYAÇ ===== */
+        /* ===== SAYAÇ (Birlikte Geçen Süre) ===== */
         .counter-number {
             font-size: clamp(3.6rem, 12vw, 6rem);
             font-weight: 800;
@@ -188,7 +188,41 @@
             background-clip: text;
         }
 
-        /* ===== MEKTUP (typewriter) ===== */
+        /* ===== DOĞUM GÜNÜ GERİ SAYIM ===== */
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 16px 8px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .countdown-item .number {
+            font-size: clamp(1.8rem, 5vw, 3.2rem);
+            font-weight: 700;
+            color: #ff4f91;
+        }
+        .countdown-item .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.5;
+            margin-top: 4px;
+        }
+        @media (max-width: 500px) {
+            .countdown-grid {
+                gap: 10px;
+            }
+            .countdown-item {
+                padding: 12px 4px;
+            }
+        }
+
+        /* ===== MEKTUP ===== */
         #letterContent {
             font-size: clamp(0.95rem, 1.8vw, 1.2rem);
             text-align: left;
@@ -376,6 +410,82 @@
             min-height: 2.4em;
         }
 
+        /* ===== ŞİFRE PANELİ (OVERLAY) ===== */
+        #passwordOverlay {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        #passwordOverlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .password-box {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 40px;
+            padding: 48px 36px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+        }
+        .password-box h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.6rem;
+            color: #ff4f91;
+            margin-bottom: 8px;
+        }
+        .password-box p {
+            opacity: 0.6;
+            font-size: 0.95rem;
+            margin-bottom: 28px;
+        }
+        .password-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+        .password-input-group input {
+            width: 100%;
+            max-width: 200px;
+            padding: 16px 20px;
+            font-size: 1.8rem;
+            text-align: center;
+            letter-spacing: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 60px;
+            color: #fff;
+            outline: none;
+            transition: 0.3s;
+            font-weight: 600;
+        }
+        .password-input-group input:focus {
+            border-color: #ff4f91;
+            box-shadow: 0 0 30px rgba(255, 79, 145, 0.15);
+        }
+        .password-input-group .error-msg {
+            color: #ff4f91;
+            font-size: 0.85rem;
+            min-height: 1.8em;
+            opacity: 0.8;
+        }
+        .password-input-group .btn {
+            margin-top: 8px;
+            min-width: 140px;
+        }
+
         /* ===== MOBİL ===== */
         @media (max-width: 600px) {
             .card { padding: 28px 16px; }
@@ -394,10 +504,13 @@
                 min-height: 54px;
                 min-width: 120px;
             }
+            .password-box { padding: 32px 20px; }
+            .password-box h2 { font-size: 2.2rem; }
         }
         @media (max-width: 400px) {
             .gallery-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
             .card { padding: 20px 12px; }
+            .countdown-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -406,126 +519,216 @@
     <!-- Yıldızlar -->
     <div class="stars"></div>
 
-    <!-- Uçuşan kalpler (JS ile doldurulacak) -->
+    <!-- Uçuşan kalpler -->
     <div id="heartContainer"></div>
 
     <!-- Konfeti kabı -->
     <div class="confetti-container" id="confettiContainer"></div>
 
-    <!-- ===== BÖLÜM 1: HERO (GİRİŞ) ===== -->
-    <section class="section active" id="hero">
-        <div class="card">
-            <h1 style="font-size:clamp(2.8rem,12vw,5.2rem);">❤️ Bizim Hikayemiz</h1>
-            <p style="font-size:clamp(1.1rem,2.5vw,1.6rem); opacity:0.7; margin-top:12px;">
-                Bu sayfa sadece bir doğum günü kutlaması değil…<br />
-                Bu sayfa bizim için hazırlandı.
-            </p>
-            <button class="btn" id="startBtn">Başla</button>
-        </div>
-    </section>
-
-    <!-- ===== BÖLÜM 2: HİKAYE ===== -->
-    <section class="section" id="story">
-        <div class="card">
-            <h2 class="pink">25 Mayıs 2024</h2>
-            <p style="font-size:1.1rem; opacity:0.85; max-width:600px; margin:12px auto;">
-                Belki de hayatımın en güzel günü…<br />
-                Çünkü o gün sadece bir tarih değildi.<br />
-                O gün <strong>"biz"</strong> olduk.<br /><br />
-                Ve o günden beri her geçen gün,<br />
-                <em>iyi ki</em> dediğim anların sayısı arttı.<br />
-                Bugün de sana küçük bir sürpriz hazırlamak istedim…<br />
-                ❤️
-            </p>
-            <button class="btn next-btn" data-target="gallery">Devam Et →</button>
-        </div>
-    </section>
-
-    <!-- ===== BÖLÜM 3: GALERİ ===== -->
-    <section class="section" id="gallery">
-        <div class="card">
-            <h2 class="pink">📸 Anılar</h2>
-            <p class="sub" style="margin-bottom:12px;">her karede bir gülümseme</p>
-            <div class="gallery-grid" id="galleryGrid">
-                <!-- JS ile doldurulacak -->
+    <!-- ===== ŞİFRE PANELİ ===== -->
+    <div id="passwordOverlay">
+        <div class="password-box">
+            <h2>🔐 Özel Kod</h2>
+            <p>Lütfen 4 haneli özel kodu gir.</p>
+            <div class="password-input-group">
+                <input type="password" id="passwordInput" maxlength="4" inputmode="numeric" pattern="[0-9]*" autofocus />
+                <div class="error-msg" id="passwordError"></div>
+                <button class="btn" id="passwordBtn">Giriş Yap</button>
             </div>
-            <p style="margin-top:20px; font-size:0.9rem; opacity:0.4;">❤️ seninle geçen her an bir hazine</p>
-            <button class="btn next-btn" data-target="counter">Devam Et →</button>
         </div>
-    </section>
+    </div>
 
-    <!-- ===== BÖLÜM 4: SAYAÇ ===== -->
-    <section class="section" id="counter">
-        <div class="card">
-            <h2 class="pink">⏳ Birlikte Geçen Süre</h2>
-            <div class="counter-number" id="counterDisplay">0</div>
-            <p style="font-size:1.2rem; opacity:0.5;">gündür seninleyim</p>
-            <p style="font-size:0.85rem; opacity:0.3; margin-top:4px;">25 Mayıs 2024'ten beri ❤️</p>
-            <button class="btn next-btn" data-target="letter">Devam Et →</button>
-        </div>
-    </section>
+    <!-- ===== SİTE İÇERİĞİ (şifre doğru olunca görünür) ===== -->
+    <div id="siteContent" style="width:100%; display:flex; justify-content:center;">
 
-    <!-- ===== BÖLÜM 5: MEKTUP ===== -->
-    <section class="section" id="letter">
-        <div class="card">
-            <h2 class="pink" style="font-family:'Great Vibes',cursive; font-size:2.8rem;">Sana Mektup</h2>
-            <div id="letterContent"><span class="cursor-blink"></span></div>
-            <button class="btn next-btn" data-target="heartCatch">Devam Et →</button>
-        </div>
-    </section>
-
-    <!-- ===== BÖLÜM 6: KALP YAKALAMA ===== -->
-    <section class="section" id="heartCatch">
-        <div class="card">
-            <h2 class="pink">💕 Kalbi Yakala</h2>
-            <p class="sub" style="font-size:0.9rem;">kalbe dokun, sürpriz açılsın</p>
-            <div class="catch-area" id="catchArea">
-                <!-- kalpler JS ile eklenecek -->
+        <!-- ===== BÖLÜM 1: HERO ===== -->
+        <section class="section active" id="hero">
+            <div class="card">
+                <h1 style="font-size:clamp(2.8rem,12vw,5.2rem);">❤️ Bizim Hikayemiz</h1>
+                <p style="font-size:clamp(1.1rem,2.5vw,1.6rem); opacity:0.7; margin-top:12px;">
+                    Bu sayfa sadece bir doğum günü kutlaması değil…<br />
+                    Bu sayfa bizim için hazırlandı.
+                </p>
+                <button class="btn" id="startBtn">Başla</button>
             </div>
-            <div class="catch-status" id="catchStatus">❤️ kalbe dokun</div>
-            <button class="btn next-btn" data-target="surprise" id="catchNextBtn" style="display:none;">Devam Et →</button>
-        </div>
-    </section>
+        </section>
 
-    <!-- ===== BÖLÜM 7: HEDİYE KUTUSU ===== -->
-    <section class="section" id="surprise">
-        <div class="card">
-            <h2 class="pink">🎁 Sürpriz Kutu</h2>
-            <p class="sub" style="font-size:0.9rem;">açmak için tıkla</p>
-            <div class="gift-box" id="giftBox">
-                <div class="lid"></div>
-                🎀
-                <div class="reveal">🎉</div>
+        <!-- ===== BÖLÜM 2: HİKAYE ===== -->
+        <section class="section" id="story">
+            <div class="card">
+                <h2 class="pink">25 Mayıs 2024</h2>
+                <p style="font-size:1.1rem; opacity:0.85; max-width:600px; margin:12px auto;">
+                    Belki de hayatımın en güzel günü…<br />
+                    Çünkü o gün sadece bir tarih değildi.<br />
+                    O gün <strong>"biz"</strong> olduk.<br /><br />
+                    Ve o günden beri her geçen gün,<br />
+                    <em>iyi ki</em> dediğim anların sayısı arttı.<br />
+                    Bugün de sana küçük bir sürpriz hazırlamak istedim…<br />
+                    ❤️
+                </p>
+                <button class="btn next-btn" data-target="gallery">Devam Et →</button>
             </div>
-            <div class="surprise-message" id="surpriseMessage"></div>
-            <button class="btn next-btn" data-target="final" id="surpriseNextBtn" style="display:none;">Devam Et →</button>
-        </div>
-    </section>
+        </section>
 
-    <!-- ===== BÖLÜM 8: FİNAL ===== -->
-    <section class="section" id="final">
-        <div class="card">
-            <div class="final-title">Seni Seviyorum</div>
-            <p style="font-size:1.4rem; opacity:0.5; margin-bottom:8px;">∞ sonsuza dek</p>
-            <p style="opacity:0.7; font-size:1.1rem; margin-bottom:20px;">"Bana bir söz verir misin?"</p>
-            <div class="promise-buttons">
-                <button data-promise="evet">❤️ Evet</button>
-                <button data-promise="tabii">💖 Tabii ki</button>
+        <!-- ===== BÖLÜM 3: GALERİ ===== -->
+        <section class="section" id="gallery">
+            <div class="card">
+                <h2 class="pink">📸 Anılar</h2>
+                <p class="sub" style="margin-bottom:12px;">her karede bir gülümseme</p>
+                <div class="gallery-grid" id="galleryGrid"></div>
+                <p style="margin-top:20px; font-size:0.9rem; opacity:0.4;">❤️ seninle geçen her an bir hazine</p>
+                <button class="btn next-btn" data-target="counter">Devam Et →</button>
             </div>
-            <div class="final-response" id="finalResponse"></div>
-            <!-- Yeniden Başla butonu sayfayı yeniler -->
-            <button class="btn btn-secondary" id="restartBtn" style="margin-top:30px;">🔄 Yeniden Başla</button>
-        </div>
-    </section>
+        </section>
+
+        <!-- ===== BÖLÜM 4: BİRLİKTE GEÇEN SÜRE ===== -->
+        <section class="section" id="counter">
+            <div class="card">
+                <h2 class="pink">⏳ Birlikte Geçen Süre</h2>
+                <div class="counter-number" id="counterDisplay">0</div>
+                <p style="font-size:1.2rem; opacity:0.5;">gündür seninleyim</p>
+                <p style="font-size:0.85rem; opacity:0.3; margin-top:4px;">25 Mayıs 2024'ten beri ❤️</p>
+                <button class="btn next-btn" data-target="countdown">Devam Et →</button>
+            </div>
+        </section>
+
+        <!-- ===== BÖLÜM 5: DOĞUM GÜNÜ GERİ SAYIM ===== -->
+        <section class="section" id="countdown">
+            <div class="card">
+                <h2 class="pink">🎂 Doğum Gününe Kalan Süre</h2>
+                <p class="sub" style="margin-bottom:12px;">en özel gününe sayılı günler</p>
+                <div class="countdown-grid" id="countdownGrid">
+                    <div class="countdown-item">
+                        <div class="number" id="daysLeft">00</div>
+                        <div class="label">Gün</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="number" id="hoursLeft">00</div>
+                        <div class="label">Saat</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="number" id="minutesLeft">00</div>
+                        <div class="label">Dakika</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="number" id="secondsLeft">00</div>
+                        <div class="label">Saniye</div>
+                    </div>
+                </div>
+                <p style="font-size:0.85rem; opacity:0.3; margin-top:8px;">🎉 sabırsızlıkla bekliyorum</p>
+                <button class="btn next-btn" data-target="letter">Devam Et →</button>
+            </div>
+        </section>
+
+        <!-- ===== BÖLÜM 6: MEKTUP ===== -->
+        <section class="section" id="letter">
+            <div class="card">
+                <h2 class="pink" style="font-family:'Great Vibes',cursive; font-size:2.8rem;">Sana Mektup</h2>
+                <div id="letterContent"><span class="cursor-blink"></span></div>
+                <button class="btn next-btn" data-target="heartCatch">Devam Et →</button>
+            </div>
+        </section>
+
+        <!-- ===== BÖLÜM 7: KALP YAKALAMA ===== -->
+        <section class="section" id="heartCatch">
+            <div class="card">
+                <h2 class="pink">💕 Kalbi Yakala</h2>
+                <p class="sub" style="font-size:0.9rem;">kalbe dokun, sürpriz açılsın</p>
+                <div class="catch-area" id="catchArea"></div>
+                <div class="catch-status" id="catchStatus">❤️ kalbe dokun</div>
+                <button class="btn next-btn" data-target="surprise" id="catchNextBtn" style="display:none;">Devam Et →</button>
+            </div>
+        </section>
+
+        <!-- ===== BÖLÜM 8: HEDİYE KUTUSU ===== -->
+        <section class="section" id="surprise">
+            <div class="card">
+                <h2 class="pink">🎁 Sürpriz Kutu</h2>
+                <p class="sub" style="font-size:0.9rem;">açmak için tıkla</p>
+                <div class="gift-box" id="giftBox">
+                    <div class="lid"></div>
+                    🎀
+                    <div class="reveal">🎉</div>
+                </div>
+                <div class="surprise-message" id="surpriseMessage"></div>
+                <button class="btn next-btn" data-target="final" id="surpriseNextBtn" style="display:none;">Devam Et →</button>
+            </div>
+        </section>
+
+        <!-- ===== BÖLÜM 9: FİNAL ===== -->
+        <section class="section" id="final">
+            <div class="card">
+                <div class="final-title">Seni Seviyorum</div>
+                <p style="font-size:1.4rem; opacity:0.5; margin-bottom:8px;">∞ sonsuza dek</p>
+                <p style="opacity:0.7; font-size:1.1rem; margin-bottom:20px;">"Bana bir söz verir misin?"</p>
+                <div class="promise-buttons">
+                    <button data-promise="evet">❤️ Evet</button>
+                    <button data-promise="tabii">💖 Tabii ki</button>
+                </div>
+                <div class="final-response" id="finalResponse"></div>
+                <button class="btn btn-secondary" id="restartBtn" style="margin-top:30px;">🔄 Yeniden Başla</button>
+            </div>
+        </section>
+
+    </div> <!-- siteContent -->
 
     <!-- ============================================================= -->
-    <!-- JAVASCRIPT (sade, kararlı) -->
+    <!-- JAVASCRIPT -->
     <!-- ============================================================= -->
     <script>
         (function() {
             "use strict";
 
-            // ---------- 1. UÇUŞAN KALPLER ----------
+            // ---------- ŞİFRE KONTROLÜ ----------
+            const PASSWORD = "0335";
+            const overlay = document.getElementById('passwordOverlay');
+            const passwordInput = document.getElementById('passwordInput');
+            const passwordBtn = document.getElementById('passwordBtn');
+            const passwordError = document.getElementById('passwordError');
+
+            function checkPassword() {
+                const val = passwordInput.value.trim();
+                if (val === PASSWORD) {
+                    overlay.classList.add('hidden');
+                    // input temizle
+                    passwordInput.value = '';
+                    passwordError.textContent = '';
+                    // odaklanmayı kaldır
+                    document.activeElement.blur();
+                    // site içeriği zaten görünür
+                } else {
+                    passwordError.textContent = '❌ Yanlış kod, tekrar dene.';
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                    // butonu salla (küçük efekt)
+                    passwordBtn.style.transform = 'scale(0.95)';
+                    setTimeout(() => { passwordBtn.style.transform = ''; }, 200);
+                }
+            }
+
+            passwordBtn.addEventListener('click', checkPassword);
+            passwordInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    checkPassword();
+                }
+                // sadece rakam girişi
+                if (!/^[0-9]$/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Enter' && e.key !== 'Delete' && e
+                    .key !== 'ArrowLeft' && e.key !== 'ArrowRight') {
+                    e.preventDefault();
+                }
+            });
+            // maxlength kontrolü
+            passwordInput.addEventListener('input', function() {
+                if (this.value.length > 4) this.value = this.value.slice(0, 4);
+            });
+
+            // sayfa yüklenirken input odaklansın
+            window.addEventListener('load', function() {
+                setTimeout(() => passwordInput.focus(), 300);
+            });
+
+            // ---------- UÇUŞAN KALPLER ----------
             const heartContainer = document.getElementById('heartContainer');
             setInterval(() => {
                 const el = document.createElement('div');
@@ -538,35 +741,29 @@
                 setTimeout(() => el.remove(), 12000);
             }, 400);
 
-            // ---------- 2. BÖLÜM GEÇİŞLERİ ----------
+            // ---------- BÖLÜM GEÇİŞLERİ ----------
             const sections = document.querySelectorAll('.section');
             const nextBtns = document.querySelectorAll('.next-btn');
 
-            // Belirli bir bölümü göster
             function showSection(targetId) {
                 sections.forEach(sec => sec.classList.remove('active'));
                 const target = document.getElementById(targetId);
                 if (target) target.classList.add('active');
-                // Sayfanın en üstüne kaydır (mobilde buton altında kalmasın)
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // "Devam Et" butonlarına tıklama
             nextBtns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     const targetId = this.dataset.target;
-                    if (targetId) {
-                        showSection(targetId);
-                    }
+                    if (targetId) showSection(targetId);
                 });
             });
 
-            // "Başla" butonu (hero'dan story'e)
             document.getElementById('startBtn').addEventListener('click', () => {
                 showSection('story');
             });
 
-            // ---------- 3. GALERİ (resim placeholder) ----------
+            // ---------- GALERİ ----------
             const galleryGrid = document.getElementById('galleryGrid');
             const imageCount = 6;
             const captions = ['ilk günümüz', 'kahve molası', 'bahar geldi', 'deniz kenarı', 'en sevdiğimiz şarkı',
@@ -584,7 +781,7 @@
             }
             galleryGrid.innerHTML = galleryHTML;
 
-            // ---------- 4. SAYAÇ ----------
+            // ---------- BİRLİKTE GEÇEN SÜRE ----------
             const start = new Date(2024, 4, 25); // 25 Mayıs 2024
             const counterEl = document.getElementById('counterDisplay');
             function updateCounter() {
@@ -595,7 +792,37 @@
             updateCounter();
             setInterval(updateCounter, 60000);
 
-            // ---------- 5. MEKTUP (typewriter) ----------
+            // ---------- DOĞUM GÜNÜ GERİ SAYIM ----------
+            // ★★★ Doğum günü tarihini buradan değiştir (yıl, ay-1, gün) ★★★
+            const birthday = new Date(2025, 4, 25); // 25 Mayıs 2025 (ay 0'dan başlar, Mayıs=4)
+
+            const daysEl = document.getElementById('daysLeft');
+            const hoursEl = document.getElementById('hoursLeft');
+            const minutesEl = document.getElementById('minutesLeft');
+            const secondsEl = document.getElementById('secondsLeft');
+
+            function updateCountdown() {
+                const now = new Date();
+                let diff = birthday - now;
+                if (diff < 0) {
+                    // doğum günü geçtiyse, gelecek yıla ayarla
+                    birthday.setFullYear(birthday.getFullYear() + 1);
+                    diff = birthday - now;
+                }
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                daysEl.textContent = String(days).padStart(2, '0');
+                hoursEl.textContent = String(hours).padStart(2, '0');
+                minutesEl.textContent = String(minutes).padStart(2, '0');
+                secondsEl.textContent = String(seconds).padStart(2, '0');
+            }
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+
+            // ---------- MEKTUP (typewriter) ----------
             const letterText =
                 `Sevgilim,\n\nBu satırları okurken belki gülümsüyorsun, belki gözlerin doluyor. Ama bil ki ne hissediyorsan, ben de aynısını hissediyorum.\n\nSeninle geçen her gün, hayatıma eklenen en güzel renk. Bazen sessizce yan yana oturmak bile yetiyor; çünkü senin varlığın her şeyi anlamlı kılıyor.\n\nDoğum gününde tek bir dileğim var: Hep böyle güzel kal, hep böyle ışık saç. Ve bil ki ne olursa olsun, yanındayım.\n\nSonsuz sevgiyle,\nSenin ❤️`;
 
@@ -624,7 +851,6 @@
                 setTimeout(typeLetter, delay);
             }
 
-            // Mektup bölümü aktif olduğunda başlat
             const letterSection = document.getElementById('letter');
             const letterObserver = new MutationObserver(() => {
                 if (letterSection.classList.contains('active') && !letterRunning) {
@@ -633,7 +859,7 @@
             });
             letterObserver.observe(letterSection, { attributes: true, attributeFilter: ['class'] });
 
-            // ---------- 6. KALP YAKALAMA ----------
+            // ---------- KALP YAKALAMA ----------
             const catchArea = document.getElementById('catchArea');
             const catchStatus = document.getElementById('catchStatus');
             const catchNextBtn = document.getElementById('catchNextBtn');
@@ -696,7 +922,6 @@
             catchArea.addEventListener('click', handleCatch);
             catchArea.addEventListener('touchstart', handleCatch, { passive: false });
 
-            // Kalp yakalama bölümü aktif olduğunda kalpleri oluştur
             const catchSection = document.getElementById('heartCatch');
             const catchObserver = new MutationObserver(() => {
                 if (catchSection.classList.contains('active') && !heartCaught) {
@@ -708,7 +933,7 @@
             });
             catchObserver.observe(catchSection, { attributes: true, attributeFilter: ['class'] });
 
-            // ---------- 7. HEDİYE KUTUSU ----------
+            // ---------- HEDİYE KUTUSU ----------
             const giftBox = document.getElementById('giftBox');
             const surpriseMsg = document.getElementById('surpriseMessage');
             const surpriseNextBtn = document.getElementById('surpriseNextBtn');
@@ -724,7 +949,6 @@
                 spawnHeartExplosion();
             }
 
-            // Kutu tıklama kontrolü
             giftBox.addEventListener('click', () => {
                 if (!heartCaught) {
                     surpriseMsg.textContent = '💕 önce kalbi yakala!';
@@ -743,7 +967,7 @@
                 }
             }, { passive: false });
 
-            // ---------- 8. KALP PATLAMASI ----------
+            // ---------- KALP PATLAMASI ----------
             function spawnHeartExplosion() {
                 const emojis = ['❤️', '💖', '💕', '💗', '❣️', '💓', '💘', '💝'];
                 for (let i = 0; i < 32; i++) {
@@ -777,7 +1001,7 @@
                 }
             }
 
-            // ---------- 9. KONFETİ ----------
+            // ---------- KONFETİ ----------
             const confettiContainer = document.getElementById('confettiContainer');
 
             function startConfetti(durationSec = 4) {
@@ -803,7 +1027,7 @@
                 }, durationSec * 1000 + 500);
             }
 
-            // ---------- 10. FİNAL – SÖZ BUTONLARI ----------
+            // ---------- FİNAL – SÖZ BUTONLARI ----------
             const finalResponse = document.getElementById('finalResponse');
             document.querySelectorAll('[data-promise]').forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -817,7 +1041,7 @@
                 }, { passive: false });
             });
 
-            // ---------- 11. "YENİDEN BAŞLA" – SAYFAYI YENİLE ----------
+            // ---------- "YENİDEN BAŞLA" – SAYFAYI YENİLE ----------
             document.getElementById('restartBtn').addEventListener('click', function() {
                 location.reload();
             });
@@ -826,14 +1050,11 @@
                 location.reload();
             }, { passive: false });
 
-            // ---------- 12. BAŞLANGIÇTA HERO AKTİF, DİĞERLERİ GİZLİ ----------
-            // Zaten HTML'de hero active, diğerleri değil.
-
             console.log('🎂 Doğum Günün Kutlu Olsun ❤️');
             console.log('📸 Resimlerini images/ klasörüne 1.jpg, 2.jpg ... diye ekle.');
             console.log('✉️ Mektup metnini letterText değişkeninden değiştir.');
-            console.log('📅 Başlangıç tarihini (start) değiştirmek istersen new Date(2024, 4, 25) kısmını güncelle.');
-            console.log('🔄 "Yeniden Başla" butonu sayfayı yeniler, en baştan başlar.');
+            console.log('📅 Doğum günü tarihini "birthday" değişkeninden güncelle (yıl, ay-1, gün).');
+            console.log('🔑 Şifre: 0335 (password değişkeninden değiştir).');
 
         })();
     </script>
