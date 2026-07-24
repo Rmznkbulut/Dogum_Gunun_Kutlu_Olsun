@@ -136,46 +136,99 @@
             box-shadow: 0 0 30px rgba(255, 79, 145, 0.15);
         }
 
-        /* ===== GALERİ ===== */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 14px;
-            margin-top: 20px;
-        }
-        .gallery-item {
-            aspect-ratio: 1/1;
-            border-radius: 20px;
-            overflow: hidden;
-            background: #1a1a1a;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+        /* ===== SLAYTER (GALERİ) ===== */
+        .slider-container {
             position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 16px auto 0;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #0a0a0a;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            aspect-ratio: 4 / 3;
         }
-        .gallery-item img {
+        .slides {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: 0.5s ease;
         }
-        .gallery-item:hover img {
-            transform: scale(1.08);
-        }
-        .gallery-item .caption {
+        .slide-caption {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 10px;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-            font-size: 0.75rem;
-            opacity: 0;
-            transition: 0.3s;
-            text-align: center;
+            padding: 20px 16px 16px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            font-size: 1rem;
             font-weight: 300;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            letter-spacing: 0.5px;
+            transition: opacity 0.4s ease;
         }
-        .gallery-item:hover .caption {
-            opacity: 1;
+
+        /* ===== SLAYTER BUTONLARI ===== */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: 0.3s;
+            z-index: 2;
+            touch-action: manipulation;
+            line-height: 1;
+        }
+        .slider-btn:hover {
+            background: rgba(255, 79, 145, 0.5);
+        }
+        .slider-btn.prev {
+            left: 8px;
+        }
+        .slider-btn.next {
+            right: 8px;
+        }
+
+        /* ===== NÖKTALAR ===== */
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 16px;
+            position: relative;
+            z-index: 2;
+        }
+        .slider-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .slider-dots span.active {
+            background: #ff4f91;
+            transform: scale(1.2);
         }
 
         /* ===== SAYAÇ (Birlikte Geçen Süre) ===== */
@@ -188,7 +241,7 @@
             background-clip: text;
         }
 
-        /* ===== DOĞUM GÜNÜ GERİ SAYIM (YENİ – FLEX, YATAY) ===== */
+        /* ===== DOĞUM GÜNÜ GERİ SAYIM ===== */
         .countdown-grid {
             display: flex;
             flex-wrap: nowrap;
@@ -485,10 +538,12 @@
             min-width: 140px;
         }
 
-        /* ===== MOBİL (SADECE GERİ SAYIM DÜZELTİLDİ) ===== */
+        /* ===== MOBİL ===== */
         @media (max-width: 600px) {
             .card { padding: 28px 16px; }
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .slider-container { max-width: 100%; aspect-ratio: 4/3; }
+            .slider-btn { font-size: 1.4rem; padding: 6px 10px; }
+            .slide-caption { font-size: 0.85rem; padding: 12px 12px 10px; }
             .catch-area { height: 180px; }
             .gift-box { width: 100px; height: 100px; font-size: 2.8rem; }
             .btn {
@@ -506,38 +561,20 @@
             .password-box { padding: 32px 20px; }
             .password-box h2 { font-size: 2.2rem; }
 
-            /* Geri sayım – mobilde daha derli toplu */
-            .countdown-grid {
-                gap: 6px;
-            }
-            .countdown-item {
-                padding: 10px 4px;
-                border-radius: 12px;
-            }
-            .countdown-item .number {
-                font-size: clamp(1.2rem, 4.5vw, 2.2rem);
-            }
-            .countdown-item .label {
-                font-size: 0.5rem;
-                letter-spacing: 0.5px;
-            }
+            .countdown-grid { gap: 6px; }
+            .countdown-item { padding: 10px 4px; border-radius: 12px; }
+            .countdown-item .number { font-size: clamp(1.2rem, 4.5vw, 2.2rem); }
+            .countdown-item .label { font-size: 0.5rem; letter-spacing: 0.5px; }
         }
 
         @media (max-width: 400px) {
-            .gallery-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
             .card { padding: 20px 12px; }
-            .countdown-grid {
-                gap: 4px;
-            }
-            .countdown-item {
-                padding: 8px 2px;
-            }
-            .countdown-item .number {
-                font-size: 1rem;
-            }
-            .countdown-item .label {
-                font-size: 0.45rem;
-            }
+            .slider-btn { font-size: 1.2rem; padding: 4px 8px; }
+            .slide-caption { font-size: 0.75rem; padding: 8px 8px 6px; }
+            .countdown-grid { gap: 4px; }
+            .countdown-item { padding: 8px 2px; }
+            .countdown-item .number { font-size: 1rem; }
+            .countdown-item .label { font-size: 0.45rem; }
         }
     </style>
 </head>
@@ -597,13 +634,18 @@
             </div>
         </section>
 
-        <!-- BÖLÜM 3: GALERİ -->
+        <!-- ===== BÖLÜM 3: GALERİ (SLAYT) ===== -->
         <section class="section" id="gallery">
             <div class="card">
                 <h2 class="pink">📸 Anılar</h2>
-                <p class="sub" style="margin-bottom:12px;">her karede bir gülümseme</p>
-                <div class="gallery-grid" id="galleryGrid"></div>
-                <p style="margin-top:20px; font-size:0.9rem; opacity:0.4;">❤️ seninle geçen her an bir hazine</p>
+                <p class="sub" style="margin-bottom:8px;">her karede bir gülümseme</p>
+                <div class="slider-container" id="sliderContainer">
+                    <div class="slides" id="slides"></div>
+                    <button class="slider-btn prev" id="prevSlide">‹</button>
+                    <button class="slider-btn next" id="nextSlide">›</button>
+                </div>
+                <div class="slider-dots" id="sliderDots"></div>
+                <p style="margin-top:16px; font-size:0.85rem; opacity:0.4;">❤️ seninle geçen her an bir hazine</p>
                 <button class="btn next-btn" data-target="counter">Devam Et →</button>
             </div>
         </section>
@@ -783,23 +825,146 @@
                 showSection('story');
             });
 
-            // ---------- GALERİ ----------
-            const galleryGrid = document.getElementById('galleryGrid');
-            const imageCount = 6;
-            const captions = ['ilk günümüz', 'kahve molası', 'bahar geldi', 'deniz kenarı', 'en sevdiğimiz şarkı',
-                'sihirli an'
+            // =============================================================
+            // =====  SLAYTER (GALERİ) – Otomatik Geçişli  =====
+            // =============================================================
+            const slidesData = [
+                { img: 'images/1.jpg', caption: 'ilk günümüz ☀️' },
+                { img: 'images/2.jpg', caption: 'kahve molası ☕' },
+                { img: 'images/3.jpg', caption: 'bahar geldi 🌸' },
+                { img: 'images/4.jpg', caption: 'deniz kenarı 🌊' },
+                { img: 'images/5.jpg', caption: 'en sevdiğimiz şarkı 🎶' },
+                { img: 'images/6.jpg', caption: 'sihirli an ✨' }
             ];
-            let galleryHTML = '';
-            for (let i = 1; i <= imageCount; i++) {
-                const caption = captions[i - 1] || `anı ${i}`;
-                galleryHTML += `
-                        <div class="gallery-item">
-                            <img src="images/${i}.jpg" alt="${caption}" loading="lazy" onerror="this.style.display='none'; this.parentElement.style.background='#1a1a1a'; this.parentElement.innerHTML='<div style=\\"display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:2rem;opacity:0.2;\\">📷</div><div class=\\"caption\\">${caption}</div>';" />
-                            <div class="caption">${caption}</div>
-                        </div>
-                    `;
+
+            const slidesWrapper = document.getElementById('slides');
+            const dotsContainer = document.getElementById('sliderDots');
+            const prevBtn = document.getElementById('prevSlide');
+            const nextBtn = document.getElementById('nextSlide');
+
+            let currentIndex = 0;
+            let slideInterval = null;
+            const AUTO_INTERVAL = 3500; // 3.5 saniye
+
+            // Slaytları oluştur
+            function buildSlides() {
+                slidesWrapper.innerHTML = '';
+                dotsContainer.innerHTML = '';
+
+                slidesData.forEach((item, index) => {
+                    // Slide
+                    const slide = document.createElement('div');
+                    slide.className = 'slide';
+                    slide.style.transform = `translateX(${index * 100}%)`;
+                    // Resim
+                    const img = document.createElement('img');
+                    img.src = item.img;
+                    img.alt = item.caption;
+                    img.loading = 'lazy';
+                    img.onerror = function() {
+                        this.style.display = 'none';
+                        this.parentElement.style.background = '#1a1a1a';
+                        this.parentElement.innerHTML +=
+                            `<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:3rem;opacity:0.2;">📷</div>`;
+                    };
+                    slide.appendChild(img);
+                    // Caption
+                    const caption = document.createElement('div');
+                    caption.className = 'slide-caption';
+                    caption.textContent = item.caption;
+                    slide.appendChild(caption);
+                    slidesWrapper.appendChild(slide);
+
+                    // Dot
+                    const dot = document.createElement('span');
+                    dot.dataset.index = index;
+                    dot.addEventListener('click', () => goToSlide(index));
+                    dotsContainer.appendChild(dot);
+                });
+
+                updateDots();
+                goToSlide(0, false); // ilk slaytı göster, animasyon olmadan
             }
-            galleryGrid.innerHTML = galleryHTML;
+
+            function goToSlide(index, animate = true) {
+                if (index < 0) index = slidesData.length - 1;
+                if (index >= slidesData.length) index = 0;
+                currentIndex = index;
+
+                const slides = slidesWrapper.querySelectorAll('.slide');
+                slides.forEach((slide, i) => {
+                    slide.style.transition = animate ? 'transform 0.6s ease-in-out' : 'none';
+                    slide.style.transform = `translateX(${(i - currentIndex) * 100}%)`;
+                });
+
+                updateDots();
+            }
+
+            function updateDots() {
+                const dots = dotsContainer.querySelectorAll('span');
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }
+
+            function nextSlide() {
+                goToSlide(currentIndex + 1);
+            }
+
+            function prevSlide() {
+                goToSlide(currentIndex - 1);
+            }
+
+            // Otomatik geçiş
+            function startAutoSlide() {
+                if (slideInterval) clearInterval(slideInterval);
+                slideInterval = setInterval(nextSlide, AUTO_INTERVAL);
+            }
+
+            function stopAutoSlide() {
+                if (slideInterval) {
+                    clearInterval(slideInterval);
+                    slideInterval = null;
+                }
+            }
+
+            // Buton olayları (manuel geçiş)
+            nextBtn.addEventListener('click', () => {
+                stopAutoSlide();
+                nextSlide();
+                startAutoSlide();
+            });
+            prevBtn.addEventListener('click', () => {
+                stopAutoSlide();
+                prevSlide();
+                startAutoSlide();
+            });
+
+            // Slider üzerine gelince otomatik geçişi durdur (opsiyonel)
+            const sliderContainer = document.getElementById('sliderContainer');
+            sliderContainer.addEventListener('mouseenter', stopAutoSlide);
+            sliderContainer.addEventListener('mouseleave', startAutoSlide);
+
+            // Mobil dokunmatik için kaydırma desteği (basit)
+            let touchStartX = 0;
+            let touchEndX = 0;
+            sliderContainer.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+            sliderContainer.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 40) {
+                    stopAutoSlide();
+                    if (diff > 0) nextSlide();
+                    else prevSlide();
+                    startAutoSlide();
+                }
+            }, { passive: true });
+
+            // Başlat
+            buildSlides();
+            startAutoSlide();
 
             // ---------- BİRLİKTE GEÇEN SÜRE ----------
             const start = new Date(2024, 4, 25);
@@ -813,7 +978,7 @@
             setInterval(updateCounter, 60000);
 
             // ---------- DOĞUM GÜNÜ GERİ SAYIM ----------
-            const birthday = new Date(2025, 4, 25); // ★ değiştir ★
+            const birthday = new Date(2025, 7, 2); // ★ değiştir ★
 
             const daysEl = document.getElementById('daysLeft');
             const hoursEl = document.getElementById('hoursLeft');
@@ -1073,6 +1238,7 @@
             console.log('✉️ Mektup metnini letterText değişkeninden değiştir.');
             console.log('📅 Doğum günü tarihini "birthday" değişkeninden güncelle (yıl, ay-1, gün).');
             console.log('🔑 Şifre: 0335 (password değişkeninden değiştir).');
+            console.log('🔄 Slayt gösterisi otomatik geçişli, manuel butonlar ve noktalarla kontrol edilebilir.');
 
         })();
     </script>
