@@ -291,12 +291,12 @@
         }
         @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
 
-        /* ===== KALP YAKALAMA ===== */
+        /* ===== YENİ KALP YAKALAMA OYUNU ===== */
         .catch-area {
             position: relative;
             width: 100%;
-            max-width: 380px;
-            height: 240px;
+            max-width: 400px;
+            height: 280px;
             margin: 16px auto 0;
             border-radius: 28px;
             background: rgba(255,255,255,0.03);
@@ -309,26 +309,66 @@
         }
         .catch-heart {
             position: absolute;
-            font-size: 2.8rem;
+            font-size: 3.8rem;
             user-select: none;
             pointer-events: none;
-            animation: heartFloat 2.6s ease-in-out infinite;
-            filter: drop-shadow(0 4px 20px rgba(255,79,145,0.3));
+            filter: drop-shadow(0 4px 30px rgba(255,79,145,0.5));
+            transition: transform 0.2s ease-out, left 0.2s ease-out, top 0.2s ease-out;
+            cursor: pointer;
         }
-        @keyframes heartFloat { 0%,100%{transform:translateY(0) scale(1);} 50%{transform:translateY(-16px) scale(1.08);} }
-        .catch-status { margin-top: 16px; font-size: 1.1rem; opacity: 0.6; min-height: 2.4em; transition: 0.3s; }
-        .catch-status.success { opacity: 1; color: #ff4f91; font-weight: 600; }
+        .catch-heart.caught {
+            transform: scale(0);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .catch-status {
+            margin-top: 16px;
+            font-size: 1.1rem;
+            opacity: 0.6;
+            min-height: 2.4em;
+            transition: 0.3s;
+        }
+        .catch-status.success {
+            opacity: 1;
+            color: #ff4f91;
+            font-weight: 600;
+        }
+        .catch-progress {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .catch-progress span {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            transition: 0.3s;
+        }
+        .catch-progress span.done {
+            background: #ff4f91;
+            box-shadow: 0 0 20px rgba(255,79,145,0.4);
+            transform: scale(1.2);
+        }
 
-        /* ===== HEDİYE KUTUSU ===== */
+        /* ===== HEDİYE KUTUSU (DÜZELTİLDİ) ===== */
+        .gift-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin-top: 8px;
+        }
         .gift-box {
-            width: 130px; height: 130px;
-            margin: 10px auto 20px;
+            width: 140px;
+            height: 140px;
             background: linear-gradient(145deg, #ff4f91, #cc0055);
-            border-radius: 22px 22px 12px 12px;
+            border-radius: 24px 24px 14px 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3.6rem;
+            font-size: 4.2rem;
             cursor: pointer;
             transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             box-shadow: 0 16px 50px rgba(255,79,145,0.25);
@@ -338,25 +378,42 @@
         .gift-box:hover { transform: scale(1.05) rotate(-2deg); box-shadow: 0 24px 70px rgba(255,79,145,0.4); }
         .gift-box .lid {
             position: absolute;
-            top: -16px; left: 12%; right: 12%;
-            height: 22px;
+            top: -18px;
+            left: 12%;
+            right: 12%;
+            height: 24px;
             background: linear-gradient(145deg, #ff8fab, #cc0055);
-            border-radius: 12px 12px 0 0;
+            border-radius: 14px 14px 0 0;
             transition: 0.5s ease;
         }
-        .gift-box.opened .lid { transform: translateY(-44px) rotate(10deg); }
+        .gift-box.opened .lid {
+            transform: translateY(-48px) rotate(12deg);
+        }
         .gift-box .reveal {
             position: absolute;
             inset: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.8rem;
+            font-size: 3.2rem;
             opacity: 0;
             transition: opacity 0.5s ease 0.3s;
         }
-        .gift-box.opened .reveal { opacity: 1; }
-        .surprise-message { font-size: 1.4rem; font-weight: 600; color: #ff8fab; min-height: 2.6em; margin-top: 8px; }
+        .gift-box.opened .reveal {
+            opacity: 1;
+        }
+        .surprise-message {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ff8fab;
+            min-height: 2.6em;
+            margin: 0;
+        }
+        .gift-sub {
+            font-size: 0.9rem;
+            opacity: 0.4;
+            margin-top: -4px;
+        }
 
         /* ===== KONFETİ ===== */
         .confetti-container {
@@ -380,39 +437,7 @@
             100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
         }
 
-        /* ===== FİNAL ===== */
-        .final-title {
-            font-family: 'Great Vibes', cursive;
-            font-size: clamp(3.2rem, 10vw, 5.6rem);
-            color: #ff4f91;
-        }
-        .promise-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .promise-buttons button {
-            padding: 16px 40px;
-            border: none;
-            border-radius: 60px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ff4f91, #ff8fab);
-            color: #fff;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 8px 30px rgba(255,79,145,0.3);
-            min-height: 60px;
-            min-width: 140px;
-            touch-action: manipulation;
-        }
-        .promise-buttons button:hover { transform: scale(1.06); box-shadow: 0 12px 45px rgba(255,79,145,0.5); }
-        .promise-buttons button:active { transform: scale(0.96); }
-        .final-response { margin-top: 24px; font-size: 1.4rem; font-weight: 600; color: #ff8fab; min-height: 2.4em; }
-
-        /* ===== VİDEO ALANI ===== */
+        /* ===== VİDEO ===== */
         .video-placeholder {
             width: 100%;
             aspect-ratio: 16/9;
@@ -425,6 +450,7 @@
             font-size: 1.2rem;
             color: rgba(255,255,255,0.3);
             margin: 12px 0;
+            overflow: hidden;
         }
         .video-placeholder video {
             width: 100%;
@@ -498,6 +524,38 @@
             margin-top: 4px;
         }
 
+        /* ===== FİNAL ===== */
+        .final-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3.2rem, 10vw, 5.6rem);
+            color: #ff4f91;
+        }
+        .promise-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .promise-buttons button {
+            padding: 16px 40px;
+            border: none;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff4f91, #ff8fab);
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 8px 30px rgba(255,79,145,0.3);
+            min-height: 60px;
+            min-width: 140px;
+            touch-action: manipulation;
+        }
+        .promise-buttons button:hover { transform: scale(1.06); box-shadow: 0 12px 45px rgba(255,79,145,0.5); }
+        .promise-buttons button:active { transform: scale(0.96); }
+        .final-response { margin-top: 24px; font-size: 1.4rem; font-weight: 600; color: #ff8fab; min-height: 2.4em; }
+
         /* ===== ŞİFRE PANELİ ===== */
         #passwordOverlay {
             position: fixed;
@@ -556,8 +614,11 @@
             .slider-container { max-width: 100%; aspect-ratio: 4/3; }
             .slider-btn { font-size: 1.4rem; padding: 6px 10px; }
             .slide-caption { font-size: 0.85rem; padding: 12px 12px 10px; }
-            .catch-area { height: 180px; }
-            .gift-box { width: 100px; height: 100px; font-size: 2.8rem; }
+            .catch-area { height: 220px; }
+            .catch-heart { font-size: 3.2rem; }
+            .gift-box { width: 110px; height: 110px; font-size: 3.2rem; }
+            .gift-box .lid { height: 20px; top: -14px; }
+            .gift-box.opened .lid { transform: translateY(-38px) rotate(10deg); }
             .btn { padding: 14px 32px; font-size: 1rem; min-height: 54px; min-width: 150px; }
             .promise-buttons button { padding: 14px 28px; font-size: 1rem; min-height: 54px; min-width: 120px; }
             .password-box { padding: 32px 20px; }
@@ -568,6 +629,7 @@
             .countdown-item .label { font-size: 0.5rem; letter-spacing: 0.5px; }
             .lightbox-close { top: 20px; right: 20px; font-size: 2.4rem; }
             .music-player .controls button { width: 44px; height: 44px; font-size: 1.3rem; }
+            .surprise-message { font-size: 1.2rem; }
         }
         @media (max-width: 400px) {
             .card { padding: 20px 12px; }
@@ -577,6 +639,8 @@
             .countdown-item { padding: 8px 2px; }
             .countdown-item .number { font-size: 1rem; }
             .countdown-item .label { font-size: 0.45rem; }
+            .catch-area { height: 180px; }
+            .catch-heart { font-size: 2.8rem; }
         }
     </style>
 </head>
@@ -591,7 +655,7 @@
     <!-- Konfeti kabı -->
     <div class="confetti-container" id="confettiContainer"></div>
 
-    <!-- ===== LIGHTBOX (BÜYÜTME) ===== -->
+    <!-- ===== LIGHTBOX ===== -->
     <div class="lightbox" id="lightbox">
         <button class="lightbox-close" id="lightboxClose">✕</button>
         <img id="lightboxImg" src="" alt="büyük fotoğraf" />
@@ -659,13 +723,13 @@
             </div>
         </section>
 
-        <!-- BÖLÜM 4: VİDEO ALANI (boş, sonradan ekle) -->
+        <!-- BÖLÜM 4: VİDEO -->
         <section class="section" id="video">
             <div class="card">
                 <h2 class="pink">🎬 Video Sürpriz</h2>
                 <p class="sub" style="margin-bottom:8px;">çok yakında burada bir video olacak</p>
                 <div class="video-placeholder">
-                    <video id="videoPlayer" controls style="width:100%; height:100%; object-fit:cover; border-radius:20px; background:#0a0a0a;" poster="">
+                    <video id="videoPlayer" controls style="width:100%; height:100%; border-radius:20px; background:#0a0a0a;" poster="">
                         <source src="" type="video/mp4">
                         Tarayıcınız video etiketini desteklemiyor.
                     </video>
@@ -675,7 +739,7 @@
             </div>
         </section>
 
-        <!-- BÖLÜM 5: MÜZİK ÇALAR -->
+        <!-- BÖLÜM 5: MÜZİK -->
         <section class="section" id="music">
             <div class="card">
                 <h2 class="pink">🎵 Bizim Şarkılar</h2>
@@ -711,7 +775,7 @@
             </div>
         </section>
 
-        <!-- BÖLÜM 7: DOĞUM GÜNÜ GERİ SAYIM (2 Ağustos 2026) -->
+        <!-- BÖLÜM 7: DOĞUM GÜNÜ GERİ SAYIM -->
         <section class="section" id="countdown">
             <div class="card">
                 <h2 class="pink">🎂 Doğum Gününe Kalan Süre</h2>
@@ -736,28 +800,35 @@
             </div>
         </section>
 
-        <!-- BÖLÜM 9: KALP YAKALAMA -->
+        <!-- ===== BÖLÜM 9: KALP YAKALAMA (YENİ) ===== -->
         <section class="section" id="heartCatch">
             <div class="card">
                 <h2 class="pink">💕 Kalbi Yakala</h2>
-                <p class="sub" style="font-size:0.9rem;">kalbe dokun, sürpriz açılsın</p>
-                <div class="catch-area" id="catchArea"></div>
+                <p class="sub" style="font-size:0.9rem;">kalbe tıkla, 3 kez yakalamaya çalış</p>
+                <div class="catch-area" id="catchArea">
+                    <div class="catch-heart" id="catchHeart">❤️</div>
+                </div>
                 <div class="catch-status" id="catchStatus">❤️ kalbe dokun</div>
+                <div class="catch-progress" id="catchProgress">
+                    <span></span><span></span><span></span>
+                </div>
                 <button class="btn next-btn" data-target="surprise" id="catchNextBtn" style="display:none;">Devam Et →</button>
             </div>
         </section>
 
-        <!-- BÖLÜM 10: HEDİYE KUTUSU -->
+        <!-- ===== BÖLÜM 10: HEDİYE KUTUSU (DÜZELTİLDİ) ===== -->
         <section class="section" id="surprise">
             <div class="card">
                 <h2 class="pink">🎁 Sürpriz Kutu</h2>
-                <p class="sub" style="font-size:0.9rem;">açmak için tıkla</p>
-                <div class="gift-box" id="giftBox">
-                    <div class="lid"></div>
-                    🎀
-                    <div class="reveal">🎉</div>
+                <p class="gift-sub">açmak için tıkla</p>
+                <div class="gift-section">
+                    <div class="gift-box" id="giftBox">
+                        <div class="lid"></div>
+                        🎀
+                        <div class="reveal">🎉</div>
+                    </div>
+                    <div class="surprise-message" id="surpriseMessage"></div>
                 </div>
-                <div class="surprise-message" id="surpriseMessage"></div>
                 <button class="btn next-btn" data-target="final" id="surpriseNextBtn" style="display:none;">Devam Et →</button>
             </div>
         </section>
@@ -810,7 +881,8 @@
             }
             passwordBtn.addEventListener('click', checkPassword);
             passwordInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') { e.preventDefault(); checkPassword(); }
+                if (e.key === 'Enter') { e.preventDefault();
+                    checkPassword(); }
                 if (!/^[0-9]$/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Enter' && e.key !== 'Delete' && e
                     .key !== 'ArrowLeft' && e.key !== 'ArrowRight') {
                     e.preventDefault();
@@ -877,7 +949,7 @@
 
             let currentIndex = 0;
             let slideInterval = null;
-            const AUTO_INTERVAL = 3000; // 3 saniye
+            const AUTO_INTERVAL = 3000;
 
             function buildSlides() {
                 slidesWrapper.innerHTML = '';
@@ -904,16 +976,12 @@
                     caption.className = 'slide-caption';
                     caption.textContent = item.caption;
                     slide.appendChild(caption);
-
-                    // Tıklama = lightbox aç
                     slide.addEventListener('click', function(e) {
                         e.stopPropagation();
                         const idx = parseInt(this.dataset.index);
                         openLightbox(idx);
                     });
-
                     slidesWrapper.appendChild(slide);
-
                     const dot = document.createElement('span');
                     dot.dataset.index = index;
                     dot.addEventListener('click', () => goToSlide(index));
@@ -953,7 +1021,6 @@
                     slideInterval = null; }
             }
 
-            // Lightbox
             function openLightbox(index) {
                 const slide = slidesWrapper.querySelectorAll('.slide')[index];
                 const img = slide.querySelector('img');
@@ -973,7 +1040,6 @@
                 document.body.style.overflow = '';
                 startAutoSlide();
             }
-
             lightboxClose.addEventListener('click', closeLightbox);
             lightbox.addEventListener('click', function(e) {
                 if (e.target === this) closeLightbox();
@@ -982,7 +1048,6 @@
                 if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
             });
 
-            // Butonlar
             nextBtn.addEventListener('click', () => { stopAutoSlide();
                 nextSlide();
                 startAutoSlide(); });
@@ -990,12 +1055,10 @@
                 prevSlide();
                 startAutoSlide(); });
 
-            // Mouse hover – otomatik durdur
             const sliderContainer = document.getElementById('sliderContainer');
             sliderContainer.addEventListener('mouseenter', stopAutoSlide);
             sliderContainer.addEventListener('mouseleave', startAutoSlide);
 
-            // Dokunmatik kaydırma
             let touchStartX = 0,
                 touchEndX = 0;
             sliderContainer.addEventListener('touchstart', (e) => {
@@ -1026,9 +1089,8 @@
             updateCounter();
             setInterval(updateCounter, 60000);
 
-            // ---------- DOĞUM GÜNÜ GERİ SAYIM (2 AĞUSTOS 2026) ----------
-            const birthday = new Date(2026, 7, 2); // 2 Ağustos 2026 (ay 7 = Ağustos)
-
+            // ---------- DOĞUM GÜNÜ GERİ SAYIM (2 Ağustos 2026) ----------
+            const birthday = new Date(2026, 7, 2);
             const daysEl = document.getElementById('daysLeft');
             const hoursEl = document.getElementById('hoursLeft');
             const minutesEl = document.getElementById('minutesLeft');
@@ -1045,7 +1107,6 @@
                 const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
                 daysEl.textContent = String(days).padStart(2, '0');
                 hoursEl.textContent = String(hours).padStart(2, '0');
                 minutesEl.textContent = String(minutes).padStart(2, '0');
@@ -1089,85 +1150,201 @@
             });
             letterObserver.observe(letterSection, { attributes: true, attributeFilter: ['class'] });
 
-            // ---------- KALP YAKALAMA ----------
+            // =============================================================
+            // =====  YENİ KALP YAKALAMA OYUNU  =====
+            // =============================================================
             const catchArea = document.getElementById('catchArea');
+            const catchHeart = document.getElementById('catchHeart');
             const catchStatus = document.getElementById('catchStatus');
+            const catchProgress = document.getElementById('catchProgress');
             const catchNextBtn = document.getElementById('catchNextBtn');
-            let heartsInCatch = [];
-            let heartCaught = false;
 
-            function spawnCatchHearts() {
-                catchArea.innerHTML = '';
-                heartsInCatch = [];
-                const count = 6 + Math.floor(Math.random() * 6);
-                for (let i = 0; i < count; i++) {
-                    const el = document.createElement('div');
-                    el.className = 'catch-heart';
-                    el.textContent = ['❤️', '💕', '💖', '💗', '❣️', '💓'][Math.floor(Math.random() * 6)];
-                    el.style.fontSize = (1.8 + Math.random() * 1.8) + 'rem';
-                    el.style.left = (5 + Math.random() * 85) + '%';
-                    el.style.top = (5 + Math.random() * 85) + '%';
-                    el.style.animationDelay = (Math.random() * 2) + 's';
-                    el.style.animationDuration = (2.2 + Math.random() * 1.8) + 's';
-                    el.dataset.caught = 'false';
-                    catchArea.appendChild(el);
-                    heartsInCatch.push(el);
-                }
-            }
+            let heartCaughtCount = 0;
+            let isMoving = false;
+            let moveInterval = null;
+            let isCaught = false;
+            let canCatch = true;
+            let position = { x: 0, y: 0 };
 
-            function handleCatch(e) {
-                if (heartCaught) return;
-                let clientX, clientY;
-                if (e.touches) {
-                    clientX = e.touches[0].clientX;
-                    clientY = e.touches[0].clientY;
-                    e.preventDefault();
-                } else {
-                    clientX = e.clientX;
-                    clientY = e.clientY;
-                }
+            // Başlangıç pozisyonu
+            function setRandomPosition() {
                 const rect = catchArea.getBoundingClientRect();
-                const x = clientX - rect.left;
-                const y = clientY - rect.top;
-
-                for (const heart of heartsInCatch) {
-                    if (heart.dataset.caught === 'true') continue;
-                    const hRect = heart.getBoundingClientRect();
-                    const hx = hRect.left - rect.left + hRect.width / 2;
-                    const hy = hRect.top - rect.top + hRect.height / 2;
-                    if (Math.hypot(x - hx, y - hy) < 50) {
-                        heart.dataset.caught = 'true';
-                        heart.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-                        heart.style.transform = 'scale(2) rotate(20deg)';
-                        heart.style.opacity = '0';
-                        heartCaught = true;
-                        catchStatus.textContent = '💥 Başardın! ❤️';
-                        catchStatus.className = 'catch-status success';
-                        catchNextBtn.style.display = 'inline-block';
-                        break;
-                    }
-                }
+                const areaW = catchArea.clientWidth;
+                const areaH = catchArea.clientHeight;
+                const heartSize = 60; // yaklaşık
+                const maxX = areaW - heartSize - 10;
+                const maxY = areaH - heartSize - 10;
+                const x = 10 + Math.random() * maxX;
+                const y = 10 + Math.random() * maxY;
+                position.x = x;
+                position.y = y;
+                catchHeart.style.left = x + 'px';
+                catchHeart.style.top = y + 'px';
             }
 
-            catchArea.addEventListener('click', handleCatch);
-            catchArea.addEventListener('touchstart', handleCatch, { passive: false });
+            // Yavaşça rastgele hareket et
+            function startMoving() {
+                if (moveInterval) clearInterval(moveInterval);
+                isMoving = true;
+                moveInterval = setInterval(() => {
+                    if (isCaught) return;
+                    const rect = catchArea.getBoundingClientRect();
+                    const areaW = catchArea.clientWidth;
+                    const areaH = catchArea.clientHeight;
+                    const heartSize = 60;
+                    const maxX = areaW - heartSize - 10;
+                    const maxY = areaH - heartSize - 10;
+                    // Küçük adımlarla rastgele yürü
+                    const stepX = (Math.random() - 0.5) * 30;
+                    const stepY = (Math.random() - 0.5) * 30;
+                    let newX = position.x + stepX;
+                    let newY = position.y + stepY;
+                    newX = Math.max(5, Math.min(maxX, newX));
+                    newY = Math.max(5, Math.min(maxY, newY));
+                    position.x = newX;
+                    position.y = newY;
+                    catchHeart.style.left = newX + 'px';
+                    catchHeart.style.top = newY + 'px';
+                }, 400);
+            }
 
-            const catchSection = document.getElementById('heartCatch');
-            const catchObserver = new MutationObserver(() => {
-                if (catchSection.classList.contains('active') && !heartCaught) {
-                    spawnCatchHearts();
-                    catchStatus.textContent = '❤️ kalbe dokun';
-                    catchStatus.className = 'catch-status';
-                    catchNextBtn.style.display = 'none';
+            // Kalbe tıklanınca kaçış (ivmeli)
+            function handleHeartClick(e) {
+                e.stopPropagation();
+                if (isCaught || !canCatch) return;
+                // Kaçış animasyonu – 3 adımda hızla kaçar
+                canCatch = false;
+                const rect = catchArea.getBoundingClientRect();
+                const areaW = catchArea.clientWidth;
+                const areaH = catchArea.clientHeight;
+                const heartSize = 60;
+                const maxX = areaW - heartSize - 10;
+                const maxY = areaH - heartSize - 10;
+
+                // Hızlı kaçış: 3 sıçrama
+                let jumpCount = 0;
+                const jumpInterval = setInterval(() => {
+                    if (jumpCount >= 3) {
+                        clearInterval(jumpInterval);
+                        canCatch = true;
+                        // Eğer 3. vuruşta yakalanmadıysa, durumu sıfırla ama sayıyı artırma
+                        if (!isCaught) {
+                            // yakalanmadı ama tıklama sayılmadı
+                            catchStatus.textContent = '❤️ tekrar dene!';
+                        }
+                        return;
+                    }
+                    // Rastgele büyük sıçrama
+                    const stepX = (Math.random() - 0.5) * 120;
+                    const stepY = (Math.random() - 0.5) * 120;
+                    let newX = position.x + stepX;
+                    let newY = position.y + stepY;
+                    newX = Math.max(5, Math.min(maxX, newX));
+                    newY = Math.max(5, Math.min(maxY, newY));
+                    position.x = newX;
+                    position.y = newY;
+                    catchHeart.style.left = newX + 'px';
+                    catchHeart.style.top = newY + 'px';
+                    jumpCount++;
+                }, 120);
+
+                // Eğer bu 3. başarılı yakalama ise (tıklama sayısı 3'e ulaştıysa) başarılı say
+                // Ama burada tıklama sayısını artırmak için ayrı bir mantık: tıkladığında sayacı artır, 3 olunca başarılı.
+                // Ancak bu fonksiyon sadece kaçışı yönetir, sayacı dışarıda artıracağız.
+            }
+
+            // Tıklama olayını yönet (kalbe değil, alana tıklama)
+            catchArea.addEventListener('click', function(e) {
+                // Eğer tıklanan kalp ise, kalbin kendi handler'ı çalışır
+                // Ama biz kalbe tıklamayı ayrıca yakalıyoruz.
+            });
+
+            // Kalp üzerine tıklama
+            catchHeart.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (isCaught || !canCatch) return;
+                // Başarılı tıklama – sayacı artır
+                heartCaughtCount++;
+                // Progress güncelle
+                const dots = catchProgress.querySelectorAll('span');
+                dots.forEach((dot, i) => {
+                    if (i < heartCaughtCount) dot.classList.add('done');
+                });
+
+                if (heartCaughtCount >= 3) {
+                    // Oyun bitti
+                    isCaught = true;
+                    catchStatus.textContent = '💥 Başardın! ❤️';
+                    catchStatus.className = 'catch-status success';
+                    catchHeart.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+                    catchHeart.style.transform = 'scale(0)';
+                    catchHeart.style.opacity = '0';
+                    catchNextBtn.style.display = 'inline-block';
+                    if (moveInterval) clearInterval(moveInterval);
+                    // Hediye kutusu aktif et
+                    enableGiftBox();
+                    return;
+                }
+
+                // Tıklama başarılı, kaçış başlat
+                catchStatus.textContent = `❤️ ${heartCaughtCount}/3 yakalandı!`;
+                handleHeartClick(e);
+            });
+
+            // Dokunmatik için
+            catchHeart.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                this.click();
+            }, { passive: false });
+
+            // Oyunu başlat
+            function startHeartGame() {
+                heartCaughtCount = 0;
+                isCaught = false;
+                canCatch = true;
+                catchHeart.style.transition = 'none';
+                catchHeart.style.transform = 'scale(1)';
+                catchHeart.style.opacity = '1';
+                catchHeart.style.display = 'block';
+                const dots = catchProgress.querySelectorAll('span');
+                dots.forEach(d => d.classList.remove('done'));
+                catchStatus.textContent = '❤️ kalbe dokun';
+                catchStatus.className = 'catch-status';
+                catchNextBtn.style.display = 'none';
+                setRandomPosition();
+                startMoving();
+            }
+
+            // Kalp yakalama bölümü aktif olduğunda oyunu başlat
+            const heartSection = document.getElementById('heartCatch');
+            const heartObserver = new MutationObserver(() => {
+                if (heartSection.classList.contains('active') && !isCaught) {
+                    startHeartGame();
                 }
             });
-            catchObserver.observe(catchSection, { attributes: true, attributeFilter: ['class'] });
+            heartObserver.observe(heartSection, { attributes: true, attributeFilter: ['class'] });
 
-            // ---------- HEDİYE KUTUSU ----------
+            // İlk yüklemede çalıştırmak için
+            setTimeout(() => {
+                if (heartSection.classList.contains('active')) startHeartGame();
+            }, 500);
+
+            // ---------- HEDİYE KUTUSU (DÜZELTİLDİ) ----------
             const giftBox = document.getElementById('giftBox');
             const surpriseMsg = document.getElementById('surpriseMessage');
             const surpriseNextBtn = document.getElementById('surpriseNextBtn');
             let giftOpened = false;
+
+            function enableGiftBox() {
+                giftBox.style.cursor = 'pointer';
+                if (!giftOpened) {
+                    giftBox.addEventListener('click', openGift);
+                    giftBox.addEventListener('touchstart', function(e) {
+                        e.preventDefault();
+                        openGift();
+                    }, { passive: false });
+                }
+            }
 
             function openGift() {
                 if (giftOpened) return;
@@ -1179,19 +1356,17 @@
                 spawnHeartExplosion();
             }
 
-            giftBox.addEventListener('click', () => {
-                if (!heartCaught) {
-                    surpriseMsg.textContent = '💕 önce kalbi yakala!';
-                    setTimeout(() => { surpriseMsg.textContent = ''; }, 1500);
-                } else if (!giftOpened) { openGift(); }
+            // Başlangıçta kutu pasif
+            giftBox.style.cursor = 'default';
+            // Kutuya tıklama kontrolü (sadece oyun kazanıldıysa çalışır)
+            giftBox.addEventListener('click', function() {
+                if (!giftOpened && heartCaughtCount >= 3) {
+                    openGift();
+                } else if (!giftOpened) {
+                    surpriseMsg.textContent = '💕 önce kalbi yakala! (3 kez)';
+                    setTimeout(() => { if (!giftOpened) surpriseMsg.textContent = ''; }, 1500);
+                }
             });
-            giftBox.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                if (!heartCaught) {
-                    surpriseMsg.textContent = '💕 önce kalbi yakala!';
-                    setTimeout(() => { surpriseMsg.textContent = ''; }, 1500);
-                } else if (!giftOpened) { openGift(); }
-            }, { passive: false });
 
             // ---------- KALP PATLAMASI ----------
             function spawnHeartExplosion() {
@@ -1254,7 +1429,6 @@
             }
 
             // ---------- MÜZİK ÇALAR ----------
-            // ★★★ Şarkılarını music/ klasörüne koy ve buraya ekle ★★★
             const playlist = [
                 { name: 'Şarkı 1', file: 'music/sarki1.mp3' },
                 { name: 'Şarkı 2', file: 'music/sarki2.mp3' },
@@ -1313,7 +1487,6 @@
                 if (isPlaying) { audio.play().catch(() => {}); }
             }
 
-            // Olay dinleyicileri
             playBtn.addEventListener('click', togglePlay);
             prevTrackBtn.addEventListener('click', playPrev);
             nextTrackBtn.addEventListener('click', playNext);
@@ -1326,12 +1499,9 @@
                     totalTimeEl.textContent = formatTime(this.duration);
                 }
             });
-
             audio.addEventListener('ended', function() {
                 playNext();
             });
-
-            // Progress bar tıklama
             progressBar.addEventListener('click', function(e) {
                 const rect = this.getBoundingClientRect();
                 const x = (e.clientX - rect.left) / rect.width;
@@ -1346,8 +1516,6 @@
                 const s = Math.floor(secs % 60);
                 return m + ':' + (s < 10 ? '0' : '') + s;
             }
-
-            // İlk şarkıyı yükle (ama oynatma)
             loadTrack(0);
             audio.preload = 'metadata';
 
@@ -1377,7 +1545,7 @@
             console.log('🎵 Şarkılarını music/ klasörüne sarki1.mp3, sarki2.mp3, sarki3.mp3 diye ekle ve playlist\'i güncelle.');
             console.log('📅 Doğum günü tarihi: 2 Ağustos 2026 (birthday değişkeninden değiştir).');
             console.log('🔑 Şifre: 0335 (PASSWORD değişkeninden değiştir).');
-            console.log('🖼️ Fotoğrafa tıklayınca büyütme (lightbox) açılır, slayt otomatik durur.');
+            console.log('❤️ Yeni kalp oyunu: tek kalp, 3 kez tıklanınca başarılı, her tıklamada kaçar.');
 
         })();
     </script>
