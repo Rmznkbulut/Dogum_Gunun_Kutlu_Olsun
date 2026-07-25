@@ -291,150 +291,25 @@
         }
         @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
 
-        /* ===== YENİ KALP YAKALAMA OYUNU ===== */
-        .catch-area {
+        /* ===== OYUN (iframe) ===== */
+        .game-frame {
             position: relative;
             width: 100%;
-            max-width: 400px;
-            height: 280px;
-            margin: 16px auto 0;
-            border-radius: 28px;
-            background: rgba(255,255,255,0.03);
-            border: 1px dashed rgba(255,79,145,0.25);
+            max-width: 600px;
+            margin: 12px auto 0;
+            aspect-ratio: 1 / 1;
+            border-radius: 24px;
             overflow: hidden;
-            touch-action: none;
-            cursor: pointer;
-            -webkit-user-select: none;
-            user-select: none;
+            border: 1px solid rgba(255,255,255,0.06);
+            background: #0a0a0a;
         }
-        .catch-heart {
+        .game-frame iframe {
             position: absolute;
-            font-size: 3.8rem;
-            user-select: none;
-            pointer-events: none;
-            filter: drop-shadow(0 4px 30px rgba(255,79,145,0.5));
-            transition: transform 0.2s ease-out, left 0.2s ease-out, top 0.2s ease-out;
-            cursor: pointer;
-        }
-        .catch-heart.caught {
-            transform: scale(0);
-            opacity: 0;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-        .catch-status {
-            margin-top: 16px;
-            font-size: 1.1rem;
-            opacity: 0.6;
-            min-height: 2.4em;
-            transition: 0.3s;
-        }
-        .catch-status.success {
-            opacity: 1;
-            color: #ff4f91;
-            font-weight: 600;
-        }
-        .catch-progress {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 10px;
-        }
-        .catch-progress span {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.15);
-            transition: 0.3s;
-        }
-        .catch-progress span.done {
-            background: #ff4f91;
-            box-shadow: 0 0 20px rgba(255,79,145,0.4);
-            transform: scale(1.2);
-        }
-
-        /* ===== HEDİYE KUTUSU (DÜZELTİLDİ) ===== */
-        .gift-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            margin-top: 8px;
-        }
-        .gift-box {
-            width: 140px;
-            height: 140px;
-            background: linear-gradient(145deg, #ff4f91, #cc0055);
-            border-radius: 24px 24px 14px 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4.2rem;
-            cursor: pointer;
-            transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 16px 50px rgba(255,79,145,0.25);
-            position: relative;
-            touch-action: manipulation;
-        }
-        .gift-box:hover { transform: scale(1.05) rotate(-2deg); box-shadow: 0 24px 70px rgba(255,79,145,0.4); }
-        .gift-box .lid {
-            position: absolute;
-            top: -18px;
-            left: 12%;
-            right: 12%;
-            height: 24px;
-            background: linear-gradient(145deg, #ff8fab, #cc0055);
-            border-radius: 14px 14px 0 0;
-            transition: 0.5s ease;
-        }
-        .gift-box.opened .lid {
-            transform: translateY(-48px) rotate(12deg);
-        }
-        .gift-box .reveal {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.2rem;
-            opacity: 0;
-            transition: opacity 0.5s ease 0.3s;
-        }
-        .gift-box.opened .reveal {
-            opacity: 1;
-        }
-        .surprise-message {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #ff8fab;
-            min-height: 2.6em;
-            margin: 0;
-        }
-        .gift-sub {
-            font-size: 0.9rem;
-            opacity: 0.4;
-            margin-top: -4px;
-        }
-
-        /* ===== KONFETİ ===== */
-        .confetti-container {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            pointer-events: none;
-            overflow: hidden;
-            display: none;
-        }
-        .confetti-container.active { display: block; }
-        .confetti-piece {
-            position: absolute;
-            width: 10px; height: 6px;
-            top: -20px;
-            border-radius: 2px;
-            animation: confettiFall linear forwards;
-        }
-        @keyframes confettiFall {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
         /* ===== VİDEO ===== */
@@ -556,6 +431,28 @@
         .promise-buttons button:active { transform: scale(0.96); }
         .final-response { margin-top: 24px; font-size: 1.4rem; font-weight: 600; color: #ff8fab; min-height: 2.4em; }
 
+        /* ===== KONFETİ ===== */
+        .confetti-container {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            overflow: hidden;
+            display: none;
+        }
+        .confetti-container.active { display: block; }
+        .confetti-piece {
+            position: absolute;
+            width: 10px; height: 6px;
+            top: -20px;
+            border-radius: 2px;
+            animation: confettiFall linear forwards;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
         /* ===== ŞİFRE PANELİ ===== */
         #passwordOverlay {
             position: fixed;
@@ -614,11 +511,6 @@
             .slider-container { max-width: 100%; aspect-ratio: 4/3; }
             .slider-btn { font-size: 1.4rem; padding: 6px 10px; }
             .slide-caption { font-size: 0.85rem; padding: 12px 12px 10px; }
-            .catch-area { height: 220px; }
-            .catch-heart { font-size: 3.2rem; }
-            .gift-box { width: 110px; height: 110px; font-size: 3.2rem; }
-            .gift-box .lid { height: 20px; top: -14px; }
-            .gift-box.opened .lid { transform: translateY(-38px) rotate(10deg); }
             .btn { padding: 14px 32px; font-size: 1rem; min-height: 54px; min-width: 150px; }
             .promise-buttons button { padding: 14px 28px; font-size: 1rem; min-height: 54px; min-width: 120px; }
             .password-box { padding: 32px 20px; }
@@ -629,7 +521,7 @@
             .countdown-item .label { font-size: 0.5rem; letter-spacing: 0.5px; }
             .lightbox-close { top: 20px; right: 20px; font-size: 2.4rem; }
             .music-player .controls button { width: 44px; height: 44px; font-size: 1.3rem; }
-            .surprise-message { font-size: 1.2rem; }
+            .game-frame { aspect-ratio: 1 / 1; max-width: 100%; }
         }
         @media (max-width: 400px) {
             .card { padding: 20px 12px; }
@@ -639,8 +531,6 @@
             .countdown-item { padding: 8px 2px; }
             .countdown-item .number { font-size: 1rem; }
             .countdown-item .label { font-size: 0.45rem; }
-            .catch-area { height: 180px; }
-            .catch-heart { font-size: 2.8rem; }
         }
     </style>
 </head>
@@ -796,44 +686,28 @@
             <div class="card">
                 <h2 class="pink" style="font-family:'Great Vibes',cursive; font-size:2.8rem;">Sana Mektup</h2>
                 <div id="letterContent"><span class="cursor-blink"></span></div>
-                <button class="btn next-btn" data-target="heartCatch">Devam Et →</button>
+                <button class="btn next-btn" data-target="memoryGame">Devam Et →</button>
             </div>
         </section>
 
-        <!-- ===== BÖLÜM 9: KALP YAKALAMA (YENİ) ===== -->
-        <section class="section" id="heartCatch">
+        <!-- ===== BÖLÜM 9: EŞLEŞTİRME OYUNU (iframe) ===== -->
+        <section class="section" id="memoryGame">
             <div class="card">
-                <h2 class="pink">💕 Kalbi Yakala</h2>
-                <p class="sub" style="font-size:0.9rem;">kalbe tıkla, 3 kez yakalamaya çalış</p>
-                <div class="catch-area" id="catchArea">
-                    <div class="catch-heart" id="catchHeart">❤️</div>
+                <h2 class="pink">💕 Eşleştirme Oyunu</h2>
+                <p class="sub" style="margin-bottom:12px;">tüm çiftleri eşleştir, sürpriz açılsın</p>
+                <div class="game-frame">
+                    <iframe 
+                        src="https://valentines-proposal-visibait.vercel.app" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        loading="lazy">
+                    </iframe>
                 </div>
-                <div class="catch-status" id="catchStatus">❤️ kalbe dokun</div>
-                <div class="catch-progress" id="catchProgress">
-                    <span></span><span></span><span></span>
-                </div>
-                <button class="btn next-btn" data-target="surprise" id="catchNextBtn" style="display:none;">Devam Et →</button>
+                <button class="btn next-btn" data-target="final" style="margin-top:20px;">Devam Et →</button>
             </div>
         </section>
 
-        <!-- ===== BÖLÜM 10: HEDİYE KUTUSU (DÜZELTİLDİ) ===== -->
-        <section class="section" id="surprise">
-            <div class="card">
-                <h2 class="pink">🎁 Sürpriz Kutu</h2>
-                <p class="gift-sub">açmak için tıkla</p>
-                <div class="gift-section">
-                    <div class="gift-box" id="giftBox">
-                        <div class="lid"></div>
-                        🎀
-                        <div class="reveal">🎉</div>
-                    </div>
-                    <div class="surprise-message" id="surpriseMessage"></div>
-                </div>
-                <button class="btn next-btn" data-target="final" id="surpriseNextBtn" style="display:none;">Devam Et →</button>
-            </div>
-        </section>
-
-        <!-- BÖLÜM 11: FİNAL -->
+        <!-- BÖLÜM 10: FİNAL -->
         <section class="section" id="final">
             <div class="card">
                 <div class="final-title">Seni Seviyorum</div>
@@ -1150,225 +1024,33 @@
             });
             letterObserver.observe(letterSection, { attributes: true, attributeFilter: ['class'] });
 
-            // =============================================================
-            // =====  YENİ KALP YAKALAMA OYUNU  =====
-            // =============================================================
-            const catchArea = document.getElementById('catchArea');
-            const catchHeart = document.getElementById('catchHeart');
-            const catchStatus = document.getElementById('catchStatus');
-            const catchProgress = document.getElementById('catchProgress');
-            const catchNextBtn = document.getElementById('catchNextBtn');
+            // ---------- KONFETİ ----------
+            const confettiContainer = document.getElementById('confettiContainer');
 
-            let heartCaughtCount = 0;
-            let isMoving = false;
-            let moveInterval = null;
-            let isCaught = false;
-            let canCatch = true;
-            let position = { x: 0, y: 0 };
-
-            // Başlangıç pozisyonu
-            function setRandomPosition() {
-                const rect = catchArea.getBoundingClientRect();
-                const areaW = catchArea.clientWidth;
-                const areaH = catchArea.clientHeight;
-                const heartSize = 60; // yaklaşık
-                const maxX = areaW - heartSize - 10;
-                const maxY = areaH - heartSize - 10;
-                const x = 10 + Math.random() * maxX;
-                const y = 10 + Math.random() * maxY;
-                position.x = x;
-                position.y = y;
-                catchHeart.style.left = x + 'px';
-                catchHeart.style.top = y + 'px';
-            }
-
-            // Yavaşça rastgele hareket et
-            function startMoving() {
-                if (moveInterval) clearInterval(moveInterval);
-                isMoving = true;
-                moveInterval = setInterval(() => {
-                    if (isCaught) return;
-                    const rect = catchArea.getBoundingClientRect();
-                    const areaW = catchArea.clientWidth;
-                    const areaH = catchArea.clientHeight;
-                    const heartSize = 60;
-                    const maxX = areaW - heartSize - 10;
-                    const maxY = areaH - heartSize - 10;
-                    // Küçük adımlarla rastgele yürü
-                    const stepX = (Math.random() - 0.5) * 30;
-                    const stepY = (Math.random() - 0.5) * 30;
-                    let newX = position.x + stepX;
-                    let newY = position.y + stepY;
-                    newX = Math.max(5, Math.min(maxX, newX));
-                    newY = Math.max(5, Math.min(maxY, newY));
-                    position.x = newX;
-                    position.y = newY;
-                    catchHeart.style.left = newX + 'px';
-                    catchHeart.style.top = newY + 'px';
-                }, 400);
-            }
-
-            // Kalbe tıklanınca kaçış (ivmeli)
-            function handleHeartClick(e) {
-                e.stopPropagation();
-                if (isCaught || !canCatch) return;
-                // Kaçış animasyonu – 3 adımda hızla kaçar
-                canCatch = false;
-                const rect = catchArea.getBoundingClientRect();
-                const areaW = catchArea.clientWidth;
-                const areaH = catchArea.clientHeight;
-                const heartSize = 60;
-                const maxX = areaW - heartSize - 10;
-                const maxY = areaH - heartSize - 10;
-
-                // Hızlı kaçış: 3 sıçrama
-                let jumpCount = 0;
-                const jumpInterval = setInterval(() => {
-                    if (jumpCount >= 3) {
-                        clearInterval(jumpInterval);
-                        canCatch = true;
-                        // Eğer 3. vuruşta yakalanmadıysa, durumu sıfırla ama sayıyı artırma
-                        if (!isCaught) {
-                            // yakalanmadı ama tıklama sayılmadı
-                            catchStatus.textContent = '❤️ tekrar dene!';
-                        }
-                        return;
-                    }
-                    // Rastgele büyük sıçrama
-                    const stepX = (Math.random() - 0.5) * 120;
-                    const stepY = (Math.random() - 0.5) * 120;
-                    let newX = position.x + stepX;
-                    let newY = position.y + stepY;
-                    newX = Math.max(5, Math.min(maxX, newX));
-                    newY = Math.max(5, Math.min(maxY, newY));
-                    position.x = newX;
-                    position.y = newY;
-                    catchHeart.style.left = newX + 'px';
-                    catchHeart.style.top = newY + 'px';
-                    jumpCount++;
-                }, 120);
-
-                // Eğer bu 3. başarılı yakalama ise (tıklama sayısı 3'e ulaştıysa) başarılı say
-                // Ama burada tıklama sayısını artırmak için ayrı bir mantık: tıkladığında sayacı artır, 3 olunca başarılı.
-                // Ancak bu fonksiyon sadece kaçışı yönetir, sayacı dışarıda artıracağız.
-            }
-
-            // Tıklama olayını yönet (kalbe değil, alana tıklama)
-            catchArea.addEventListener('click', function(e) {
-                // Eğer tıklanan kalp ise, kalbin kendi handler'ı çalışır
-                // Ama biz kalbe tıklamayı ayrıca yakalıyoruz.
-            });
-
-            // Kalp üzerine tıklama
-            catchHeart.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (isCaught || !canCatch) return;
-                // Başarılı tıklama – sayacı artır
-                heartCaughtCount++;
-                // Progress güncelle
-                const dots = catchProgress.querySelectorAll('span');
-                dots.forEach((dot, i) => {
-                    if (i < heartCaughtCount) dot.classList.add('done');
-                });
-
-                if (heartCaughtCount >= 3) {
-                    // Oyun bitti
-                    isCaught = true;
-                    catchStatus.textContent = '💥 Başardın! ❤️';
-                    catchStatus.className = 'catch-status success';
-                    catchHeart.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
-                    catchHeart.style.transform = 'scale(0)';
-                    catchHeart.style.opacity = '0';
-                    catchNextBtn.style.display = 'inline-block';
-                    if (moveInterval) clearInterval(moveInterval);
-                    // Hediye kutusu aktif et
-                    enableGiftBox();
-                    return;
+            function startConfetti(durationSec = 4) {
+                confettiContainer.innerHTML = '';
+                confettiContainer.classList.add('active');
+                const colors = ['#ff4f91', '#ff8fab', '#ffb3c6', '#ff85a1', '#ffd1dc', '#ff4d6d', '#ff2d55'];
+                const count = 120;
+                for (let i = 0; i < count; i++) {
+                    const piece = document.createElement('div');
+                    piece.className = 'confetti-piece';
+                    piece.style.left = Math.random() * 100 + '%';
+                    piece.style.width = (6 + Math.random() * 10) + 'px';
+                    piece.style.height = (4 + Math.random() * 8) + 'px';
+                    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    piece.style.animationDuration = (2 + Math.random() * 3) + 's';
+                    piece.style.animationDelay = (Math.random() * 2) + 's';
+                    piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    confettiContainer.appendChild(piece);
                 }
-
-                // Tıklama başarılı, kaçış başlat
-                catchStatus.textContent = `❤️ ${heartCaughtCount}/3 yakalandı!`;
-                handleHeartClick(e);
-            });
-
-            // Dokunmatik için
-            catchHeart.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                this.click();
-            }, { passive: false });
-
-            // Oyunu başlat
-            function startHeartGame() {
-                heartCaughtCount = 0;
-                isCaught = false;
-                canCatch = true;
-                catchHeart.style.transition = 'none';
-                catchHeart.style.transform = 'scale(1)';
-                catchHeart.style.opacity = '1';
-                catchHeart.style.display = 'block';
-                const dots = catchProgress.querySelectorAll('span');
-                dots.forEach(d => d.classList.remove('done'));
-                catchStatus.textContent = '❤️ kalbe dokun';
-                catchStatus.className = 'catch-status';
-                catchNextBtn.style.display = 'none';
-                setRandomPosition();
-                startMoving();
+                setTimeout(() => {
+                    confettiContainer.classList.remove('active');
+                    confettiContainer.innerHTML = '';
+                }, durationSec * 1000 + 500);
             }
 
-            // Kalp yakalama bölümü aktif olduğunda oyunu başlat
-            const heartSection = document.getElementById('heartCatch');
-            const heartObserver = new MutationObserver(() => {
-                if (heartSection.classList.contains('active') && !isCaught) {
-                    startHeartGame();
-                }
-            });
-            heartObserver.observe(heartSection, { attributes: true, attributeFilter: ['class'] });
-
-            // İlk yüklemede çalıştırmak için
-            setTimeout(() => {
-                if (heartSection.classList.contains('active')) startHeartGame();
-            }, 500);
-
-            // ---------- HEDİYE KUTUSU (DÜZELTİLDİ) ----------
-            const giftBox = document.getElementById('giftBox');
-            const surpriseMsg = document.getElementById('surpriseMessage');
-            const surpriseNextBtn = document.getElementById('surpriseNextBtn');
-            let giftOpened = false;
-
-            function enableGiftBox() {
-                giftBox.style.cursor = 'pointer';
-                if (!giftOpened) {
-                    giftBox.addEventListener('click', openGift);
-                    giftBox.addEventListener('touchstart', function(e) {
-                        e.preventDefault();
-                        openGift();
-                    }, { passive: false });
-                }
-            }
-
-            function openGift() {
-                if (giftOpened) return;
-                giftOpened = true;
-                giftBox.classList.add('opened');
-                surpriseMsg.textContent = '🎂 İyi ki doğdun! 🎂';
-                surpriseNextBtn.style.display = 'inline-block';
-                startConfetti(5);
-                spawnHeartExplosion();
-            }
-
-            // Başlangıçta kutu pasif
-            giftBox.style.cursor = 'default';
-            // Kutuya tıklama kontrolü (sadece oyun kazanıldıysa çalışır)
-            giftBox.addEventListener('click', function() {
-                if (!giftOpened && heartCaughtCount >= 3) {
-                    openGift();
-                } else if (!giftOpened) {
-                    surpriseMsg.textContent = '💕 önce kalbi yakala! (3 kez)';
-                    setTimeout(() => { if (!giftOpened) surpriseMsg.textContent = ''; }, 1500);
-                }
-            });
-
-            // ---------- KALP PATLAMASI ----------
+            // ---------- KALP PATLAMASI (final için) ----------
             function spawnHeartExplosion() {
                 const emojis = ['❤️', '💖', '💕', '💗', '❣️', '💓', '💘', '💝'];
                 for (let i = 0; i < 32; i++) {
@@ -1400,32 +1082,6 @@
                         setTimeout(() => el.remove(), 600);
                     }, 1200 + Math.random() * 400);
                 }
-            }
-
-            // ---------- KONFETİ ----------
-            const confettiContainer = document.getElementById('confettiContainer');
-
-            function startConfetti(durationSec = 4) {
-                confettiContainer.innerHTML = '';
-                confettiContainer.classList.add('active');
-                const colors = ['#ff4f91', '#ff8fab', '#ffb3c6', '#ff85a1', '#ffd1dc', '#ff4d6d', '#ff2d55'];
-                const count = 120;
-                for (let i = 0; i < count; i++) {
-                    const piece = document.createElement('div');
-                    piece.className = 'confetti-piece';
-                    piece.style.left = Math.random() * 100 + '%';
-                    piece.style.width = (6 + Math.random() * 10) + 'px';
-                    piece.style.height = (4 + Math.random() * 8) + 'px';
-                    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-                    piece.style.animationDuration = (2 + Math.random() * 3) + 's';
-                    piece.style.animationDelay = (Math.random() * 2) + 's';
-                    piece.style.transform = `rotate(${Math.random() * 360}deg)`;
-                    confettiContainer.appendChild(piece);
-                }
-                setTimeout(() => {
-                    confettiContainer.classList.remove('active');
-                    confettiContainer.innerHTML = '';
-                }, durationSec * 1000 + 500);
             }
 
             // ---------- MÜZİK ÇALAR ----------
@@ -1545,7 +1201,7 @@
             console.log('🎵 Şarkılarını music/ klasörüne sarki1.mp3, sarki2.mp3, sarki3.mp3 diye ekle ve playlist\'i güncelle.');
             console.log('📅 Doğum günü tarihi: 2 Ağustos 2026 (birthday değişkeninden değiştir).');
             console.log('🔑 Şifre: 0335 (PASSWORD değişkeninden değiştir).');
-            console.log('❤️ Yeni kalp oyunu: tek kalp, 3 kez tıklanınca başarılı, her tıklamada kaçar.');
+            console.log('🎮 Eşleştirme oyunu iframe ile eklendi: https://valentines-proposal-visibait.vercel.app');
 
         })();
     </script>
