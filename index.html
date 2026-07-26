@@ -166,7 +166,7 @@
         }
         .slider-dots span.active { background: #ff4f91; transform: scale(1.2); }
 
-        /* ===== LIGHTBOX (BÜYÜTME) ===== */
+        /* ===== LIGHTBOX ===== */
         .lightbox {
             position: fixed;
             inset: 0;
@@ -291,27 +291,6 @@
         }
         @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
 
-        /* ===== OYUN (iframe) ===== */
-        .game-frame {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin: 12px auto 0;
-            aspect-ratio: 1 / 1;
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.06);
-            background: #0a0a0a;
-        }
-        .game-frame iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
         /* ===== VİDEO ===== */
         .video-placeholder {
             width: 100%;
@@ -431,28 +410,6 @@
         .promise-buttons button:active { transform: scale(0.96); }
         .final-response { margin-top: 24px; font-size: 1.4rem; font-weight: 600; color: #ff8fab; min-height: 2.4em; }
 
-        /* ===== KONFETİ ===== */
-        .confetti-container {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            pointer-events: none;
-            overflow: hidden;
-            display: none;
-        }
-        .confetti-container.active { display: block; }
-        .confetti-piece {
-            position: absolute;
-            width: 10px; height: 6px;
-            top: -20px;
-            border-radius: 2px;
-            animation: confettiFall linear forwards;
-        }
-        @keyframes confettiFall {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-        }
-
         /* ===== ŞİFRE PANELİ ===== */
         #passwordOverlay {
             position: fixed;
@@ -505,6 +462,28 @@
         .password-input-group .error-msg { color: #ff4f91; font-size: 0.85rem; min-height: 1.8em; opacity: 0.8; }
         .password-input-group .btn { margin-top: 8px; min-width: 140px; }
 
+        /* ===== KONFETİ ===== */
+        .confetti-container {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            overflow: hidden;
+            display: none;
+        }
+        .confetti-container.active { display: block; }
+        .confetti-piece {
+            position: absolute;
+            width: 10px; height: 6px;
+            top: -20px;
+            border-radius: 2px;
+            animation: confettiFall linear forwards;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
         /* ===== MOBİL ===== */
         @media (max-width: 600px) {
             .card { padding: 28px 16px; }
@@ -521,7 +500,6 @@
             .countdown-item .label { font-size: 0.5rem; letter-spacing: 0.5px; }
             .lightbox-close { top: 20px; right: 20px; font-size: 2.4rem; }
             .music-player .controls button { width: 44px; height: 44px; font-size: 1.3rem; }
-            .game-frame { aspect-ratio: 1 / 1; max-width: 100%; }
         }
         @media (max-width: 400px) {
             .card { padding: 20px 12px; }
@@ -597,7 +575,7 @@
             </div>
         </section>
 
-        <!-- BÖLÜM 3: GALERİ (SLAYT) -->
+        <!-- BÖLÜM 3: GALERİ -->
         <section class="section" id="gallery">
             <div class="card">
                 <h2 class="pink">📸 Anılar</h2>
@@ -686,28 +664,11 @@
             <div class="card">
                 <h2 class="pink" style="font-family:'Great Vibes',cursive; font-size:2.8rem;">Sana Mektup</h2>
                 <div id="letterContent"><span class="cursor-blink"></span></div>
-                <button class="btn next-btn" data-target="memoryGame">Devam Et →</button>
+                <button class="btn next-btn" data-target="final">Devam Et →</button>
             </div>
         </section>
 
-        <!-- ===== BÖLÜM 9: EŞLEŞTİRME OYUNU (iframe) ===== -->
-        <section class="section" id="memoryGame">
-            <div class="card">
-                <h2 class="pink">💕 Eşleştirme Oyunu</h2>
-                <p class="sub" style="margin-bottom:12px;">tüm çiftleri eşleştir, sürpriz açılsın</p>
-                <div class="game-frame">
-                    <iframe 
-                        src="https://valentines-proposal-visibait.vercel.app" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                        loading="lazy">
-                    </iframe>
-                </div>
-                <button class="btn next-btn" data-target="final" style="margin-top:20px;">Devam Et →</button>
-            </div>
-        </section>
-
-        <!-- BÖLÜM 10: FİNAL -->
+        <!-- BÖLÜM 9: FİNAL -->
         <section class="section" id="final">
             <div class="card">
                 <div class="final-title">Seni Seviyorum</div>
@@ -732,7 +693,7 @@
             "use strict";
 
             // ---------- ŞİFRE ----------
-            const PASSWORD = "0335";
+            const PASSWORD = "7536"; // Yeni şifre
             const overlay = document.getElementById('passwordOverlay');
             const passwordInput = document.getElementById('passwordInput');
             const passwordBtn = document.getElementById('passwordBtn');
@@ -800,9 +761,7 @@
             });
             document.getElementById('startBtn').addEventListener('click', () => { showSection('story'); });
 
-            // =============================================================
-            // =====  SLAYTER + LIGHTBOX  =====
-            // =============================================================
+            // ---------- SLAYTER ----------
             const slidesData = [
                 { img: 'images/1.jpg', caption: 'ilk günümüz ☀️' },
                 { img: 'images/2.jpg', caption: 'kahve molası ☕' },
@@ -1050,7 +1009,7 @@
                 }, durationSec * 1000 + 500);
             }
 
-            // ---------- KALP PATLAMASI (final için) ----------
+            // ---------- KALP PATLAMASI ----------
             function spawnHeartExplosion() {
                 const emojis = ['❤️', '💖', '💕', '💗', '❣️', '💓', '💘', '💝'];
                 for (let i = 0; i < 32; i++) {
@@ -1198,10 +1157,9 @@
 
             console.log('🎂 Doğum Günün Kutlu Olsun ❤️');
             console.log('📸 Resimlerini images/ klasörüne 1.jpg, 2.jpg ... diye ekle.');
-            console.log('🎵 Şarkılarını music/ klasörüne sarki1.mp3, sarki2.mp3, sarki3.mp3 diye ekle ve playlist\'i güncelle.');
-            console.log('📅 Doğum günü tarihi: 2 Ağustos 2026 (birthday değişkeninden değiştir).');
-            console.log('🔑 Şifre: 0335 (PASSWORD değişkeninden değiştir).');
-            console.log('🎮 Eşleştirme oyunu iframe ile eklendi: https://valentines-proposal-visibait.vercel.app');
+            console.log('🎵 Şarkılarını music/ klasörüne sarki1.mp3, sarki2.mp3, sarki3.mp3 diye ekle.');
+            console.log('📅 Doğum günü tarihi: 2 Ağustos 2026');
+            console.log('🔑 Şifre: 7536');
 
         })();
     </script>
