@@ -15,7 +15,6 @@
             color: #fff;
             min-height: 100vh;
             display: flex;
-            
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -102,6 +101,18 @@
             box-shadow: none;
         }
         .btn-secondary:hover { background: rgba(255,79,145,0.1); border-color: #ff4f91; box-shadow: 0 0 30px rgba(255,79,145,0.15); }
+
+        /* Butonlar arası boşluk */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .button-group .btn {
+            margin-top: 0;
+        }
 
         /* ===== SLAYTER ===== */
         .slider-container {
@@ -501,6 +512,7 @@
             .countdown-item .label { font-size: 0.5rem; letter-spacing: 0.5px; }
             .lightbox-close { top: 20px; right: 20px; font-size: 2.4rem; }
             .music-player .controls button { width: 44px; height: 44px; font-size: 1.3rem; }
+            .button-group { gap: 12px; }
         }
         @media (max-width: 400px) {
             .card { padding: 20px 12px; }
@@ -540,13 +552,11 @@
                 <input type="password" id="passwordInput" maxlength="4" inputmode="numeric" pattern="[0-9]*" autofocus />
                 <div class="error-msg" id="passwordError"></div>
                 <button class="btn" id="passwordBtn">Giriş Yap</button>
-                <!-- === YENİ BUTON: ÖZEL KOD MU LAZIM? === -->
                 <div style="margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px; width: 100%;">
                     <a href="https://dogum-gunun-kutlu-olsun-02.vercel.app/" target="_blank" style="color: #ff8fab; text-decoration: none; font-size: 0.95rem; opacity: 0.8; transition: 0.3s; display: inline-block;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
                         🔑 Özel kod mu lazım? <span style="font-size: 0.8rem;">(oyunu çöz, kodu al!)</span>
                     </a>
                 </div>
-                <!-- =================================== -->
             </div>
         </div>
     </div>
@@ -570,24 +580,24 @@
         <section class="section" id="story">
             <div class="card">
                 <h2 class="pink">25 Mayıs 2024</h2>
-               <p style="font-size:1.1rem; opacity:0.85; max-width:600px; margin:12px auto;">
-    Belki de hayatımın en güzel günüydü...<br />
-    Çünkü o gün sadece takvimde işaretlenmiş bir tarih değildi.<br />
-    O gün hayatıma sen girdin.<br />
-    O gün <strong>"biz"</strong> olduk.<br /><br />
-
-    O günden beri geçen her gün,<br />
-    <em>iyi ki</em> dediğim anlara bir yenisi daha eklendi.<br />
-    Birlikte güldük, birlikte büyüdük ve nice güzel anılar biriktirdik.<br />
-    Her geçen gün seni bir öncekinden daha çok sevdim.<br /><br />
-
-    Bugün ise sana,<br />
-    kalbimden gelen küçük bir sürpriz hazırlamak istedim.<br />
-    Umarım bu sayfaya her baktığında,<br />
-    seni ne kadar çok sevdiğimi bir kez daha hissedersin.<br />
-    ❤️
-</p>
-                <button class="btn next-btn" data-target="gallery">Devam Et →</button>
+                <p style="font-size:1.1rem; opacity:0.85; max-width:600px; margin:12px auto; text-align:center;">
+                    Belki de hayatımın en güzel günüydü...<br />
+                    Çünkü o gün sadece takvimde işaretlenmiş bir tarih değildi.<br />
+                    O gün hayatıma sen girdin.<br />
+                    O gün "biz" olduk.<br /><br />
+                    O günden beri geçen her gün,<br />
+                    iyi ki dediğim anlara bir yenisi daha eklendi.<br />
+                    Birlikte güldük, birlikte büyüdük ve nice güzel anılar biriktirdik.<br />
+                    Her geçen gün seni bir öncekinden daha çok sevdim.<br /><br />
+                    Bugün ise sana,<br />
+                    kalbimden gelen küçük bir sürpriz hazırlamak istedim.<br />
+                    Umarım bu sayfaya her baktığında,<br />
+                    seni ne kadar çok sevdiğimi bir kez daha hissedersin.
+                </p>
+                <div class="button-group">
+                    <button class="btn btn-secondary back-btn" data-target="hero">⬅ Geri Dön</button>
+                    <button class="btn next-btn" data-target="gallery">Devam Et →</button>
+                </div>
             </div>
         </section>
 
@@ -603,7 +613,10 @@
                 </div>
                 <div class="slider-dots" id="sliderDots"></div>
                 <p style="margin-top:16px; font-size:0.85rem; opacity:0.4;">❤️ seninle geçen her an bir hazine</p>
-                <button class="btn next-btn" data-target="video">Devam Et →</button>
+                <div class="button-group">
+                    <button class="btn btn-secondary back-btn" data-target="story">⬅ Geri Dön</button>
+                    <button class="btn next-btn" data-target="video">Devam Et →</button>
+                </div>
             </div>
         </section>
 
@@ -619,7 +632,10 @@
                     </video>
                 </div>
                 <p style="font-size:0.85rem; opacity:0.3; margin-top:8px;">🎥 henüz bir video eklenmedi, ama çok yakında!</p>
-                <button class="btn next-btn" data-target="music">Devam Et →</button>
+                <div class="button-group">
+                    <button class="btn btn-secondary back-btn" data-target="gallery">⬅ Geri Dön</button>
+                    <button class="btn next-btn" data-target="music">Devam Et →</button>
+                </div>
             </div>
         </section>
 
@@ -644,7 +660,10 @@
                     </div>
                 </div>
                 <p style="font-size:0.85rem; opacity:0.3; margin-top:8px;">🎶 şarkılarını music/ klasörüne ekle</p>
-                <button class="btn next-btn" data-target="counter">Devam Et →</button>
+                <div class="button-group">
+                    <button class="btn btn-secondary back-btn" data-target="video">⬅ Geri Dön</button>
+                    <button class="btn next-btn" data-target="counter">Devam Et →</button>
+                </div>
             </div>
         </section>
 
@@ -655,7 +674,10 @@
                 <div class="counter-number" id="counterDisplay">0</div>
                 <p style="font-size:1.2rem; opacity:0.5;">gündür seninleyim</p>
                 <p style="font-size:0.85rem; opacity:0.3; margin-top:4px;">25 Mayıs 2024'ten beri ❤️</p>
-                <button class="btn next-btn" data-target="countdown">Devam Et →</button>
+                <div class="button-group">
+                    <button class="btn btn-secondary back-btn" data-target="music">⬅ Geri Dön</button>
+                    <button class="btn next-btn" data-target="countdown">Devam Et →</button>
+                </div>
             </div>
         </section>
 
@@ -671,16 +693,22 @@
                     <div class="countdown-item"><div class="number" id="secondsLeft">00</div><div class="label">Saniye</div></div>
                 </div>
                 <p style="font-size:0.85rem; opacity:0.3; margin-top:8px;">🎉 sabırsızlıkla bekliyorum</p>
-                <button class="btn next-btn" data-target="letter">Devam Et →</button>
+                <div class="button-group">
+                    <button class="btn btn-secondary back-btn" data-target="counter">⬅ Geri Dön</button>
+                    <button class="btn next-btn" data-target="letter">Devam Et →</button>
+                </div>
             </div>
         </section>
 
-        <!-- BÖLÜM 8: MEKTUP -->
+        <!-- BÖLÜM 8: MEKTUP (yeni metin) -->
         <section class="section" id="letter">
             <div class="card">
                 <h2 class="pink" style="font-family:'Great Vibes',cursive; font-size:2.8rem;">Sana Mektup</h2>
                 <div id="letterContent"><span class="cursor-blink"></span></div>
-                <button class="btn next-btn" data-target="final">Devam Et →</button>
+                <div class="button-group">
+                    <button class="btn btn-secondary back-btn" data-target="countdown">⬅ Geri Dön</button>
+                    <button class="btn next-btn" data-target="final">Devam Et →</button>
+                </div>
             </div>
         </section>
 
@@ -695,7 +723,10 @@
                     <button data-promise="tabii">💖 Tabii ki</button>
                 </div>
                 <div class="final-response" id="finalResponse"></div>
-                <button class="btn btn-secondary" id="restartBtn" style="margin-top:30px;">🔄 Yeniden Başla</button>
+                <div class="button-group">
+                    <button class="btn btn-secondary back-btn" data-target="letter">⬅ Geri Dön</button>
+                    <button class="btn btn-secondary" id="restartBtn">🔄 Yeniden Başla</button>
+                </div>
             </div>
         </section>
 
@@ -762,6 +793,7 @@
             // ---------- BÖLÜM GEÇİŞLERİ ----------
             const sections = document.querySelectorAll('.section');
             const nextBtns = document.querySelectorAll('.next-btn');
+            const backBtns = document.querySelectorAll('.back-btn');
 
             function showSection(targetId) {
                 sections.forEach(sec => sec.classList.remove('active'));
@@ -769,13 +801,32 @@
                 if (target) target.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
+
+            // "Devam Et" butonları
             nextBtns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     const targetId = this.dataset.target;
                     if (targetId) showSection(targetId);
                 });
             });
+
+            // "Geri Dön" butonları
+            backBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const targetId = this.dataset.target;
+                    if (targetId) showSection(targetId);
+                });
+            });
+
+            // Hero "Başla" butonu
             document.getElementById('startBtn').addEventListener('click', () => { showSection('story'); });
+
+            // "Yeniden Başla" butonu (final'de)
+            document.getElementById('restartBtn').addEventListener('click', function() { location.reload(); });
+            document.getElementById('restartBtn').addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                location.reload();
+            }, { passive: false });
 
             // ---------- SLAYTER ----------
             const slidesData = [
@@ -964,36 +1015,10 @@
             updateCountdown();
             setInterval(updateCountdown, 1000);
 
-            // ---------- MEKTUP ----------
-           const letterText =
-`Canım Sevgilim,
+            // ---------- MEKTUP (yeni metin) ----------
+            const letterText =
+                `Canım Sevgilim,\n\nBelki şu an bu satırları okurken gülümsüyorsun, belki de "Bunu ne zaman hazırladı?" diye düşünüyorsun. Ama bilmeni istediğim tek bir şey var; bu sayfadaki her satır, her kelime ve her küçük detay tamamen senin için hazırlandı.\n\nHayatıma girdiğin günden beri birçok şey değişti. Günler daha güzel, kahkahalar daha anlamlı, hayaller ise daha umut dolu oldu. Çünkü artık onları seninle kuruyorum.\n\nBazen saatlerce konuşuyoruz, bazen hiçbir şey söylemeden yan yana duruyoruz. Ama hangi an olursa olsun, senin yanında olmak bana huzur veriyor. Sen sadece sevdiğim insan değilsin; aynı zamanda en güvendiğim, en çok özlediğim ve her gün yeniden iyi ki dediğim kişisin.\n\nBugün senin doğum günün...\nDünyaya iyi ki gelmişsin.\nİyi ki yollarımız kesişmiş.\nİyi ki kalbim seni seçmiş.\n\nDilerim hayatın boyunca yüzündeki o güzel gülümseme hiç eksilmesin. Ben de elimden geldiğince o gülümsemenin sebebi olmaya devam edeyim.\n\nBelki sana kocaman hediyeler veremem.\nBelki bütün dünyayı ayağına seremem.\nAma sana bir söz verebilirim:\nSeni her gün, dünden biraz daha fazla seveceğim.\n\nİyi ki varsın.\nİyi ki benim sevgilimsin.\nİyi ki "biz" olmuşuz.\n\nDoğum günün kutlu olsun, bir tanem. ❤️\n\nSonsuz sevgimle,\nSenin ❤️`;
 
-Belki şu an bu satırları okurken gülümsüyorsun, belki de "Bunu ne zaman hazırladı?" diye düşünüyorsun. Ama bilmeni istediğim tek bir şey var; bu sayfadaki her satır, her kelime ve her küçük detay tamamen senin için hazırlandı.
-
-Hayatıma girdiğin günden beri birçok şey değişti. Günler daha güzel, kahkahalar daha anlamlı, hayaller ise daha umut dolu oldu. Çünkü artık onları seninle kuruyorum.
-
-Bazen saatlerce konuşuyoruz, bazen hiçbir şey söylemeden yan yana duruyoruz. Ama hangi an olursa olsun, senin yanında olmak bana huzur veriyor. Sen sadece sevdiğim insan değilsin; aynı zamanda en güvendiğim, en çok özlediğim ve her gün yeniden iyi ki dediğim kişisin.
-
-Bugün senin doğum günün...
-Dünyaya iyi ki gelmişsin.
-İyi ki yollarımız kesişmiş.
-İyi ki kalbim seni seçmiş.
-
-Dilerim hayatın boyunca yüzündeki o güzel gülümseme hiç eksilmesin. Ben de elimden geldiğince o gülümsemenin sebebi olmaya devam edeyim.
-
-Belki sana kocaman hediyeler veremem.
-Belki bütün dünyayı ayağına seremem.
-Ama sana bir söz verebilirim:
-Seni her gün, dünden biraz daha fazla seveceğim.
-
-İyi ki varsın.
-İyi ki benim sevgilimsin.
-İyi ki "biz" olmuşuz.
-
-Doğum günün kutlu olsun, bir tanem. ❤️
-
-Sonsuz sevgimle,
-Senin ❤️`;          
             const letterContainer = document.getElementById('letterContent');
             let letterIndex = 0;
             let letterRunning = false;
@@ -1189,13 +1214,6 @@ Senin ❤️`;
                     this.click();
                 }, { passive: false });
             });
-
-            // ---------- "YENİDEN BAŞLA" ----------
-            document.getElementById('restartBtn').addEventListener('click', function() { location.reload(); });
-            document.getElementById('restartBtn').addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                location.reload();
-            }, { passive: false });
 
             console.log('🎂 Doğum Günün Kutlu Olsun ❤️');
             console.log('📸 Resimlerini images/ klasörüne 1.jpg, 2.jpg ... diye ekle.');
