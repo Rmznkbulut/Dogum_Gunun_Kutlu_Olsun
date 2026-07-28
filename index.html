@@ -23,7 +23,7 @@
             background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
         }
 
-        /* ===== CANVAS YILDIZLAR ===== */
+        /* ===== YILDIZLAR (CANVAS) ===== */
         #starfield {
             position: fixed;
             top: 0;
@@ -318,14 +318,10 @@
             aspect-ratio: 16/9;
             background: rgba(255,255,255,0.03);
             border-radius: 20px;
-            border: 1px dashed rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.06);
             margin: 12px 0;
             overflow: hidden;
+            background: #000;
         }
         .video-placeholder iframe {
             width: 100%;
@@ -572,19 +568,16 @@
                 <h2 class="pink">🎬 Video Sürpriz</h2>
                 <p class="sub" style="margin-bottom:8px;">güzel anılarımızdan kareler</p>
                 <div class="video-placeholder">
-                    <!-- YouTube Embed Kodunu buraya yapıştır -->
                     <iframe 
-                        width="100%" 
-                        height="100%" 
-                        src="https://www.youtube.com/embed/ABC123" 
+                        src="https://www.youtube.com/embed/UWWUE8YAn0M" 
                         title="Anılarımız" 
                         frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
                         allowfullscreen
-                        style="width:100%; height:100%; border:none;"
                     ></iframe>
                 </div>
-                <p style="font-size:0.85rem; opacity:0.3; margin-top:8px;">🎥 videonu eklemeyi unutma!</p>
+                <p style="font-size:0.85rem; opacity:0.3; margin-top:8px;">🎥 videoyu izlemeyi unutma!</p>
                 <div class="button-group">
                     <button class="btn btn-secondary back-btn" data-target="gallery">⬅ Geri Dön</button>
                     <button class="btn next-btn" data-target="counter">Devam Et →</button>
@@ -592,7 +585,7 @@
             </div>
         </section>
 
-        <!-- BÖLÜM 5: BİRLİKTE GEÇEN SÜRE (eski müzik bölümü kaldırıldı, doğrudan sayaç) -->
+        <!-- BÖLÜM 5: BİRLİKTE GEÇEN SÜRE -->
         <section class="section" id="counter">
             <div class="card">
                 <h2 class="pink">⏳ Birlikte Geçen Süre</h2>
@@ -670,6 +663,7 @@
             const canvas = document.getElementById("starfield");
             const ctx = canvas.getContext("2d");
             let w, h;
+
             function resizeCanvas() {
                 w = canvas.width = window.innerWidth;
                 h = canvas.height = window.innerHeight;
@@ -680,7 +674,11 @@
             const starsCount = 500;
             const starArray = [];
             const colorrange = [0, 60, 240];
-            function getRandom(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+            function getRandom(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
             for (let i = 0; i < starsCount; i++) {
                 const x = Math.random() * w;
                 const y = Math.random() * h;
@@ -690,6 +688,7 @@
                 const opacity = Math.random();
                 starArray.push({ x, y, radius, hue, sat, opacity });
             }
+
             function drawStars() {
                 for (let i = 0; i < starsCount; i++) {
                     const star = starArray[i];
@@ -699,6 +698,7 @@
                     ctx.fill();
                 }
             }
+
             function updateStars() {
                 for (let i = 0; i < starsCount; i++) {
                     if (Math.random() > 0.99) {
@@ -706,13 +706,16 @@
                     }
                 }
             }
+
             function animateStars() {
                 ctx.clearRect(0, 0, w, h);
                 drawStars();
                 updateStars();
                 requestAnimationFrame(animateStars);
             }
+
             animateStars();
+
             window.addEventListener('resize', () => {
                 resizeCanvas();
                 for (let i = 0; i < starsCount; i++) {
@@ -737,16 +740,13 @@
             }, 400);
 
             // =============================================================
-            // 3. ŞİFRE VE ARKA PLAN MÜZİĞİ
+            // 3. ŞİFRE
             // =============================================================
             const PASSWORD = "7536";
             const overlay = document.getElementById('passwordOverlay');
             const passwordInput = document.getElementById('passwordInput');
             const passwordBtn = document.getElementById('passwordBtn');
             const passwordError = document.getElementById('passwordError');
-
-            // Arka plan müzik elementi (henüz oluşturulmadı)
-            let bgAudio = null;
 
             function checkPassword() {
                 const val = passwordInput.value.trim();
@@ -755,17 +755,6 @@
                     passwordInput.value = '';
                     passwordError.textContent = '';
                     document.activeElement.blur();
-
-                    // Şifre doğru, müziği başlat
-                    if (!bgAudio) {
-                        bgAudio = new Audio('music/sarki.mp3');
-                        bgAudio.loop = true;
-                        bgAudio.volume = 0.7; // Ses seviyesi 0-1 arası
-                        bgAudio.play().catch(err => {
-                            // Otomatik oynatma engellenirse, kullanıcı etkileşimi ile başlat
-                            console.log('Otomatik oynatma engellendi, kullanıcı etkileşimi bekleniyor.');
-                        });
-                    }
                 } else {
                     passwordError.textContent = '❌ Yanlış kod, tekrar dene.';
                     passwordInput.value = '';
@@ -774,14 +763,6 @@
                     setTimeout(() => { passwordBtn.style.transform = ''; }, 200);
                 }
             }
-
-            // Kullanıcı herhangi bir yere tıkladığında müziği başlat (eğer çalmıyorsa)
-            document.addEventListener('click', function() {
-                if (bgAudio && bgAudio.paused) {
-                    bgAudio.play().catch(() => {});
-                }
-            }, { once: false });
-
             passwordBtn.addEventListener('click', checkPassword);
             passwordInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') { e.preventDefault();
@@ -829,7 +810,30 @@
             document.getElementById('startBtn').addEventListener('click', () => { showSection('story'); });
 
             // =============================================================
-            // 5. SLAYTER
+            // 5. TEK ŞARKI (OTOMATİK ÇAL, LOOP)
+            // =============================================================
+            // Şarkı dosyasını sitenin ana dizinine koy: sarki.mp3
+            const tekSarki = new Audio('sarki.mp3');
+            tekSarki.loop = true;
+            tekSarki.volume = 0.4;
+
+            const storySection = document.getElementById('story');
+            const storyObserver = new MutationObserver(() => {
+                if (storySection.classList.contains('active')) {
+                    tekSarki.play().catch(() => {});
+                } else {
+                    tekSarki.pause();
+                }
+            });
+            storyObserver.observe(storySection, { attributes: true, attributeFilter: ['class'] });
+
+            // Sayfa yüklendiğinde eğer story aktifse çal
+            if (storySection.classList.contains('active')) {
+                tekSarki.play().catch(() => {});
+            }
+
+            // =============================================================
+            // 6. SLAYTER
             // =============================================================
             const slidesData = [
                 { img: 'images/1.jpg', caption: 'ilk günümüz ☀️' },
@@ -981,7 +985,7 @@
             startAutoSlide();
 
             // =============================================================
-            // 6. BİRLİKTE GEÇEN SÜRE
+            // 7. BİRLİKTE GEÇEN SÜRE
             // =============================================================
             const start = new Date(2024, 4, 25);
             const counterEl = document.getElementById('counterDisplay');
@@ -994,7 +998,7 @@
             setInterval(updateCounter, 60000);
 
             // =============================================================
-            // 7. DOĞUM GÜNÜ GERİ SAYIM (2 Ağustos 2026)
+            // 8. DOĞUM GÜNÜ GERİ SAYIM (2 Ağustos 2026)
             // =============================================================
             const birthday = new Date(2026, 7, 2);
             const daysEl = document.getElementById('daysLeft');
@@ -1022,7 +1026,7 @@
             setInterval(updateCountdown, 1000);
 
             // =============================================================
-            // 8. MEKTUP
+            // 9. MEKTUP
             // =============================================================
             const letterText =
                 `Canım Sevgilim,\n\nBelki şu an bu satırları okurken gülümsüyorsun, belki de "Bunu ne zaman hazırladı?" diye düşünüyorsun. Ama bilmeni istediğim tek bir şey var; bu sayfadaki her satır, her kelime ve her küçük detay tamamen senin için hazırlandı.\n\nHayatıma girdiğin günden beri birçok şey değişti. Günler daha güzel, kahkahalar daha anlamlı, hayaller ise daha umut dolu oldu. Çünkü artık onları seninle kuruyorum.\n\nBazen saatlerce konuşuyoruz, bazen hiçbir şey söylemeden yan yana duruyoruz. Ama hangi an olursa olsun, senin yanında olmak bana huzur veriyor. Sen sadece sevdiğim insan değilsin; aynı zamanda en güvendiğim, en çok özlediğim ve her gün yeniden iyi ki dediğim kişisin.\n\nBugün senin doğum günün...\nDünyaya iyi ki gelmişsin.\nİyi ki yollarımız kesişmiş.\nİyi ki kalbim seni seçmiş.\n\nDilerim hayatın boyunca yüzündeki o güzel gülümseme hiç eksilmesin. Ben de elimden geldiğince o gülümsemenin sebebi olmaya devam edeyim.\n\nBelki sana kocaman hediyeler veremem.\nBelki bütün dünyayı ayağına seremem.\nAma sana bir söz verebilirim:\nSeni her gün, dünden biraz daha fazla seveceğim.\n\nİyi ki varsın.\nİyi ki benim sevgilimsin.\nİyi ki "biz" olmuşuz.\n\nDoğum günün kutlu olsun, bir tanem. ❤️\n\nSonsuz sevgimle,\nSenin ❤️`;
@@ -1059,7 +1063,7 @@
             letterObserver.observe(letterSection, { attributes: true, attributeFilter: ['class'] });
 
             // =============================================================
-            // 9. KONFETİ VE KALP PATLAMASI
+            // 10. KONFETİ VE KALP PATLAMASI
             // =============================================================
             const confettiContainer = document.getElementById('confettiContainer');
 
@@ -1125,7 +1129,7 @@
             }
 
             // =============================================================
-            // 10. KUTLAMA BUTONU
+            // 11. KUTLAMA BUTONU
             // =============================================================
             document.getElementById('celebrateBtn').addEventListener('click', function() {
                 startConfetti(6);
@@ -1143,7 +1147,7 @@
             });
 
             // =============================================================
-            // 11. FİNAL – SÖZ BUTONLARI
+            // 12. FİNAL – SÖZ BUTONLARI
             // =============================================================
             const finalResponse = document.getElementById('finalResponse');
             document.querySelectorAll('[data-promise]').forEach(btn => {
@@ -1160,7 +1164,7 @@
 
             console.log('🎂 Doğum Günün Kutlu Olsun ❤️');
             console.log('📸 Resimlerini images/ klasörüne 1.jpg, 2.jpg ... diye ekle.');
-            console.log('🎵 Şarkını music/ klasörüne sarki.mp3 olarak ekle.');
+            console.log('🎵 Şarkı dosyasını sarki.mp3 olarak ana dizine koy.');
             console.log('📅 Doğum günü tarihi: 2 Ağustos 2026');
             console.log('🔑 Şifre: 7536');
 
