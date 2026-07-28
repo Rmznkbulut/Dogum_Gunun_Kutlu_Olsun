@@ -436,6 +436,43 @@
             100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
         }
 
+        /* ===== SABİT MÜZİK BUTONU ===== */
+        .music-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            touch-action: manipulation;
+        }
+        .music-toggle:hover {
+            background: rgba(255, 79, 145, 0.3);
+            transform: scale(1.08);
+            border-color: #ff4f91;
+        }
+        .music-toggle:active {
+            transform: scale(0.92);
+        }
+        .music-toggle.playing {
+            background: rgba(255, 79, 145, 0.25);
+            border-color: #ff4f91;
+            box-shadow: 0 0 30px rgba(255, 79, 145, 0.15);
+        }
+
         /* ===== MOBİL ===== */
         @media (max-width: 600px) {
             .card { padding: 28px 16px; }
@@ -453,6 +490,7 @@
             .lightbox-close { top: 20px; right: 20px; font-size: 2.4rem; }
             .button-group { gap: 8px; }
             .button-group .btn { padding: 10px 12px; font-size: 0.75rem; min-height: 40px; }
+            .music-toggle { width: 48px; height: 48px; font-size: 1.3rem; bottom: 20px; right: 20px; }
         }
         @media (max-width: 400px) {
             .card { padding: 20px 12px; }
@@ -483,6 +521,9 @@
         <img id="lightboxImg" src="" alt="büyük fotoğraf" />
         <div class="lightbox-caption" id="lightboxCaption"></div>
     </div>
+
+    <!-- ===== SABİT MÜZİK KONTROL BUTONU ===== -->
+    <button id="musicToggle" class="music-toggle" title="Müziği Oynat/Durdur">▶</button>
 
     <!-- ===== ŞİFRE PANELİ ===== -->
     <div id="passwordOverlay">
@@ -811,26 +852,75 @@
             document.getElementById('startBtn').addEventListener('click', () => { showSection('story'); });
 
             // =============================================================
-            // 5. TEK ŞARKI (OTOMATİK ÇAL, LOOP)
+            // 5. TEK ŞARKI (SABİT KONTROL) - Solas - Jamie Duffy
             // =============================================================
-            // Şarkı dosyasını sitenin ana dizinine koy: sarki.mp3
             const tekSarki = new Audio('sarki.mp3');
             tekSarki.loop = true;
             tekSarki.volume = 0.4;
 
+            const musicToggle = document.getElementById('musicToggle');
+            let isMusicPlaying = false;
+            let musicStarted = false; // Şarkının hiç başlatılıp başlatılmadığını takip et
+
+            // Şarkıyı başlat/durdur
+            function toggleMusic() {
+                if (isMusicPlaying) {
+                    tekSarki.pause();
+                    musicToggle.textContent = '▶';
+                    musicToggle.classList.remove('playing');
+                    isMusicPlaying = false;
+                } else {
+                    tekSarki.play().catch(() => {});
+                    musicToggle.textContent = '⏸';
+                    musicToggle.classList.add('playing');
+                    isMusicPlaying = true;
+                }
+            }
+
+            // Şarkıyı başlat (eğer daha önce başlamadıysa)
+            function startMusic() {
+                if (!musicStarted) {
+                    tekSarki.play().catch(() => {});
+                    musicToggle.textContent = '⏸';
+                    musicToggle.classList.add('playing');
+                    isMusicPlaying = true;
+                    musicStarted = true;
+                }
+            }
+
+            // Butona tıklama
+            musicToggle.addEventListener('click', toggleMusic);
+
+            // Şifre doğrulandığında veya "Başla" tıklandığında başlat
+            // Şifre doğrulandığında başlat (checkPassword içinde çağır)
+            const originalCheckPassword = checkPassword;
+            checkPassword = function() {
+                originalCheckPassword();
+                if (overlay.classList.contains('hidden')) {
+                    // Şifre doğrulandı, ama story henüz aktif değil. startMusic'i story aktif olduğunda çağıracağız.
+                }
+            };
+
+            // "Başla" butonuna tıklandığında başlat
+            document.getElementById('startBtn').addEventListener('click', function() {
+                // Eğer şifre doğrulandıysa ve müzik başlamadıysa
+                if (overlay.classList.contains('hidden') && !musicStarted) {
+                    startMusic();
+                }
+            });
+
+            // Story bölümü aktif olduğunda başlat (eğer şifre doğrulandıysa)
             const storySection = document.getElementById('story');
             const storyObserver = new MutationObserver(() => {
-                if (storySection.classList.contains('active')) {
-                    tekSarki.play().catch(() => {});
-                } else {
-                    tekSarki.pause();
+                if (storySection.classList.contains('active') && overlay.classList.contains('hidden') && !musicStarted) {
+                    startMusic();
                 }
             });
             storyObserver.observe(storySection, { attributes: true, attributeFilter: ['class'] });
 
-            // Sayfa yüklendiğinde eğer story aktifse çal
-            if (storySection.classList.contains('active')) {
-                tekSarki.play().catch(() => {});
+            // Sayfa yüklendiğinde eğer story aktifse ve şifre doğrulandıysa başlat
+            if (storySection.classList.contains('active') && overlay.classList.contains('hidden') && !musicStarted) {
+                startMusic();
             }
 
             // =============================================================
@@ -1165,7 +1255,7 @@
 
             console.log('🎂 Doğum Günün Kutlu Olsun ❤️');
             console.log('📸 Resimlerini images/ klasörüne 1.jpg, 2.jpg ... diye ekle.');
-            console.log('🎵 Şarkı dosyasını sarki.mp3 olarak ana dizine koy.');
+            console.log('🎵 Şarkı dosyasını "sarki.mp3" olarak ana dizine koy (Solas - Jamie Duffy).');
             console.log('📅 Doğum günü tarihi: 2 Ağustos 2026');
             console.log('🔑 Şifre: 7536');
 
