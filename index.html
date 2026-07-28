@@ -782,7 +782,7 @@
             }, 400);
 
             // =============================================================
-            // 3. ŞİFRE
+            // 3. ŞİFRE & MÜZİK
             // =============================================================
             const PASSWORD = "7536";
             const overlay = document.getElementById('passwordOverlay');
@@ -790,9 +790,6 @@
             const passwordBtn = document.getElementById('passwordBtn');
             const passwordError = document.getElementById('passwordError');
 
-            // =============================================================
-            // 3.1. MÜZİK KONTROL (Şifre girilince başlasın)
-            // =============================================================
             const tekSarki = new Audio('sarki.mp3');
             tekSarki.loop = true;
             tekSarki.volume = 0.4;
@@ -827,9 +824,6 @@
 
             musicToggle.addEventListener('click', toggleMusic);
 
-            // =============================================================
-            // 3.2. ŞİFRE KONTROL (Müzik başlatmayı da ekle)
-            // =============================================================
             function checkPassword() {
                 const val = passwordInput.value.trim();
                 if (val === PASSWORD) {
@@ -837,7 +831,6 @@
                     passwordInput.value = '';
                     passwordError.textContent = '';
                     document.activeElement.blur();
-                    // Şifre doğru -> müziği başlat
                     startMusic();
                 } else {
                     passwordError.textContent = '❌ Yanlış kod, tekrar dene.';
@@ -895,7 +888,7 @@
             document.getElementById('startBtn').addEventListener('click', () => { showSection('story'); });
 
             // =============================================================
-            // 5. SLAYTER
+            // 5. SLAYTER (10 FOTOĞRAF)
             // =============================================================
             const slidesData = [
                 { img: 'images/1.jpg', caption: 'ilk günümüz ☀️' },
@@ -903,7 +896,11 @@
                 { img: 'images/3.jpg', caption: 'bahar geldi 🌸' },
                 { img: 'images/4.jpg', caption: 'deniz kenarı 🌊' },
                 { img: 'images/5.jpg', caption: 'en sevdiğimiz şarkı 🎶' },
-                { img: 'images/6.jpg', caption: 'sihirli an ✨' }
+                { img: 'images/6.jpg', caption: 'sihirli an ✨' },
+                { img: 'images/7.jpg', caption: 'birlikte güldüğümüz an 💕' },
+                { img: 'images/8.jpg', caption: 'hayallerimiz 🌙' },
+                { img: 'images/9.jpg', caption: 'seninle her şey güzel 🌹' },
+                { img: 'images/10.jpg', caption: 'sonsuza kadar ❤️' }
             ];
 
             const slidesWrapper = document.getElementById('slides');
@@ -1125,7 +1122,7 @@
             letterObserver.observe(letterSection, { attributes: true, attributeFilter: ['class'] });
 
             // =============================================================
-            // 9. KONFETİ VE KALP PATLAMASI
+            // 9. KONFETİ & KALP PATLAMASI
             // =============================================================
             const confettiContainer = document.getElementById('confettiContainer');
 
@@ -1225,7 +1222,7 @@
             });
 
             console.log('🎂 Doğum Günün Kutlu Olsun ❤️');
-            console.log('📸 Resimlerini images/ klasörüne 1.jpg, 2.jpg ... diye ekle.');
+            console.log('📸 Resimlerini images/ klasörüne 1.jpg, 2.jpg ... 10.jpg diye ekle.');
             console.log('🎵 Şarkı dosyasını "sarki.mp3" olarak ana dizine koy (Solas - Jamie Duffy).');
             console.log('📅 Doğum günü tarihi: 2 Ağustos 2026');
             console.log('🔑 Şifre: 7536');
