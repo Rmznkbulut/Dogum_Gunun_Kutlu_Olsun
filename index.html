@@ -23,7 +23,7 @@
             background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
         }
 
-        /* ===== YILDIZLAR (CANVAS) ===== */
+        /* ===== CANVAS YILDIZLAR ===== */
         #starfield {
             position: fixed;
             top: 0;
@@ -327,76 +327,10 @@
             margin: 12px 0;
             overflow: hidden;
         }
-        .video-placeholder video {
+        .video-placeholder iframe {
             width: 100%;
             height: 100%;
-            border-radius: 20px;
-            object-fit: cover;
-            background: #000;
-        }
-
-        /* ===== MÜZİK ÇALAR ===== */
-        .music-player {
-            background: rgba(255,255,255,0.04);
-            border-radius: 20px;
-            padding: 20px 16px;
-            margin-top: 16px;
-            border: 1px solid rgba(255,255,255,0.06);
-        }
-        .music-player .track-name {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: #ff8fab;
-            margin-bottom: 8px;
-        }
-        .music-player .controls {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .music-player .controls button {
-            background: rgba(255,255,255,0.08);
             border: none;
-            color: #fff;
-            font-size: 1.6rem;
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: 0.3s;
-            touch-action: manipulation;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .music-player .controls button:hover { background: rgba(255,79,145,0.3); }
-        .music-player .controls button:active { transform: scale(0.92); }
-        .music-player .controls .play-btn { background: #ff4f91; box-shadow: 0 0 30px rgba(255,79,145,0.2); }
-        .music-player .controls .play-btn:hover { background: #ff6ba8; }
-        .music-player .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 4px;
-            margin-top: 12px;
-            position: relative;
-            cursor: pointer;
-        }
-        .music-player .progress-bar .fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #ff4f91, #ff8fab);
-            border-radius: 4px;
-            transition: width 0.1s linear;
-        }
-        .music-player .time-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            opacity: 0.4;
-            margin-top: 4px;
         }
 
         /* ===== FİNAL ===== */
@@ -520,7 +454,6 @@
             .countdown-item .number { font-size: clamp(1.2rem, 4.5vw, 2.2rem); }
             .countdown-item .label { font-size: 0.5rem; letter-spacing: 0.5px; }
             .lightbox-close { top: 20px; right: 20px; font-size: 2.4rem; }
-            .music-player .controls button { width: 44px; height: 44px; font-size: 1.3rem; }
             .button-group { gap: 8px; }
             .button-group .btn { padding: 10px 12px; font-size: 0.75rem; min-height: 40px; }
         }
@@ -639,48 +572,27 @@
                 <h2 class="pink">🎬 Video Sürpriz</h2>
                 <p class="sub" style="margin-bottom:8px;">güzel anılarımızdan kareler</p>
                 <div class="video-placeholder">
-                    <video id="videoPlayer" controls style="width:100%; height:100%; border-radius:20px; background:#0a0a0a;" poster="">
-                        <source src="" type="video/mp4">
-                        Tarayıcınız video etiketini desteklemiyor.
-                    </video>
+                    <!-- YouTube Embed Kodunu buraya yapıştır -->
+                    <iframe 
+                        width="100%" 
+                        height="100%" 
+                        src="https://www.youtube.com/embed/ABC123" 
+                        title="Anılarımız" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        style="width:100%; height:100%; border:none;"
+                    ></iframe>
                 </div>
                 <p style="font-size:0.85rem; opacity:0.3; margin-top:8px;">🎥 videonu eklemeyi unutma!</p>
                 <div class="button-group">
                     <button class="btn btn-secondary back-btn" data-target="gallery">⬅ Geri Dön</button>
-                    <button class="btn next-btn" data-target="music">Devam Et →</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- BÖLÜM 5: MÜZİK -->
-        <section class="section" id="music">
-            <div class="card">
-                <h2 class="pink">🎵 Bizim Şarkılar</h2>
-                <p class="sub" style="margin-bottom:8px;">birlikte dinlediğimiz güzel melodiler</p>
-                <div class="music-player" id="musicPlayer">
-                    <div class="track-name" id="trackName">Şarkı seçilmedi</div>
-                    <div class="controls">
-                        <button id="prevTrack" title="Önceki">⏮</button>
-                        <button class="play-btn" id="playBtn" title="Oynat/Durdur">▶</button>
-                        <button id="nextTrack" title="Sonraki">⏭</button>
-                    </div>
-                    <div class="progress-bar" id="progressBar">
-                        <div class="fill" id="progressFill"></div>
-                    </div>
-                    <div class="time-info">
-                        <span id="currentTime">0:00</span>
-                        <span id="totalTime">0:00</span>
-                    </div>
-                </div>
-                <p style="font-size:0.85rem; opacity:0.3; margin-top:8px;">🎶 şarkılarını ekledin mi?</p>
-                <div class="button-group">
-                    <button class="btn btn-secondary back-btn" data-target="video">⬅ Geri Dön</button>
                     <button class="btn next-btn" data-target="counter">Devam Et →</button>
                 </div>
             </div>
         </section>
 
-        <!-- BÖLÜM 6: BİRLİKTE GEÇEN SÜRE -->
+        <!-- BÖLÜM 5: BİRLİKTE GEÇEN SÜRE (eski müzik bölümü kaldırıldı, doğrudan sayaç) -->
         <section class="section" id="counter">
             <div class="card">
                 <h2 class="pink">⏳ Birlikte Geçen Süre</h2>
@@ -688,13 +600,13 @@
                 <p style="font-size:1.2rem; opacity:0.5;">gündür seninleyim</p>
                 <p style="font-size:0.85rem; opacity:0.3; margin-top:4px;">25 Mayıs 2024'ten beri ❤️</p>
                 <div class="button-group">
-                    <button class="btn btn-secondary back-btn" data-target="music">⬅ Geri Dön</button>
+                    <button class="btn btn-secondary back-btn" data-target="video">⬅ Geri Dön</button>
                     <button class="btn next-btn" data-target="countdown">Devam Et →</button>
                 </div>
             </div>
         </section>
 
-        <!-- BÖLÜM 7: DOĞUM GÜNÜ GERİ SAYIM -->
+        <!-- BÖLÜM 6: DOĞUM GÜNÜ GERİ SAYIM -->
         <section class="section" id="countdown">
             <div class="card">
                 <h2 class="pink">🎂 Doğum Gününe Kalan Süre</h2>
@@ -713,7 +625,7 @@
             </div>
         </section>
 
-        <!-- BÖLÜM 8: MEKTUP -->
+        <!-- BÖLÜM 7: MEKTUP -->
         <section class="section" id="letter">
             <div class="card">
                 <h2 class="pink" style="font-family:'Great Vibes',cursive; font-size:2.8rem;">Sana Mektup</h2>
@@ -725,7 +637,7 @@
             </div>
         </section>
 
-        <!-- BÖLÜM 9: FİNAL -->
+        <!-- BÖLÜM 8: FİNAL -->
         <section class="section" id="final">
             <div class="card">
                 <div class="final-title">Seni Seviyorum</div>
@@ -753,12 +665,11 @@
             "use strict";
 
             // =============================================================
-            // 1. CANVAS YILDIZLAR (sojijr.github.io'dan uyarlanmıştır)
+            // 1. CANVAS YILDIZLAR
             // =============================================================
             const canvas = document.getElementById("starfield");
             const ctx = canvas.getContext("2d");
             let w, h;
-
             function resizeCanvas() {
                 w = canvas.width = window.innerWidth;
                 h = canvas.height = window.innerHeight;
@@ -769,11 +680,7 @@
             const starsCount = 500;
             const starArray = [];
             const colorrange = [0, 60, 240];
-
-            function getRandom(min, max) {
-                return Math.floor(Math.random() * (max - min + 1)) + min;
-            }
-
+            function getRandom(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
             for (let i = 0; i < starsCount; i++) {
                 const x = Math.random() * w;
                 const y = Math.random() * h;
@@ -783,7 +690,6 @@
                 const opacity = Math.random();
                 starArray.push({ x, y, radius, hue, sat, opacity });
             }
-
             function drawStars() {
                 for (let i = 0; i < starsCount; i++) {
                     const star = starArray[i];
@@ -793,7 +699,6 @@
                     ctx.fill();
                 }
             }
-
             function updateStars() {
                 for (let i = 0; i < starsCount; i++) {
                     if (Math.random() > 0.99) {
@@ -801,20 +706,15 @@
                     }
                 }
             }
-
             function animateStars() {
                 ctx.clearRect(0, 0, w, h);
                 drawStars();
                 updateStars();
                 requestAnimationFrame(animateStars);
             }
-
             animateStars();
-
-            // Pencere yeniden boyutlandığında yıldızları güncelle
             window.addEventListener('resize', () => {
                 resizeCanvas();
-                // Yıldızları yeniden konumlandır
                 for (let i = 0; i < starsCount; i++) {
                     starArray[i].x = Math.random() * w;
                     starArray[i].y = Math.random() * h;
@@ -837,13 +737,16 @@
             }, 400);
 
             // =============================================================
-            // 3. ŞİFRE
+            // 3. ŞİFRE VE ARKA PLAN MÜZİĞİ
             // =============================================================
             const PASSWORD = "7536";
             const overlay = document.getElementById('passwordOverlay');
             const passwordInput = document.getElementById('passwordInput');
             const passwordBtn = document.getElementById('passwordBtn');
             const passwordError = document.getElementById('passwordError');
+
+            // Arka plan müzik elementi (henüz oluşturulmadı)
+            let bgAudio = null;
 
             function checkPassword() {
                 const val = passwordInput.value.trim();
@@ -852,6 +755,17 @@
                     passwordInput.value = '';
                     passwordError.textContent = '';
                     document.activeElement.blur();
+
+                    // Şifre doğru, müziği başlat
+                    if (!bgAudio) {
+                        bgAudio = new Audio('music/sarki.mp3');
+                        bgAudio.loop = true;
+                        bgAudio.volume = 0.7; // Ses seviyesi 0-1 arası
+                        bgAudio.play().catch(err => {
+                            // Otomatik oynatma engellenirse, kullanıcı etkileşimi ile başlat
+                            console.log('Otomatik oynatma engellendi, kullanıcı etkileşimi bekleniyor.');
+                        });
+                    }
                 } else {
                     passwordError.textContent = '❌ Yanlış kod, tekrar dene.';
                     passwordInput.value = '';
@@ -860,6 +774,14 @@
                     setTimeout(() => { passwordBtn.style.transform = ''; }, 200);
                 }
             }
+
+            // Kullanıcı herhangi bir yere tıkladığında müziği başlat (eğer çalmıyorsa)
+            document.addEventListener('click', function() {
+                if (bgAudio && bgAudio.paused) {
+                    bgAudio.play().catch(() => {});
+                }
+            }, { once: false });
+
             passwordBtn.addEventListener('click', checkPassword);
             passwordInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') { e.preventDefault();
@@ -1137,7 +1059,7 @@
             letterObserver.observe(letterSection, { attributes: true, attributeFilter: ['class'] });
 
             // =============================================================
-            // 9. KONFETİ VE KALP PATLAMASI (Görsel Efekt Şöleni!)
+            // 9. KONFETİ VE KALP PATLAMASI
             // =============================================================
             const confettiContainer = document.getElementById('confettiContainer');
 
@@ -1203,22 +1125,13 @@
             }
 
             // =============================================================
-            // 10. KUTLAMA BUTONU (Görsel Efekt Şöleni!)
+            // 10. KUTLAMA BUTONU
             // =============================================================
             document.getElementById('celebrateBtn').addEventListener('click', function() {
-                // Konfeti
                 startConfetti(6);
-                // Kalp patlaması (dalgalı)
                 spawnHeartExplosion(60);
-                // İkinci dalga
-                setTimeout(() => {
-                    spawnHeartExplosion(40);
-                }, 800);
-                // Üçüncü dalga
-                setTimeout(() => {
-                    spawnHeartExplosion(30);
-                }, 1600);
-                // Buton animasyonu
+                setTimeout(() => { spawnHeartExplosion(40); }, 800);
+                setTimeout(() => { spawnHeartExplosion(30); }, 1600);
                 this.textContent = '🎊 Kutlama!';
                 this.style.transform = 'scale(1.1)';
                 this.style.boxShadow = '0 0 80px rgba(255,79,145,0.8)';
@@ -1230,100 +1143,7 @@
             });
 
             // =============================================================
-            // 11. MÜZİK ÇALAR
-            // =============================================================
-            const playlist = [
-                { name: 'Şarkı 1', file: 'music/sarki1.mp3' },
-                { name: 'Şarkı 2', file: 'music/sarki2.mp3' },
-                { name: 'Şarkı 3', file: 'music/sarki3.mp3' }
-            ];
-            let currentTrackIndex = 0;
-            let audio = new Audio();
-            let isPlaying = false;
-
-            const trackNameEl = document.getElementById('trackName');
-            const playBtn = document.getElementById('playBtn');
-            const prevTrackBtn = document.getElementById('prevTrack');
-            const nextTrackBtn = document.getElementById('nextTrack');
-            const progressFill = document.getElementById('progressFill');
-            const currentTimeEl = document.getElementById('currentTime');
-            const totalTimeEl = document.getElementById('totalTime');
-            const progressBar = document.getElementById('progressBar');
-
-            function loadTrack(index) {
-                if (index < 0) index = playlist.length - 1;
-                if (index >= playlist.length) index = 0;
-                currentTrackIndex = index;
-                const track = playlist[index];
-                audio.src = track.file;
-                audio.load();
-                trackNameEl.textContent = track.name;
-                progressFill.style.width = '0%';
-                currentTimeEl.textContent = '0:00';
-                totalTimeEl.textContent = '0:00';
-                if (isPlaying) {
-                    audio.play().catch(() => {});
-                }
-            }
-
-            function togglePlay() {
-                if (audio.src === '') {
-                    loadTrack(0);
-                }
-                if (isPlaying) {
-                    audio.pause();
-                    playBtn.textContent = '▶';
-                } else {
-                    audio.play().catch(() => {});
-                    playBtn.textContent = '⏸';
-                }
-                isPlaying = !isPlaying;
-            }
-
-            function playNext() {
-                loadTrack(currentTrackIndex + 1);
-                if (isPlaying) { audio.play().catch(() => {}); }
-            }
-
-            function playPrev() {
-                loadTrack(currentTrackIndex - 1);
-                if (isPlaying) { audio.play().catch(() => {}); }
-            }
-
-            playBtn.addEventListener('click', togglePlay);
-            prevTrackBtn.addEventListener('click', playPrev);
-            nextTrackBtn.addEventListener('click', playNext);
-
-            audio.addEventListener('timeupdate', function() {
-                if (this.duration) {
-                    const percent = (this.currentTime / this.duration) * 100;
-                    progressFill.style.width = percent + '%';
-                    currentTimeEl.textContent = formatTime(this.currentTime);
-                    totalTimeEl.textContent = formatTime(this.duration);
-                }
-            });
-            audio.addEventListener('ended', function() {
-                playNext();
-            });
-            progressBar.addEventListener('click', function(e) {
-                const rect = this.getBoundingClientRect();
-                const x = (e.clientX - rect.left) / rect.width;
-                if (audio.duration) {
-                    audio.currentTime = x * audio.duration;
-                }
-            });
-
-            function formatTime(secs) {
-                if (!secs) return '0:00';
-                const m = Math.floor(secs / 60);
-                const s = Math.floor(secs % 60);
-                return m + ':' + (s < 10 ? '0' : '') + s;
-            }
-            loadTrack(0);
-            audio.preload = 'metadata';
-
-            // =============================================================
-            // 12. FİNAL – SÖZ BUTONLARI
+            // 11. FİNAL – SÖZ BUTONLARI
             // =============================================================
             const finalResponse = document.getElementById('finalResponse');
             document.querySelectorAll('[data-promise]').forEach(btn => {
@@ -1340,7 +1160,7 @@
 
             console.log('🎂 Doğum Günün Kutlu Olsun ❤️');
             console.log('📸 Resimlerini images/ klasörüne 1.jpg, 2.jpg ... diye ekle.');
-            console.log('🎵 Şarkılarını music/ klasörüne sarki1.mp3, sarki2.mp3, sarki3.mp3 diye ekle.');
+            console.log('🎵 Şarkını music/ klasörüne sarki.mp3 olarak ekle.');
             console.log('📅 Doğum günü tarihi: 2 Ağustos 2026');
             console.log('🔑 Şifre: 7536');
 
