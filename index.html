@@ -20,20 +20,19 @@
             padding: 20px;
             -webkit-tap-highlight-color: transparent;
             overflow-x: hidden;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
         }
 
-        /* ===== YILDIZLAR ===== */
-        .stars {
+        /* ===== YILDIZLAR (CANVAS) ===== */
+        #starfield {
             position: fixed;
-            inset: 0;
-            z-index: -3;
-            background-image: radial-gradient(white 1px, transparent 1px);
-            background-size: 45px 45px;
-            opacity: 0.4;
-            animation: moveStars 80s linear infinite;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
             pointer-events: none;
         }
-        @keyframes moveStars { from { transform: translateY(0); } to { transform: translateY(-600px); } }
 
         /* ===== UÇUŞAN KALPLER ===== */
         .heart-float {
@@ -64,6 +63,8 @@
             box-shadow: 0 25px 60px rgba(0,0,0,0.5);
             text-align: center;
             transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
         }
         .card:hover { transform: translateY(-4px); }
 
@@ -92,6 +93,12 @@
             min-height: 60px;
             min-width: 180px;
             touch-action: manipulation;
+            flex: 1;
+            min-width: 0;
+            text-align: center;
+            white-space: nowrap;
+            padding: 14px 20px;
+            font-size: 0.95rem;
         }
         .btn:hover { transform: scale(1.06); box-shadow: 0 0 55px rgba(255,79,145,0.5); }
         .btn:active { transform: scale(0.96); }
@@ -102,16 +109,18 @@
         }
         .btn-secondary:hover { background: rgba(255,79,145,0.1); border-color: #ff4f91; box-shadow: 0 0 30px rgba(255,79,145,0.15); }
 
-        /* Butonlar arası boşluk */
         .button-group {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             justify-content: center;
-            gap: 16px;
+            gap: 12px;
             margin-top: 24px;
+            width: 100%;
         }
         .button-group .btn {
             margin-top: 0;
+            flex: 1;
+            min-width: 0;
         }
 
         /* ===== SLAYTER ===== */
@@ -502,7 +511,7 @@
             .slider-container { max-width: 100%; aspect-ratio: 4/3; }
             .slider-btn { font-size: 1.4rem; padding: 6px 10px; }
             .slide-caption { font-size: 0.85rem; padding: 12px 12px 10px; }
-            .btn { padding: 14px 32px; font-size: 1rem; min-height: 54px; min-width: 150px; }
+            .btn { padding: 12px 16px; font-size: 0.85rem; min-height: 48px; min-width: 0; }
             .promise-buttons button { padding: 14px 28px; font-size: 1rem; min-height: 54px; min-width: 120px; }
             .password-box { padding: 32px 20px; }
             .password-box h2 { font-size: 2.2rem; }
@@ -512,7 +521,8 @@
             .countdown-item .label { font-size: 0.5rem; letter-spacing: 0.5px; }
             .lightbox-close { top: 20px; right: 20px; font-size: 2.4rem; }
             .music-player .controls button { width: 44px; height: 44px; font-size: 1.3rem; }
-            .button-group { gap: 12px; }
+            .button-group { gap: 8px; }
+            .button-group .btn { padding: 10px 12px; font-size: 0.75rem; min-height: 40px; }
         }
         @media (max-width: 400px) {
             .card { padding: 20px 12px; }
@@ -522,13 +532,14 @@
             .countdown-item { padding: 8px 2px; }
             .countdown-item .number { font-size: 1rem; }
             .countdown-item .label { font-size: 0.45rem; }
+            .button-group .btn { padding: 8px 10px; font-size: 0.7rem; min-height: 34px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Yıldızlar -->
-    <div class="stars"></div>
+    <!-- ===== CANVAS YILDIZLAR ===== -->
+    <canvas id="starfield"></canvas>
 
     <!-- Uçuşan kalpler -->
     <div id="heartContainer"></div>
@@ -567,10 +578,12 @@
         <!-- BÖLÜM 1: HERO -->
         <section class="section active" id="hero">
             <div class="card">
-                <h1 style="font-size:clamp(2.8rem,12vw,5.2rem);">❤️ Bizim Hikayemiz</h1>
-                <p style="font-size:clamp(1.1rem,2.5vw,1.6rem); opacity:0.7; margin-top:12px;">
-                    Bu sayfa sadece bir doğum günü kutlaması değil…<br />
-                    Bu sayfa bizim için hazırlandı.
+                <h1 style="font-size:clamp(2.8rem,12vw,5.2rem);">❤️ Bizim Hikâyemiz</h1>
+                <p style="font-size:clamp(1rem,2vw,1.4rem); opacity:0.8; margin-top:12px; line-height:1.8;">
+                    Bu sayfa sadece bir doğum günü sürprizi değil...<br />
+                    Bu sayfa, birlikte yaşadığımız güzel anıların, gülüşlerimizin, hayallerimizin ve sevgimizin küçük bir yansıması.<br /><br />
+                    Her hikâyenin bir başlangıcı vardır. Bizim hikâyemiz ise 25 Mayıs 2024'te başladı.<br /><br />
+                    Hazırsan, gel birlikte bu güzel yolculuğa bir kez daha bakalım. ❤️
                 </p>
                 <button class="btn" id="startBtn">Başla</button>
             </div>
@@ -624,14 +637,14 @@
         <section class="section" id="video">
             <div class="card">
                 <h2 class="pink">🎬 Video Sürpriz</h2>
-                <p class="sub" style="margin-bottom:8px;">çok yakında burada bir video olacak</p>
+                <p class="sub" style="margin-bottom:8px;">güzel anılarımızdan kareler</p>
                 <div class="video-placeholder">
                     <video id="videoPlayer" controls style="width:100%; height:100%; border-radius:20px; background:#0a0a0a;" poster="">
                         <source src="" type="video/mp4">
                         Tarayıcınız video etiketini desteklemiyor.
                     </video>
                 </div>
-                <p style="font-size:0.85rem; opacity:0.3; margin-top:8px;">🎥 henüz bir video eklenmedi, ama çok yakında!</p>
+                <p style="font-size:0.85rem; opacity:0.3; margin-top:8px;">🎥 videonu eklemeyi unutma!</p>
                 <div class="button-group">
                     <button class="btn btn-secondary back-btn" data-target="gallery">⬅ Geri Dön</button>
                     <button class="btn next-btn" data-target="music">Devam Et →</button>
@@ -659,7 +672,7 @@
                         <span id="totalTime">0:00</span>
                     </div>
                 </div>
-                <p style="font-size:0.85rem; opacity:0.3; margin-top:8px;">🎶 şarkılarını music/ klasörüne ekle</p>
+                <p style="font-size:0.85rem; opacity:0.3; margin-top:8px;">🎶 şarkılarını ekledin mi?</p>
                 <div class="button-group">
                     <button class="btn btn-secondary back-btn" data-target="video">⬅ Geri Dön</button>
                     <button class="btn next-btn" data-target="counter">Devam Et →</button>
@@ -700,7 +713,7 @@
             </div>
         </section>
 
-        <!-- BÖLÜM 8: MEKTUP (yeni metin) -->
+        <!-- BÖLÜM 8: MEKTUP -->
         <section class="section" id="letter">
             <div class="card">
                 <h2 class="pink" style="font-family:'Great Vibes',cursive; font-size:2.8rem;">Sana Mektup</h2>
@@ -725,7 +738,7 @@
                 <div class="final-response" id="finalResponse"></div>
                 <div class="button-group">
                     <button class="btn btn-secondary back-btn" data-target="letter">⬅ Geri Dön</button>
-                    <button class="btn btn-secondary" id="restartBtn">🔄 Yeniden Başla</button>
+                    <button class="btn" id="celebrateBtn">🎉 Kutlama</button>
                 </div>
             </div>
         </section>
@@ -739,7 +752,93 @@
         (function() {
             "use strict";
 
-            // ---------- ŞİFRE ----------
+            // =============================================================
+            // 1. CANVAS YILDIZLAR (sojijr.github.io'dan uyarlanmıştır)
+            // =============================================================
+            const canvas = document.getElementById("starfield");
+            const ctx = canvas.getContext("2d");
+            let w, h;
+
+            function resizeCanvas() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            const starsCount = 500;
+            const starArray = [];
+            const colorrange = [0, 60, 240];
+
+            function getRandom(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            for (let i = 0; i < starsCount; i++) {
+                const x = Math.random() * w;
+                const y = Math.random() * h;
+                const radius = Math.random() * 1.2 + 0.3;
+                const hue = colorrange[getRandom(0, colorrange.length - 1)];
+                const sat = getRandom(50, 100);
+                const opacity = Math.random();
+                starArray.push({ x, y, radius, hue, sat, opacity });
+            }
+
+            function drawStars() {
+                for (let i = 0; i < starsCount; i++) {
+                    const star = starArray[i];
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, star.radius, 0, 360);
+                    ctx.fillStyle = "hsla(" + star.hue + ", " + star.sat + "%, 88%, " + star.opacity + ")";
+                    ctx.fill();
+                }
+            }
+
+            function updateStars() {
+                for (let i = 0; i < starsCount; i++) {
+                    if (Math.random() > 0.99) {
+                        starArray[i].opacity = Math.random();
+                    }
+                }
+            }
+
+            function animateStars() {
+                ctx.clearRect(0, 0, w, h);
+                drawStars();
+                updateStars();
+                requestAnimationFrame(animateStars);
+            }
+
+            animateStars();
+
+            // Pencere yeniden boyutlandığında yıldızları güncelle
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+                // Yıldızları yeniden konumlandır
+                for (let i = 0; i < starsCount; i++) {
+                    starArray[i].x = Math.random() * w;
+                    starArray[i].y = Math.random() * h;
+                }
+            });
+
+            // =============================================================
+            // 2. UÇUŞAN KALPLER
+            // =============================================================
+            const heartContainer = document.getElementById('heartContainer');
+            setInterval(() => {
+                const el = document.createElement('div');
+                el.className = 'heart-float';
+                el.textContent = '❤️';
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.animationDuration = (6 + Math.random() * 6) + 's';
+                el.style.fontSize = (16 + Math.random() * 24) + 'px';
+                heartContainer.appendChild(el);
+                setTimeout(() => el.remove(), 12000);
+            }, 400);
+
+            // =============================================================
+            // 3. ŞİFRE
+            // =============================================================
             const PASSWORD = "7536";
             const overlay = document.getElementById('passwordOverlay');
             const passwordInput = document.getElementById('passwordInput');
@@ -777,20 +876,9 @@
                 setTimeout(() => passwordInput.focus(), 300);
             });
 
-            // ---------- UÇUŞAN KALPLER ----------
-            const heartContainer = document.getElementById('heartContainer');
-            setInterval(() => {
-                const el = document.createElement('div');
-                el.className = 'heart-float';
-                el.textContent = '❤️';
-                el.style.left = Math.random() * 100 + 'vw';
-                el.style.animationDuration = (6 + Math.random() * 6) + 's';
-                el.style.fontSize = (16 + Math.random() * 24) + 'px';
-                heartContainer.appendChild(el);
-                setTimeout(() => el.remove(), 12000);
-            }, 400);
-
-            // ---------- BÖLÜM GEÇİŞLERİ ----------
+            // =============================================================
+            // 4. BÖLÜM GEÇİŞLERİ
+            // =============================================================
             const sections = document.querySelectorAll('.section');
             const nextBtns = document.querySelectorAll('.next-btn');
             const backBtns = document.querySelectorAll('.back-btn');
@@ -802,7 +890,6 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // "Devam Et" butonları
             nextBtns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     const targetId = this.dataset.target;
@@ -810,7 +897,6 @@
                 });
             });
 
-            // "Geri Dön" butonları
             backBtns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     const targetId = this.dataset.target;
@@ -818,17 +904,11 @@
                 });
             });
 
-            // Hero "Başla" butonu
             document.getElementById('startBtn').addEventListener('click', () => { showSection('story'); });
 
-            // "Yeniden Başla" butonu (final'de)
-            document.getElementById('restartBtn').addEventListener('click', function() { location.reload(); });
-            document.getElementById('restartBtn').addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                location.reload();
-            }, { passive: false });
-
-            // ---------- SLAYTER ----------
+            // =============================================================
+            // 5. SLAYTER
+            // =============================================================
             const slidesData = [
                 { img: 'images/1.jpg', caption: 'ilk günümüz ☀️' },
                 { img: 'images/2.jpg', caption: 'kahve molası ☕' },
@@ -978,7 +1058,9 @@
             buildSlides();
             startAutoSlide();
 
-            // ---------- BİRLİKTE GEÇEN SÜRE ----------
+            // =============================================================
+            // 6. BİRLİKTE GEÇEN SÜRE
+            // =============================================================
             const start = new Date(2024, 4, 25);
             const counterEl = document.getElementById('counterDisplay');
             function updateCounter() {
@@ -989,7 +1071,9 @@
             updateCounter();
             setInterval(updateCounter, 60000);
 
-            // ---------- DOĞUM GÜNÜ GERİ SAYIM (2 Ağustos 2026) ----------
+            // =============================================================
+            // 7. DOĞUM GÜNÜ GERİ SAYIM (2 Ağustos 2026)
+            // =============================================================
             const birthday = new Date(2026, 7, 2);
             const daysEl = document.getElementById('daysLeft');
             const hoursEl = document.getElementById('hoursLeft');
@@ -1015,7 +1099,9 @@
             updateCountdown();
             setInterval(updateCountdown, 1000);
 
-            // ---------- MEKTUP (yeni metin) ----------
+            // =============================================================
+            // 8. MEKTUP
+            // =============================================================
             const letterText =
                 `Canım Sevgilim,\n\nBelki şu an bu satırları okurken gülümsüyorsun, belki de "Bunu ne zaman hazırladı?" diye düşünüyorsun. Ama bilmeni istediğim tek bir şey var; bu sayfadaki her satır, her kelime ve her küçük detay tamamen senin için hazırlandı.\n\nHayatıma girdiğin günden beri birçok şey değişti. Günler daha güzel, kahkahalar daha anlamlı, hayaller ise daha umut dolu oldu. Çünkü artık onları seninle kuruyorum.\n\nBazen saatlerce konuşuyoruz, bazen hiçbir şey söylemeden yan yana duruyoruz. Ama hangi an olursa olsun, senin yanında olmak bana huzur veriyor. Sen sadece sevdiğim insan değilsin; aynı zamanda en güvendiğim, en çok özlediğim ve her gün yeniden iyi ki dediğim kişisin.\n\nBugün senin doğum günün...\nDünyaya iyi ki gelmişsin.\nİyi ki yollarımız kesişmiş.\nİyi ki kalbim seni seçmiş.\n\nDilerim hayatın boyunca yüzündeki o güzel gülümseme hiç eksilmesin. Ben de elimden geldiğince o gülümsemenin sebebi olmaya devam edeyim.\n\nBelki sana kocaman hediyeler veremem.\nBelki bütün dünyayı ayağına seremem.\nAma sana bir söz verebilirim:\nSeni her gün, dünden biraz daha fazla seveceğim.\n\nİyi ki varsın.\nİyi ki benim sevgilimsin.\nİyi ki "biz" olmuşuz.\n\nDoğum günün kutlu olsun, bir tanem. ❤️\n\nSonsuz sevgimle,\nSenin ❤️`;
 
@@ -1050,24 +1136,27 @@
             });
             letterObserver.observe(letterSection, { attributes: true, attributeFilter: ['class'] });
 
-            // ---------- KONFETİ ----------
+            // =============================================================
+            // 9. KONFETİ VE KALP PATLAMASI (Görsel Efekt Şöleni!)
+            // =============================================================
             const confettiContainer = document.getElementById('confettiContainer');
 
-            function startConfetti(durationSec = 4) {
+            function startConfetti(durationSec = 5) {
                 confettiContainer.innerHTML = '';
                 confettiContainer.classList.add('active');
-                const colors = ['#ff4f91', '#ff8fab', '#ffb3c6', '#ff85a1', '#ffd1dc', '#ff4d6d', '#ff2d55'];
-                const count = 120;
+                const colors = ['#ff4f91', '#ff8fab', '#ffb3c6', '#ff85a1', '#ffd1dc', '#ff4d6d', '#ff2d55', '#ffd700', '#ff6b6b'];
+                const count = 180;
                 for (let i = 0; i < count; i++) {
                     const piece = document.createElement('div');
                     piece.className = 'confetti-piece';
                     piece.style.left = Math.random() * 100 + '%';
-                    piece.style.width = (6 + Math.random() * 10) + 'px';
-                    piece.style.height = (4 + Math.random() * 8) + 'px';
+                    piece.style.width = (6 + Math.random() * 12) + 'px';
+                    piece.style.height = (4 + Math.random() * 10) + 'px';
                     piece.style.background = colors[Math.floor(Math.random() * colors.length)];
                     piece.style.animationDuration = (2 + Math.random() * 3) + 's';
-                    piece.style.animationDelay = (Math.random() * 2) + 's';
+                    piece.style.animationDelay = (Math.random() * 2.5) + 's';
                     piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
                     confettiContainer.appendChild(piece);
                 }
                 setTimeout(() => {
@@ -1076,41 +1165,73 @@
                 }, durationSec * 1000 + 500);
             }
 
-            // ---------- KALP PATLAMASI ----------
-            function spawnHeartExplosion() {
-                const emojis = ['❤️', '💖', '💕', '💗', '❣️', '💓', '💘', '💝'];
-                for (let i = 0; i < 32; i++) {
-                    const el = document.createElement('div');
-                    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                    el.style.cssText = `
+            function spawnHeartExplosion(count = 50) {
+                const emojis = ['❤️', '💖', '💕', '💗', '❣️', '💓', '💘', '💝', '✨', '🌟', '🎉', '🎊'];
+                for (let i = 0; i < count; i++) {
+                    setTimeout(() => {
+                        const el = document.createElement('div');
+                        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                        const size = 1.6 + Math.random() * 3.2;
+                        const x = 10 + Math.random() * 80;
+                        const y = 10 + Math.random() * 80;
+                        const angle = Math.random() * 2 * Math.PI;
+                        const dist = 100 + Math.random() * 300;
+                        const dx = Math.cos(angle) * dist;
+                        const dy = Math.sin(angle) * dist - 100;
+                        el.style.cssText = `
                             position: fixed; z-index: 9998;
-                            font-size: ${1.6 + Math.random() * 2.4}rem;
+                            font-size: ${size}rem;
                             pointer-events: none;
-                            left: ${20 + Math.random() * 60}%;
-                            top: ${20 + Math.random() * 60}%;
+                            left: ${x}%;
+                            top: ${y}%;
                             transform: translate(-50%, -50%) scale(0);
                             opacity: 0;
-                            transition: all ${0.7 + Math.random() * 0.7}s cubic-bezier(0.34, 1.2, 0.64, 1);
+                            transition: all ${0.8 + Math.random() * 0.8}s cubic-bezier(0.34, 1.2, 0.64, 1);
                         `;
-                    document.body.appendChild(el);
-                    requestAnimationFrame(() => {
-                        const angle = Math.random() * 2 * Math.PI;
-                        const dist = 120 + Math.random() * 250;
-                        const dx = Math.cos(angle) * dist;
-                        const dy = Math.sin(angle) * dist - 60;
-                        el.style.transform =
-                            `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1.2)`;
-                        el.style.opacity = '1';
-                    });
-                    setTimeout(() => {
-                        el.style.transition = 'opacity 0.5s ease';
-                        el.style.opacity = '0';
-                        setTimeout(() => el.remove(), 600);
-                    }, 1200 + Math.random() * 400);
+                        document.body.appendChild(el);
+                        requestAnimationFrame(() => {
+                            el.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1.3)`;
+                            el.style.opacity = '1';
+                        });
+                        setTimeout(() => {
+                            el.style.transition = 'opacity 0.6s ease';
+                            el.style.opacity = '0';
+                            setTimeout(() => el.remove(), 700);
+                        }, 1400 + Math.random() * 400);
+                    }, i * 60);
                 }
             }
 
-            // ---------- MÜZİK ÇALAR ----------
+            // =============================================================
+            // 10. KUTLAMA BUTONU (Görsel Efekt Şöleni!)
+            // =============================================================
+            document.getElementById('celebrateBtn').addEventListener('click', function() {
+                // Konfeti
+                startConfetti(6);
+                // Kalp patlaması (dalgalı)
+                spawnHeartExplosion(60);
+                // İkinci dalga
+                setTimeout(() => {
+                    spawnHeartExplosion(40);
+                }, 800);
+                // Üçüncü dalga
+                setTimeout(() => {
+                    spawnHeartExplosion(30);
+                }, 1600);
+                // Buton animasyonu
+                this.textContent = '🎊 Kutlama!';
+                this.style.transform = 'scale(1.1)';
+                this.style.boxShadow = '0 0 80px rgba(255,79,145,0.8)';
+                setTimeout(() => {
+                    this.textContent = '🎉 Kutlama';
+                    this.style.transform = '';
+                    this.style.boxShadow = '';
+                }, 2000);
+            });
+
+            // =============================================================
+            // 11. MÜZİK ÇALAR
+            // =============================================================
             const playlist = [
                 { name: 'Şarkı 1', file: 'music/sarki1.mp3' },
                 { name: 'Şarkı 2', file: 'music/sarki2.mp3' },
@@ -1201,13 +1322,15 @@
             loadTrack(0);
             audio.preload = 'metadata';
 
-            // ---------- FİNAL – SÖZ BUTONLARI ----------
+            // =============================================================
+            // 12. FİNAL – SÖZ BUTONLARI
+            // =============================================================
             const finalResponse = document.getElementById('finalResponse');
             document.querySelectorAll('[data-promise]').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    finalResponse.textContent = '💖 Söz verdin! Sonsuza dek seninim. 🌹';
+                    finalResponse.textContent = '💖 Söz Verdin Sonsuza Kadar Beraberiz 🌹';
                     startConfetti(5);
-                    spawnHeartExplosion();
+                    spawnHeartExplosion(40);
                 });
                 btn.addEventListener('touchstart', function(e) {
                     e.preventDefault();
