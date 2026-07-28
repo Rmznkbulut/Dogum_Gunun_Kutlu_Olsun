@@ -124,71 +124,57 @@
             min-width: 0;
         }
 
-        /* ===== SLAYTER ===== */
-        .slider-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin: 16px auto 0;
-            border-radius: 24px;
-            overflow: hidden;
-            background: #0a0a0a;
-            border: 1px solid rgba(255,255,255,0.06);
-            aspect-ratio: 4 / 3;
+        /* ===== GALERİ (GRID) ===== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 20px;
         }
-        .slides { display: flex; width: 100%; height: 100%; transition: transform 0.6s ease-in-out; }
-        .slide { min-width: 100%; height: 100%; position: relative; flex-shrink: 0; cursor: pointer; }
-        .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .slide-caption {
+        .gallery-item {
+            aspect-ratio: 1/1;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #1a1a1a;
+            border: 1px solid rgba(255,255,255,0.06);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 30px rgba(255,79,145,0.2);
+            z-index: 2;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+        .gallery-item .caption {
             position: absolute;
-            bottom: 0; left: 0; right: 0;
-            padding: 20px 16px 16px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            font-size: 1rem;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 12px 10px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            font-size: 0.75rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-align: center;
             font-weight: 300;
             color: rgba(255,255,255,0.9);
-            text-align: center;
-            letter-spacing: 0.5px;
-            pointer-events: none;
         }
-        .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(8px);
-            border: none;
-            color: #fff;
-            font-size: 2rem;
-            padding: 8px 12px;
-            cursor: pointer;
-            border-radius: 30px;
-            transition: 0.3s;
-            z-index: 2;
-            touch-action: manipulation;
-            line-height: 1;
+        .gallery-item:hover .caption {
+            opacity: 1;
         }
-        .slider-btn:hover { background: rgba(255,79,145,0.5); }
-        .slider-btn.prev { left: 8px; }
-        .slider-btn.next { right: 8px; }
 
-        .slider-dots {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 16px;
-            z-index: 2;
-        }
-        .slider-dots span {
-            width: 10px; height: 10px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .slider-dots span.active { background: #ff4f91; transform: scale(1.2); }
-
-        /* ===== LIGHTBOX ===== */
+        /* ===== LIGHTBOX (BÜYÜTME) ===== */
         .lightbox {
             position: fixed;
             inset: 0;
@@ -211,12 +197,13 @@
         .lightbox img {
             max-width: 90%;
             max-height: 85vh;
-            border-radius: 24px;
+            border-radius: 16px;
             box-shadow: 0 30px 80px rgba(0,0,0,0.8);
             transform: scale(0.9);
             transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
             opacity: 0;
             cursor: default;
+            object-fit: contain;
         }
         .lightbox.active img {
             transform: scale(1);
@@ -476,9 +463,6 @@
         /* ===== MOBİL ===== */
         @media (max-width: 600px) {
             .card { padding: 28px 16px; }
-            .slider-container { max-width: 100%; aspect-ratio: 4/3; }
-            .slider-btn { font-size: 1.4rem; padding: 6px 10px; }
-            .slide-caption { font-size: 0.85rem; padding: 12px 12px 10px; }
             .btn { padding: 12px 16px; font-size: 0.85rem; min-height: 48px; min-width: 0; }
             .promise-buttons button { padding: 14px 28px; font-size: 1rem; min-height: 54px; min-width: 120px; }
             .password-box { padding: 32px 20px; }
@@ -491,16 +475,22 @@
             .button-group { gap: 8px; }
             .button-group .btn { padding: 10px 12px; font-size: 0.75rem; min-height: 40px; }
             .music-toggle { width: 48px; height: 48px; font-size: 1.3rem; bottom: 20px; right: 20px; }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
         }
         @media (max-width: 400px) {
             .card { padding: 20px 12px; }
-            .slider-btn { font-size: 1.2rem; padding: 4px 8px; }
-            .slide-caption { font-size: 0.75rem; padding: 8px 8px 6px; }
             .countdown-grid { gap: 4px; }
             .countdown-item { padding: 8px 2px; }
             .countdown-item .number { font-size: 1rem; }
             .countdown-item .label { font-size: 0.45rem; }
             .button-group .btn { padding: 8px 10px; font-size: 0.7rem; min-height: 34px; }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
         }
     </style>
 </head>
@@ -515,10 +505,10 @@
     <!-- Konfeti kabı -->
     <div class="confetti-container" id="confettiContainer"></div>
 
-    <!-- ===== LIGHTBOX ===== -->
+    <!-- ===== LIGHTBOX (BÜYÜTME) ===== -->
     <div class="lightbox" id="lightbox">
         <button class="lightbox-close" id="lightboxClose">✕</button>
-        <img id="lightboxImg" src="" alt="büyük fotoğraf" />
+        <img id="lightboxImg" src="" alt="" />
         <div class="lightbox-caption" id="lightboxCaption"></div>
     </div>
 
@@ -585,17 +575,12 @@
             </div>
         </section>
 
-        <!-- BÖLÜM 3: GALERİ -->
+        <!-- BÖLÜM 3: GALERİ (GRID) -->
         <section class="section" id="gallery">
             <div class="card">
                 <h2 class="pink">📸 Anılar</h2>
                 <p class="sub" style="margin-bottom:8px;">her karede bir gülümseme</p>
-                <div class="slider-container" id="sliderContainer">
-                    <div class="slides" id="slides"></div>
-                    <button class="slider-btn prev" id="prevSlide">‹</button>
-                    <button class="slider-btn next" id="nextSlide">›</button>
-                </div>
-                <div class="slider-dots" id="sliderDots"></div>
+                <div class="gallery-grid" id="galleryGrid"></div>
                 <p style="margin-top:16px; font-size:0.85rem; opacity:0.4;">❤️ seninle geçen her an bir hazine</p>
                 <div class="button-group">
                     <button class="btn btn-secondary back-btn" data-target="story">⬅ Geri Dön</button>
@@ -888,9 +873,9 @@
             document.getElementById('startBtn').addEventListener('click', () => { showSection('story'); });
 
             // =============================================================
-            // 5. SLAYTER (10 FOTOĞRAF)
+            // 5. GALERİ (GRID)
             // =============================================================
-            const slidesData = [
+            const galleryData = [
                 { img: 'images/1.jpg', caption: 'ilk günümüz ☀️' },
                 { img: 'images/2.jpg', caption: 'kahve molası ☕' },
                 { img: 'images/3.jpg', caption: 'bahar geldi 🌸' },
@@ -903,145 +888,66 @@
                 { img: 'images/10.jpg', caption: 'sonsuza kadar ❤️' }
             ];
 
-            const slidesWrapper = document.getElementById('slides');
-            const dotsContainer = document.getElementById('sliderDots');
-            const prevBtn = document.getElementById('prevSlide');
-            const nextBtn = document.getElementById('nextSlide');
+            const galleryGrid = document.getElementById('galleryGrid');
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
             const lightboxCaption = document.getElementById('lightboxCaption');
             const lightboxClose = document.getElementById('lightboxClose');
 
-            let currentIndex = 0;
-            let slideInterval = null;
-            const AUTO_INTERVAL = 3000;
-
-            function buildSlides() {
-                slidesWrapper.innerHTML = '';
-                dotsContainer.innerHTML = '';
-                slidesData.forEach((item, index) => {
-                    const slide = document.createElement('div');
-                    slide.className = 'slide';
-                    slide.dataset.index = index;
-                    const img = document.createElement('img');
-                    img.src = item.img;
-                    img.alt = item.caption;
-                    img.loading = 'lazy';
-                    img.onerror = function() {
-                        this.style.display = 'none';
-                        this.parentElement.style.background = '#1a1a1a';
-                        const fallback = document.createElement('div');
-                        fallback.style.cssText =
-                            'display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:3rem;opacity:0.2;';
-                        fallback.textContent = '📷';
-                        this.parentElement.prepend(fallback);
-                    };
-                    slide.appendChild(img);
-                    const caption = document.createElement('div');
-                    caption.className = 'slide-caption';
-                    caption.textContent = item.caption;
-                    slide.appendChild(caption);
-                    slide.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        const idx = parseInt(this.dataset.index);
-                        openLightbox(idx);
-                    });
-                    slidesWrapper.appendChild(slide);
-                    const dot = document.createElement('span');
-                    dot.dataset.index = index;
-                    dot.addEventListener('click', () => goToSlide(index));
-                    dotsContainer.appendChild(dot);
-                });
-                updateDots();
-                goToSlide(0, false);
-            }
-
-            function goToSlide(index, animate = true) {
-                if (index < 0) index = slidesData.length - 1;
-                if (index >= slidesData.length) index = 0;
-                currentIndex = index;
-                const slides = slidesWrapper.querySelectorAll('.slide');
-                slides.forEach((slide, i) => {
-                    slide.style.transition = animate ? 'transform 0.6s ease-in-out' : 'none';
-                    slide.style.transform = `translateX(${(i - currentIndex) * 100}%)`;
-                });
-                updateDots();
-            }
-
-            function updateDots() {
-                const dots = dotsContainer.querySelectorAll('span');
-                dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
-            }
-
-            function nextSlide() { goToSlide(currentIndex + 1); }
-            function prevSlide() { goToSlide(currentIndex - 1); }
-
-            function startAutoSlide() {
-                if (slideInterval) clearInterval(slideInterval);
-                slideInterval = setInterval(nextSlide, AUTO_INTERVAL);
-            }
-
-            function stopAutoSlide() {
-                if (slideInterval) { clearInterval(slideInterval);
-                    slideInterval = null; }
-            }
+            let lightboxOpen = false;
 
             function openLightbox(index) {
-                const slide = slidesWrapper.querySelectorAll('.slide')[index];
-                const img = slide.querySelector('img');
-                const caption = slide.querySelector('.slide-caption');
-                if (img) {
-                    lightboxImg.src = img.src;
-                    lightboxImg.alt = img.alt || '';
-                }
-                lightboxCaption.textContent = caption ? caption.textContent : '';
+                const item = galleryData[index];
+                if (!item) return;
+                lightboxImg.src = item.img;
+                lightboxImg.alt = item.caption;
+                lightboxCaption.textContent = item.caption;
                 lightbox.classList.add('active');
                 document.body.style.overflow = 'hidden';
-                stopAutoSlide();
+                lightboxOpen = true;
             }
 
             function closeLightbox() {
                 lightbox.classList.remove('active');
                 document.body.style.overflow = '';
-                startAutoSlide();
+                lightboxOpen = false;
             }
+
             lightboxClose.addEventListener('click', closeLightbox);
             lightbox.addEventListener('click', function(e) {
                 if (e.target === this) closeLightbox();
             });
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
+                if (e.key === 'Escape' && lightboxOpen) closeLightbox();
             });
 
-            nextBtn.addEventListener('click', () => { stopAutoSlide();
-                nextSlide();
-                startAutoSlide(); });
-            prevBtn.addEventListener('click', () => { stopAutoSlide();
-                prevSlide();
-                startAutoSlide(); });
-
-            const sliderContainer = document.getElementById('sliderContainer');
-            sliderContainer.addEventListener('mouseenter', stopAutoSlide);
-            sliderContainer.addEventListener('mouseleave', startAutoSlide);
-
-            let touchStartX = 0,
-                touchEndX = 0;
-            sliderContainer.addEventListener('touchstart', (e) => {
-                touchStartX = e.changedTouches[0].screenX;
-            }, { passive: true });
-            sliderContainer.addEventListener('touchend', (e) => {
-                touchEndX = e.changedTouches[0].screenX;
-                const diff = touchStartX - touchEndX;
-                if (Math.abs(diff) > 40) {
-                    stopAutoSlide();
-                    if (diff > 0) nextSlide();
-                    else prevSlide();
-                    startAutoSlide();
-                }
-            }, { passive: true });
-
-            buildSlides();
-            startAutoSlide();
+            // Galeriyi oluştur
+            galleryData.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'gallery-item';
+                const img = document.createElement('img');
+                img.src = item.img;
+                img.alt = item.caption;
+                img.loading = 'lazy';
+                img.onerror = function() {
+                    this.style.display = 'none';
+                    this.parentElement.style.background = '#1a1a1a';
+                    const fallback = document.createElement('div');
+                    fallback.style.cssText =
+                        'display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:2rem;opacity:0.2;';
+                    fallback.textContent = '📷';
+                    this.parentElement.prepend(fallback);
+                };
+                div.appendChild(img);
+                const caption = document.createElement('div');
+                caption.className = 'caption';
+                caption.textContent = item.caption;
+                div.appendChild(caption);
+                div.addEventListener('click', function() {
+                    openLightbox(index);
+                });
+                galleryGrid.appendChild(div);
+            });
 
             // =============================================================
             // 6. BİRLİKTE GEÇEN SÜRE
@@ -1122,7 +1028,7 @@
             letterObserver.observe(letterSection, { attributes: true, attributeFilter: ['class'] });
 
             // =============================================================
-            // 9. KONFETİ & KALP PATLAMASI
+            // 9. KONFETİ VE KALP PATLAMASI
             // =============================================================
             const confettiContainer = document.getElementById('confettiContainer');
 
